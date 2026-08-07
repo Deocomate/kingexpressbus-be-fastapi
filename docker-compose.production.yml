@@ -1,7 +1,7 @@
 # Backend — Coolify / Docker Desktop production stack
-# Config: single `.env` (see `.env.example`). Compose forces DB_HOST=mysql.
-#
-# Services: mysql → migrate (once) → api + mail_worker
+# mysql → migrate → api + mail_worker
+# DB_HOST is fixed to compose service `mysql`.
+# ${VAR} below appear in Coolify Environment Variables UI — edit there / in `.env`.
 
 services:
   mysql:
@@ -37,6 +37,9 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:-db_kingexpressbus}
+      DB_USERNAME: ${DB_USERNAME:-keb}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     command: ["alembic", "upgrade", "head"]
     depends_on:
       mysql:
@@ -52,7 +55,33 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:-db_kingexpressbus}
+      DB_USERNAME: ${DB_USERNAME:-keb}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
       UPLOAD_ROOT: /data/uploads
+
+      JWT_SECRET: ${JWT_SECRET}
+      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
+
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
+      SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
+
+      SEPAY_ENVIRONMENT: ${SEPAY_ENVIRONMENT:-production}
+      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
+      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
+      SEPAY_CHECKOUT_URL: ${SEPAY_CHECKOUT_URL:-https://pay.sepay.vn/v1/checkout/init}
+
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_USE_TLS: ${MAIL_USE_TLS:-true}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-King Express Bus}
+      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+      MAIL_MAX_ATTEMPTS: ${MAIL_MAX_ATTEMPTS:-3}
+      MAIL_QUEUE_INLINE: ${MAIL_QUEUE_INLINE:-false}
     expose:
       - "8000"
     volumes:
@@ -80,6 +109,32 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:-db_kingexpressbus}
+      DB_USERNAME: ${DB_USERNAME:-keb}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+
+      JWT_SECRET: ${JWT_SECRET}
+      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
+
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
+      SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
+
+      SEPAY_ENVIRONMENT: ${SEPAY_ENVIRONMENT:-production}
+      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
+      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
+      SEPAY_CHECKOUT_URL: ${SEPAY_CHECKOUT_URL:-https://pay.sepay.vn/v1/checkout/init}
+
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_USE_TLS: ${MAIL_USE_TLS:-true}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-King Express Bus}
+      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+      MAIL_MAX_ATTEMPTS: ${MAIL_MAX_ATTEMPTS:-3}
+      MAIL_QUEUE_INLINE: ${MAIL_QUEUE_INLINE:-false}
     depends_on:
       mysql:
         condition: service_healthy
