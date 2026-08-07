@@ -1,64 +1,55 @@
-# Backend — Coolify / production
-# Domain: https://api.kingexpressbus.com
-# Usage: point Coolify at this file (compose root = this repo folder).
-#
-# DB_* are NOT listed here — Coolify injects them when the MySQL resource
-# is linked to this service. Only operator-editable secrets/config use ${VAR}.
-#
-# MAIL_QUEUE_INLINE=false → mail_worker must stay running to send mail.
+# Backend — Coolify production
+# Point Coolify at this file. Config comes from one `.env` (Coolify env UI).
+# Stack: mysql + api + mail_worker. DB_HOST is always the compose service name.
 
 services:
+  mysql:
+    image: mysql:8.0
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+    restart: unless-stopped
+
   api:
     build:
       context: .
       dockerfile: Dockerfile
-    expose:
-      - "8000"
     env_file:
       - .env
     environment:
-      # Fixed production runtime
-      APP_NAME: King Express Bus API
-      APP_ENV: production
-      APP_DEBUG: "false"
-      APP_TIMEZONE: Asia/Ho_Chi_Minh
-      JWT_ALGORITHM: HS256
-      JWT_EXPIRE_MINUTES: "1440"
-      COOKIE_NAME: keb_session
-      COOKIE_SECURE: "true"
-      COOKIE_SAMESITE: lax
-      CORS_ORIGINS: https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app
-      FRONTEND_BASE_URL: https://kingexpressbus.com
-      SUCCESS_PATH_TEMPLATE: /dat-ve/thanh-cong/{booking}
+      DB_HOST: mysql
+      DB_PORT: "3306"
       UPLOAD_ROOT: /data/uploads
-      SEPAY_ENVIRONMENT: production
-      SEPAY_CHECKOUT_URL: https://pay.sepay.vn/v1/checkout/init
-      MAIL_HOST: smtp.gmail.com
-      MAIL_PORT: "587"
-      MAIL_USE_TLS: "true"
-      MAIL_FROM_NAME: King Express Bus
-      MAIL_MAX_ATTEMPTS: "3"
-      MAIL_QUEUE_INLINE: "false"
-
-      # Operator-editable (Coolify env UI)
-      JWT_SECRET: ${JWT_SECRET}
-      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
-      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
-      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_FROM: ${MAIL_FROM}
-      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+    expose:
+      - "8000"
     volumes:
       - uploads_data:/data/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 20s
 
-  # Required when MAIL_QUEUE_INLINE=false.
   mail_worker:
     build:
       context: .
@@ -67,37 +58,13 @@ services:
     env_file:
       - .env
     environment:
-      APP_NAME: King Express Bus API
-      APP_ENV: production
-      APP_DEBUG: "false"
-      APP_TIMEZONE: Asia/Ho_Chi_Minh
-      JWT_ALGORITHM: HS256
-      JWT_EXPIRE_MINUTES: "1440"
-      COOKIE_NAME: keb_session
-      COOKIE_SECURE: "true"
-      COOKIE_SAMESITE: lax
-      CORS_ORIGINS: https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app
-      FRONTEND_BASE_URL: https://kingexpressbus.com
-      SUCCESS_PATH_TEMPLATE: /dat-ve/thanh-cong/{booking}
-      UPLOAD_ROOT: /data/uploads
-      SEPAY_ENVIRONMENT: production
-      SEPAY_CHECKOUT_URL: https://pay.sepay.vn/v1/checkout/init
-      MAIL_HOST: smtp.gmail.com
-      MAIL_PORT: "587"
-      MAIL_USE_TLS: "true"
-      MAIL_FROM_NAME: King Express Bus
-      MAIL_MAX_ATTEMPTS: "3"
-      MAIL_QUEUE_INLINE: "false"
-
-      JWT_SECRET: ${JWT_SECRET}
-      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
-      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
-      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
-      MAIL_USERNAME: ${MAIL_USERNAME}
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_FROM: ${MAIL_FROM}
-      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+      DB_HOST: mysql
+      DB_PORT: "3306"
+    depends_on:
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
   uploads_data:
+  mysql_data:
