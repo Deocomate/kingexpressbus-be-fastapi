@@ -1,5 +1,5 @@
 #!/bin/sh
-# Wait until MySQL TCP is accepting connections, then exec the container CMD.
+# Wait for MySQL, optionally run migrations, then exec the container CMD.
 set -e
 
 host="${DB_HOST:-mysql}"
@@ -11,11 +11,21 @@ i=0
 while [ "$i" -lt "$retries" ]; do
   if python -c "import socket; s=socket.create_connection(('${host}', int('${port}')), 2); s.close()" 2>/dev/null; then
     echo "MySQL is reachable"
-    exec "$@"
+    break
   fi
   i=$((i + 1))
   sleep 2
 done
 
-echo "ERROR: MySQL not reachable at ${host}:${port} after ${retries} attempts" >&2
-exit 1
+if [ "$i" -ge "$retries" ]; then
+  echo "ERROR: MySQL not reachable at ${host}:${port} after ${retries} attempts" >&2
+  exit 1
+fi
+
+# Coolify-safe: run migrations inside api (no one-shot migrate service).
+if [ "${RUN_MIGRATIONS:-0}" = "1" ]; then
+  echo "Running alembic upgrade head ..."
+  alembic upgrade head
+fi
+
+exec "$@"
