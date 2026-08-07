@@ -18,6 +18,8 @@ AppSettings = Annotated[Settings, Depends(get_settings)]
 
 
 def _origin_allowed(origin_or_referer: str | None, allowlist: list[str]) -> bool:
+    if "*" in allowlist:
+        return True
     if not origin_or_referer:
         return False
     parsed = urlparse(origin_or_referer)
@@ -29,8 +31,13 @@ async def require_same_origin(
     request: Request,
     settings: AppSettings,
 ) -> None:
-    """Reject cross-site cookie mutations without a matching Origin/Referer."""
+    """Reject cross-site cookie mutations without a matching Origin/Referer.
+
+    Skipped when CORS_ORIGINS includes ``*``.
+    """
     if request.method in ("GET", "HEAD", "OPTIONS"):
+        return
+    if settings.cors_allows_all:
         return
     allowlist = settings.cors_origin_list
     origin = request.headers.get("origin")

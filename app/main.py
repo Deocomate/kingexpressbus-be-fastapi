@@ -19,15 +19,11 @@ def create_app() -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.cors_origin_list,
+        # "*" → Starlette reflects request Origin when credentials=True
+        allow_origins=["*"] if settings.cors_allows_all else settings.cors_origin_list,
         allow_credentials=True,
-        # Matches the actual verbs/headers issued by kingexpressbus-fe-nextjs
-        # (src/lib/api-base.ts, admin-api.ts, admin-uploads.ts): cookie auth via
-        # credentials:"include" (no Authorization header), JSON bodies via
-        # Content-Type, and multipart uploads where the browser sets the
-        # boundary itself — no other custom request header is ever sent.
-        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
-        allow_headers=["Content-Type"],
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     @app.get("/health", tags=["system"])

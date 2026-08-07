@@ -15,7 +15,7 @@ services:
       UPLOAD_ROOT: /data/uploads
       DB_HOST: host.docker.internal
       DB_PORT: "3307"
-      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+      CORS_ORIGINS: "*"
       FRONTEND_BASE_URL: http://localhost:3001
       COOKIE_SECURE: "false"
       MAIL_QUEUE_INLINE: "true"

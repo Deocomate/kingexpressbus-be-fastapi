@@ -35,9 +35,10 @@ class Settings(BaseSettings):
     cookie_secure: bool = False
     cookie_samesite: str = "lax"
 
-    cors_origins: str = "http://localhost:3000"
+    cors_origins: str = "*"
 
     upload_root: str = "./uploads"
+
 
     frontend_base_url: str = "http://localhost:3000"
     success_path_template: str = "/dat-ve/thanh-cong/{booking}"
@@ -71,7 +72,12 @@ class Settings(BaseSettings):
 
     @property
     def cors_origin_list(self) -> list[str]:
-        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        parts = [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        return parts
+
+    @property
+    def cors_allows_all(self) -> bool:
+        return "*" in self.cors_origin_list
 
 
 @lru_cache

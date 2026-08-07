@@ -50,7 +50,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
 
-      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app}
+      CORS_ORIGINS: "${CORS_ORIGINS:-*}"
       FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
       SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
 
@@ -101,7 +101,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
 
-      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com,https://kingexpressbus-fe-nextjs.vercel.app}
+      CORS_ORIGINS: "${CORS_ORIGINS:-*}"
       FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
       SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
 
