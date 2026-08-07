@@ -106,7 +106,10 @@ def load_rows(filename: str) -> list[dict[str, Any]]:
 
 def prepare_user_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Hash the admin sentinel password fresh; other users keep Laravel's
-    bcrypt hashes verbatim (per user decision, see plan.md)."""
+    bcrypt hashes verbatim (per user decision, see plan.md).
+
+    Guest rows may have password=null (column is nullable). Leave them as-is.
+    """
     prepared = []
     for row in rows:
         row = dict(row)
