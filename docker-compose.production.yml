@@ -1,6 +1,12 @@
 # Backend — Coolify / production
 # Domain: https://api.kingexpressbus.com
 # Usage: point Coolify at this file (compose root = this repo folder).
+#
+# Every Settings / .env key is listed explicitly on each service (no YAML
+# anchors) so Coolify's env UI detects them all. Fill secrets in Coolify.
+#
+# MAIL_QUEUE_INLINE=false → mail_worker must stay running to send mail.
+
 services:
   api:
     build:
@@ -11,15 +17,56 @@ services:
     env_file:
       - .env
     environment:
-      APP_ENV: production
-      APP_DEBUG: "false"
-      UPLOAD_ROOT: /data/uploads
-      # Set DB_* in Coolify env (not host.docker.internal)
-      CORS_ORIGINS: https://kingexpressbus.com,https://www.kingexpressbus.com
-      FRONTEND_BASE_URL: https://kingexpressbus.com
-      COOKIE_SECURE: "true"
-      COOKIE_SAMESITE: lax
-      MAIL_QUEUE_INLINE: "false"
+      # --- App ---
+      APP_NAME: ${APP_NAME:-King Express Bus API}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Ho_Chi_Minh}
+
+      # --- MySQL ---
+      DB_CONNECTION: ${DB_CONNECTION:-mysql}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      # --- Auth / JWT / signed URLs ---
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-1440}
+      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
+
+      # --- Cookie ---
+      COOKIE_NAME: ${COOKIE_NAME:-keb_session}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      COOKIE_SAMESITE: ${COOKIE_SAMESITE:-lax}
+
+      # --- CORS + public site ---
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
+      SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
+
+      # --- Uploads (container path) ---
+      UPLOAD_ROOT: ${UPLOAD_ROOT:-/data/uploads}
+
+      # --- SePay ---
+      SEPAY_ENVIRONMENT: ${SEPAY_ENVIRONMENT:-production}
+      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
+      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
+      SEPAY_CHECKOUT_URL: ${SEPAY_CHECKOUT_URL:-https://pay.sepay.vn/v1/checkout/init}
+
+      # --- Email (Gmail SMTP + MySQL mail_jobs) ---
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_USE_TLS: ${MAIL_USE_TLS:-true}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-King Express Bus}
+      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+      MAIL_MAX_ATTEMPTS: ${MAIL_MAX_ATTEMPTS:-3}
+      MAIL_QUEUE_INLINE: ${MAIL_QUEUE_INLINE:-false}
     volumes:
       - uploads_data:/data/uploads
     restart: unless-stopped
@@ -28,6 +75,67 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+
+  # Required when MAIL_QUEUE_INLINE=false.
+  mail_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "-m", "scripts.mail_worker"]
+    env_file:
+      - .env
+    environment:
+      # --- App ---
+      APP_NAME: ${APP_NAME:-King Express Bus API}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Ho_Chi_Minh}
+
+      # --- MySQL ---
+      DB_CONNECTION: ${DB_CONNECTION:-mysql}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      # --- Auth / JWT / signed URLs ---
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-1440}
+      SUCCESS_URL_SIGNING_KEY: ${SUCCESS_URL_SIGNING_KEY}
+
+      # --- Cookie ---
+      COOKIE_NAME: ${COOKIE_NAME:-keb_session}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      COOKIE_SAMESITE: ${COOKIE_SAMESITE:-lax}
+
+      # --- CORS + public site ---
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://kingexpressbus.com,https://www.kingexpressbus.com}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-https://kingexpressbus.com}
+      SUCCESS_PATH_TEMPLATE: ${SUCCESS_PATH_TEMPLATE:-/dat-ve/thanh-cong/{booking}}
+
+      # --- Uploads ---
+      UPLOAD_ROOT: ${UPLOAD_ROOT:-/data/uploads}
+
+      # --- SePay ---
+      SEPAY_ENVIRONMENT: ${SEPAY_ENVIRONMENT:-production}
+      SEPAY_MERCHANT_ID: ${SEPAY_MERCHANT_ID}
+      SEPAY_SECRET_KEY: ${SEPAY_SECRET_KEY}
+      SEPAY_CHECKOUT_URL: ${SEPAY_CHECKOUT_URL:-https://pay.sepay.vn/v1/checkout/init}
+
+      # --- Email ---
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_USE_TLS: ${MAIL_USE_TLS:-true}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-King Express Bus}
+      ADMIN_NOTIFY_EMAIL: ${ADMIN_NOTIFY_EMAIL}
+      MAIL_MAX_ATTEMPTS: ${MAIL_MAX_ATTEMPTS:-3}
+      MAIL_QUEUE_INLINE: ${MAIL_QUEUE_INLINE:-false}
+    restart: unless-stopped
 
 volumes:
   uploads_data:
