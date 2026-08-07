@@ -146,7 +146,7 @@ async def _seed_admin_user() -> None:
 
 
 async def _seed_default_web_profile() -> None:
-    """Insert the single default web profile row (real Laravel data always
+    """Insert the single default web profile row (seeded web profile always
     has exactly one). Website admin tests only cover get/update — there is
     no create endpoint — so a row must exist up front.
     """

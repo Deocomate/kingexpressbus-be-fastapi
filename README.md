@@ -1,8 +1,6 @@
 # kingexpressbus-backend-python
 
-FastAPI + SQLAlchemy backend, ported feature-for-feature from `kingexpressbus-laravel`.
-Schema and data are now fully Python-owned — Laravel is not required at runtime,
-for migrations, or for seeding.
+FastAPI + SQLAlchemy backend for King Express Bus.
 
 ## Database setup
 
@@ -14,8 +12,8 @@ python scripts/seed.py  # loads real production content (provinces/routes/trips/
 ```
 
 Admin login after seeding: `admin@kingexpressbus.com` / `Admin@123`. The other
-13 seeded users keep their original Laravel bcrypt hashes verbatim (no known
-plaintext password — reset required to log in as them).
+13 seeded users keep their existing bcrypt hashes (no known plaintext password —
+reset required to log in as them).
 
 ## Maintenance scripts
 
@@ -24,15 +22,14 @@ plaintext password — reset required to log in as them).
 Staged admin uploads (`app/services/uploads.py`) live under
 `{UPLOAD_ROOT}/admin-tmp/{session}/{uuid}/{filename}` until an admin commits
 or reverts them. `scripts/prune_upload_staging.py` deletes any staged
-directory older than `--hours` (default 24) — the Python port of Laravel's
-`admin:prune-upload-staging` Artisan command.
+directory older than `--hours` (default 24).
 
 ```bash
 python -m scripts.prune_upload_staging            # default: 24h cutoff
 python -m scripts.prune_upload_staging --hours 12 # custom cutoff
 ```
 
-Cron (daily, matches Laravel's `Schedule::command('admin:prune-upload-staging')->daily()`):
+Cron (daily):
 
 ```cron
 0 0 * * * cd /path/to/kingexpressbus-backend-python && .venv/bin/python -m scripts.prune_upload_staging >> /var/log/kingexpressbus/prune-uploads.log 2>&1

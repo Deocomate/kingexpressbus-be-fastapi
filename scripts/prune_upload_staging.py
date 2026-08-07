@@ -1,16 +1,14 @@
 """CLI GC for stale admin upload staging directories.
 
-Python port of Laravel's `admin:prune-upload-staging` Artisan command
-(app/Console/Commands/PruneUploadStagingCommand.php). Staged uploads live at
-`{upload_root}/admin-tmp/{session}/{uuid}/{filename}` (see app/services/uploads.py
-stage_file) and are only meant to survive until an admin commits or reverts
-them. Anything left behind past the cutoff (crashed tab, abandoned form) is
-swept here.
+Staged uploads live at `{upload_root}/admin-tmp/{session}/{uuid}/{filename}`
+(see app/services/uploads.py stage_file) and are only meant to survive until
+an admin commits or reverts them. Anything left behind past the cutoff
+(crashed tab, abandoned form) is swept here.
 
 Usage:
     python -m scripts.prune_upload_staging [--hours 24]
 
-Cron (daily, mirrors Laravel's Schedule::command(...)->daily()):
+Cron (daily):
     0 0 * * * cd /path/to/kingexpressbus-backend-python && \
         .venv/bin/python -m scripts.prune_upload_staging >> /var/log/kingexpressbus/prune-uploads.log 2>&1
 """
@@ -31,8 +29,7 @@ def prune_upload_staging(upload_root: Path, *, hours: float) -> tuple[int, int]:
     """Delete `admin-tmp/{session}/{uuid}` dirs whose mtime is older than `hours`.
 
     Returns (deleted, kept) directory counts. Empty session directories left
-    behind after their uuid children are pruned are removed too, matching the
-    Laravel command's cleanup of `admin-tmp/{session}`.
+    behind after their uuid children are pruned are removed too.
     """
     admin_tmp = upload_root / _TMP_DIR_NAME
     if not admin_tmp.is_dir():

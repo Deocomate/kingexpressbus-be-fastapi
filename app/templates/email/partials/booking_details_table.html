@@ -1,0 +1,50 @@
+<table width="100%" border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse;margin:25px 0;font-size:14px">
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;width:160px;font-weight:bold;color:#555">Mã đặt vé (ID)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#1e88e5">#{{ booking_code }}</td>
+  </tr>
+  <tr>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Hành trình (Route)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ route_name }}</td>
+  </tr>
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Loại vé (Ticket Type)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ ticket_type }}</td>
+  </tr>
+  <tr>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Ngày đi (Date)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold">{{ booking_date_display }}</td>
+  </tr>
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Giờ đi (Time)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold">{{ start_time }}</td>
+  </tr>
+  <tr>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Điểm đón (Pickup)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ pickup_info }}</td>
+  </tr>
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Khách hàng (Customer)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ customer_display }}</td>
+  </tr>
+  <tr>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Email</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">
+      {% if customer_email %}
+      <a href="mailto:{{ customer_email }}" style="color:#1e88e5;text-decoration:none">{{ customer_email }}</a>
+      {% endif %}
+    </td>
+  </tr>
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Số lượng (Quantity)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ quantity_label }}</td>
+  </tr>
+  <tr>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Tổng tiền (Price)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#2e7d32">{{ total_price_display }}</td>
+  </tr>
+  <tr style="background-color:#f5faff">
+    <td style="padding:12px;border:1px solid #e0e0e0;font-weight:bold;color:#555">Thanh toán (Payment)</td>
+    <td style="padding:12px;border:1px solid #e0e0e0">{{ payment_method_label }}</td>
+  </tr>
+</table>

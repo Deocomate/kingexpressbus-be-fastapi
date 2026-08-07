@@ -1,4 +1,4 @@
-"""Upload staging scoped by authenticated admin user_id (not Laravel session)."""
+"""Upload staging scoped by authenticated admin user_id."""
 
 from __future__ import annotations
 

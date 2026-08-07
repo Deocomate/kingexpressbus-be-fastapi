@@ -9,7 +9,7 @@ from app.core.config import get_settings
 from app.db.base import Base
 import app.db.models  # noqa: F401 — register all models on metadata
 
-# Laravel leftover tables we do not manage from Python metadata.
+# Tables not managed by this app's metadata (ignore during autogenerate).
 EXCLUDE_TABLES = {
     "jobs",
     "job_batches",

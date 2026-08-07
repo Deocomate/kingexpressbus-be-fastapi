@@ -18,7 +18,7 @@ class User(Base, TimestampMixin):
     phone: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
     address: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)
     email_verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
-    # Nullable: guest checkout users (Laravel parity) have no login password.
+    # Nullable: guest checkout users have no login password.
     password: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     role: Mapped[str] = mapped_column(String(32), default="customer")
     remember_token: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)

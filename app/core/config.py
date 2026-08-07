@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     app_debug: bool = True
     app_timezone: str = "Asia/Ho_Chi_Minh"
 
-    # MySQL — Laravel-style split fields (assembled into database_url)
+    # MySQL — split fields assembled into database_url
     db_connection: str = "mysql"
     db_host: str = "127.0.0.1"
     db_port: int = 3306

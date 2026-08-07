@@ -1,4 +1,4 @@
-"""Booking model — mirrors Laravel bookings DDL exactly."""
+"""Booking model."""
 
 from datetime import date, datetime
 from typing import Any, Optional

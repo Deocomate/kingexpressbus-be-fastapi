@@ -3,19 +3,38 @@
 from __future__ import annotations
 
 import logging
-from html import escape
+from datetime import datetime
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings
 from app.db.models import Booking, Bus, Route, Stop, Trip, WebProfile
-from app.services.booking_notes import extract_hotel_pickup_address
 from app.services import mail_queue
+from app.services.booking_notes import extract_hotel_pickup_address
+from app.services.mail_formatters import (
+    absolute_url,
+    customer_display,
+    format_booking_date,
+    format_pickup_info,
+    format_vnd,
+    payment_method_label,
+    quantity_label,
+    ticket_type,
+)
 from app.services.mail_sender import MailSender, get_mail_sender
+from app.services.mail_templates import render_booking_mail
 
 logger = logging.getLogger(__name__)
+
+
+def _copyright_year(settings: Settings) -> int:
+    try:
+        return datetime.now(ZoneInfo(settings.app_timezone)).year
+    except Exception:
+        return datetime.now().year
 
 
 async def prepare_mail_details(
@@ -61,84 +80,56 @@ async def prepare_mail_details(
     ).scalar_one_or_none()
 
     hotel = extract_hotel_pickup_address(booking.notes)
-    if booking.pickup_stop_id is None and hotel:
-        pickup_info = f"Hotel pickup: {hotel}"
-    else:
-        pickup_info = f"{pickup_name or 'N/A'} - {pickup_address or 'N/A'}"
+    pickup_info = format_pickup_info(
+        pickup_stop_id=booking.pickup_stop_id,
+        pickup_name=pickup_name,
+        pickup_address=pickup_address,
+        hotel_address=hotel,
+    )
 
     payment_url = (
         f"{settings.frontend_base_url.rstrip('/')}"
         f"/dat-ve/chuyen-huong-sepay/{booking.booking_code}"
     )
 
+    website_url = settings.frontend_base_url.rstrip("/")
+    logo_raw = profile.logo_url if profile else None
+    name = booking.customer_name
+    phone = booking.customer_phone
+
     return {
         "booking_id": booking.id,
         "booking_code": booking.booking_code,
-        "customer_name": booking.customer_name,
+        "customer_name": name,
         "customer_email": booking.customer_email,
-        "customer_phone": booking.customer_phone,
+        "customer_phone": phone,
+        "customer_display": customer_display(name, phone),
         "booking_date": booking.booking_date.isoformat(),
+        "booking_date_display": format_booking_date(booking.booking_date),
         "quantity": booking.quantity,
+        "quantity_label": quantity_label(booking.quantity),
         "total_price": booking.total_price,
+        "total_price_display": format_vnd(booking.total_price),
         "status": booking.status,
         "payment_method": booking.payment_method,
+        "payment_method_label": payment_method_label(booking.payment_method),
         "payment_status": booking.payment_status,
         "route_name": row.route_name,
         "start_time": str(row.start_time)[:5] if row.start_time else "",
         "bus_name": row.bus_name,
         "bus_model_name": row.bus_model_name,
+        "ticket_type": ticket_type(row.bus_model_name, row.bus_name),
         "pickup_info": pickup_info,
-        "dropoff_info": f"{row.dropoff_name} - {row.dropoff_address or ''}",
+        "dropoff_info": f"{row.dropoff_name} - {row.dropoff_address or ''}".rstrip(" -"),
         "web_title": (profile.title if profile else None) or settings.app_name,
         "web_phone": (profile.hotline or profile.phone) if profile else "",
         "web_email": profile.email if profile else "",
+        "logo_url": absolute_url(logo_raw, website_url),
+        "website_url": website_url,
+        "copyright_year": _copyright_year(settings),
         "payment_url": payment_url,
         "cancel_reason": None,
     }
-
-
-def _safe(value: Any) -> str:
-    return escape(str(value if value is not None else ""))
-
-
-def _render_simple(kind: str, details: dict[str, Any]) -> tuple[str, str]:
-    code = _safe(details.get("booking_code"))
-    name = _safe(details.get("customer_name"))
-    route = _safe(details.get("route_name"))
-    total = _safe(details.get("total_price"))
-    subjects = {
-        "confirmation": f"Booking confirmation {code}",
-        "payment_request": f"Payment request {code}",
-        "approval": f"Booking approved {code}",
-        "cancellation": f"Booking cancelled {code}",
-    }
-    subject = subjects[kind]
-    extra = ""
-    if kind == "payment_request":
-        extra = f'<p><a href="{_safe(details.get("payment_url"))}">Pay with SePay</a></p>'
-    if kind == "cancellation":
-        extra = f"<p>Reason: {_safe(details.get('cancel_reason') or 'N/A')}</p>"
-    html = f"""
-    <div>
-      <h1>{_safe(subject)}</h1>
-      <p>Customer: {name}</p>
-      <p>Route: {route}</p>
-      <p>Total: {total} VND</p>
-      {extra}
-    </div>
-    """
-    return subject, html
-
-
-def _recipients(details: dict[str, Any], settings: Settings) -> list[str] | None:
-    email = details.get("customer_email")
-    if not email:
-        return None
-    recipients = [str(email)]
-    admin = settings.admin_notify_email
-    if admin and admin not in recipients:
-        recipients.append(admin)
-    return recipients
 
 
 async def send_booking_mail(
@@ -155,7 +146,7 @@ async def send_booking_mail(
         return False
     try:
         mailer = sender or get_mail_sender(settings)
-        subject, html = _render_simple(kind, details)
+        subject, html = render_booking_mail(kind, details)
         await mailer.send(to=recipients, subject=subject, html=html)
         return True
     except Exception:
@@ -190,7 +181,7 @@ async def queue_booking_mail(
         return False
 
     try:
-        subject, html = _render_simple(kind, details)
+        subject, html = render_booking_mail(kind, details)
         await mail_queue.enqueue_mail_job(
             db,
             to=recipients,
@@ -211,3 +202,14 @@ async def queue_booking_mail(
             extra={"booking_id": booking_id},
         )
         return False
+
+
+def _recipients(details: dict[str, Any], settings: Settings) -> list[str] | None:
+    email = details.get("customer_email")
+    if not email:
+        return None
+    recipients = [str(email)]
+    admin = settings.admin_notify_email
+    if admin and admin not in recipients:
+        recipients.append(admin)
+    return recipients

@@ -1,13 +1,13 @@
 """HTML sanitization at response time (nh3) — never on save.
 
-Ports Laravel HtmlContentService: `default` (rich text) and `map` (allows iframes).
+Sanitization modes: `default` (rich text) and `map` (allows iframes).
 """
 
 from __future__ import annotations
 
 import nh3
 
-# Tags/attrs aligned with HtmlContentService::baseConfig (Symfony allowlists)
+# Tags/attrs allowlists for rich-text and map HTML.
 _DEFAULT_TAGS = {
     "u",
     "s",

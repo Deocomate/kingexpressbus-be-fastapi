@@ -147,7 +147,7 @@ async def create_booking(
             server_total=server_total,
         )
 
-    # Capacity transaction with locks (Laravel lockForUpdate semantics)
+    # Capacity transaction with locks
     trip_row = (
         await db.execute(
             select(Bus.seat_count, Trip.is_active)

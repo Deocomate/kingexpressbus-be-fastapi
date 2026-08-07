@@ -99,7 +99,7 @@ async def sepay_return(
     """Poll until paid (IPN lag) then return signed success URL.
 
     Each attempt uses a fresh DB session so MySQL REPEATABLE READ cannot hide
-    a concurrent IPN commit (Laravel auto-commits per refresh).
+    a concurrent IPN commit.
     """
     rate_limiter.hit(f"payment:ip:{client_ip(request)}", limit=60)
 

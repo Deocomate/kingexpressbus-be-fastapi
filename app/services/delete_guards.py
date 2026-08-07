@@ -1,4 +1,4 @@
-"""Delete guards — block when bookings still reference the entity (Laravel parity)."""
+"""Delete guards — block when bookings still reference the entity."""
 
 from __future__ import annotations
 

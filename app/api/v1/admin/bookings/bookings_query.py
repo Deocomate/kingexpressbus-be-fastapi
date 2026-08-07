@@ -24,7 +24,7 @@ async def admin_list_bookings(
     q: str | None = None,
     upcoming: bool = False,
 ) -> Paginated[BookingOut]:
-    """`upcoming=true` reproduces Laravel's AdminDashboardService::getLatestBookings —
+    """`upcoming=true` filters to
     next 10 pending/confirmed bookings ordered by departure (status/q/page ignored).
     """
     if upcoming:

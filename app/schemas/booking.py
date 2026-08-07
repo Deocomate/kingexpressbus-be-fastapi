@@ -60,6 +60,7 @@ class BookingOut(BaseModel):
     surcharge_reason_snapshot: str | None = None
     status: str
     confirmed_at: datetime | None = None
+    created_at: datetime | None = None
     payment_method: str
     payment_status: str
     payment_transaction_id: str | None = None

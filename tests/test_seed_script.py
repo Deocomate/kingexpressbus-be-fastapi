@@ -38,10 +38,10 @@ class TestPrepareUserRows:
         assert verify_password("Admin@123", prepared[0]["password"])
 
     def test_leaves_non_admin_hashes_verbatim(self):
-        laravel_hash = "$2y$12$nJfIwnzcs4EFTRyBaC/8WONBMLaYtYm2FbJKR2rYIB7YDYocksQk2"
-        rows = [{"id": 2, "password": laravel_hash, "role": "customer"}]
+        existing_hash = "$2y$12$nJfIwnzcs4EFTRyBaC/8WONBMLaYtYm2FbJKR2rYIB7YDYocksQk2"
+        rows = [{"id": 2, "password": existing_hash, "role": "customer"}]
         prepared = prepare_user_rows(rows)
-        assert prepared[0]["password"] == laravel_hash
+        assert prepared[0]["password"] == existing_hash
 
     def test_does_not_mutate_input_rows(self):
         rows = [{"id": 1, "password": ADMIN_PASSWORD_SENTINEL, "role": "admin"}]

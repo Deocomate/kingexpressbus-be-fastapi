@@ -1,6 +1,6 @@
 """Phase 2 dashboard parity: admin_list_bookings(upcoming=True) query shape.
 
-Mirrors Laravel's AdminDashboardService::getLatestBookings — pending/confirmed
+Upcoming admin bookings — pending/confirmed
 bookings from today onward, ordered by departure, limit 10. No live DB is
 stood up here (this repo's DB-backed tests run against real MySQL via
 scripts/mysql_smoke_*), so the statement built by list_bookings_admin is
@@ -58,6 +58,9 @@ async def test_non_upcoming_keeps_existing_status_and_search_filters() -> None:
     assert "bookings.status =" in compiled
     assert "bookings.booking_code LIKE" in compiled
     assert "trips" not in compiled  # no departure join needed outside upcoming mode
+
+    page_query = str(db.execute.call_args.args[0])
+    assert "ORDER BY bookings.created_at" in page_query
 
 
 def test_admin_bookings_openapi_documents_upcoming_param() -> None:

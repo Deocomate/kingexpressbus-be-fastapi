@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  Vui lòng hoàn tất thanh toán để xác nhận đặt vé của Quý khách.
+  <br>Please complete payment to confirm your booking.
+</p>
+{% if payment_url %}
+<p style="margin:20px 0;text-align:center">
+  <a href="{{ payment_url }}"
+     style="display:inline-block;padding:12px 24px;background-color:#1e88e5;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:bold">
+    Thanh toán ngay / Pay now
+  </a>
+</p>
+{% endif %}
+<p style="margin:10px 0;font-size:15px">
+  Thông tin đặt vé của Quý khách như sau:
+  <br>Your booking details are below:
+</p>
+{% include "partials/booking_details_table.html" %}
+{% endblock %}

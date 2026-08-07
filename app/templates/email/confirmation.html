@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  Chúng tôi đã tiếp nhận yêu cầu đặt vé của bạn. Chúng tôi sẽ xử lý và xác nhận vé qua email cho bạn trong thời gian sớm nhất.
+  <br>We have received your booking request. We will process it and send booking confirmation to your email as soon as possible.
+</p>
+<p style="margin:10px 0;font-size:15px">
+  Cảm ơn Quý khách đã tin tưởng và sử dụng dịch vụ của {{ web_title or 'King Express Bus' }}.
+  Thông tin yêu cầu đặt vé hiện tại của Quý khách như sau:
+  <br>Thank you for choosing {{ web_title or 'King Express Bus' }}. Your current booking request details are below:
+</p>
+{% include "partials/booking_details_table.html" %}
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<body style="margin:0;padding:0;background-color:#f5f5f5;font-family:Arial,Helvetica,sans-serif">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:#f5f5f5">
+  <tr>
+    <td align="center">
+      <table width="600" border="0" cellpadding="0" cellspacing="0" style="max-width:600px;margin:20px auto;background-color:#ffffff;border-radius:8px;border:1px solid #e0e0e0">
+        <tr>
+          <td align="center" style="padding:20px;border-bottom:1px solid #eeeeee">
+            {% if logo_url %}
+            <img src="{{ logo_url }}" alt="{{ web_title or 'King Express Bus' }}" style="max-height:50px;width:auto">
+            {% else %}
+            <strong style="font-size:18px;color:#1e88e5">{{ web_title or 'King Express Bus' }}</strong>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:25px 30px">
+            <h2 style="margin:0 0 15px 0;font-size:22px;color:#1e88e5;text-align:center">{{ mail_title }}</h2>
+            {% block body %}{% endblock %}
+            {% if web_phone %}
+            <p style="font-weight:bold;margin-top:25px;font-size:15px">
+              Cần hỗ trợ? Vui lòng liên hệ Hotline / Need support? Please contact Hotline:
+              <a href="tel:{{ web_phone }}" style="color:#1e88e5;text-decoration:none">{{ web_phone }}</a>
+            </p>
+            {% endif %}
+            <p style="margin-top:20px;font-size:15px">
+              Cảm ơn Quý khách đã lựa chọn {{ web_title or 'King Express Bus' }}!
+              <br>Thank you for choosing {{ web_title or 'King Express Bus' }}!
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px;border-top:1px solid #eeeeee;font-size:12px;color:#777777;text-align:center">
+            <p style="margin:5px 0">
+              © {{ copyright_year }} {{ web_title or 'King Express Bus' }}. Mọi quyền được bảo lưu / All rights reserved.
+            </p>
+            {% if website_url %}
+            <p style="margin:5px 0">
+              <a href="{{ website_url }}" style="color:#1e88e5;text-decoration:none">{{ website_url }}</a>
+            </p>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

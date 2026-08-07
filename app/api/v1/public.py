@@ -49,7 +49,7 @@ def _build_menu_tree(menus: list[Menu]) -> list[MenuNodeOut]:
             for m in nodes
         ]
 
-    # Roots are parent_id == -1 (Laravel ROOT_PARENT_ID)
+    # Roots are parent_id == -1
     return children_of(-1)
 
 

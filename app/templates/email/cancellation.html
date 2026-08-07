@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  Đặt vé của Quý khách đã bị hủy.
+  <br>Your booking has been cancelled.
+</p>
+{% if cancel_reason %}
+<p style="margin:10px 0;font-size:15px">
+  Lý do / Reason: <strong>{{ cancel_reason }}</strong>
+</p>
+{% endif %}
+<p style="margin:10px 0;font-size:15px">
+  Thông tin đặt vé liên quan:
+  <br>Related booking details:
+</p>
+{% include "partials/booking_details_table.html" %}
+{% endblock %}

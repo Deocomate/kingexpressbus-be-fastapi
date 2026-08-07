@@ -1,4 +1,4 @@
-"""Poll mail_jobs and send via Gmail SMTP (Laravel queue:work equivalent)."""
+"""Poll mail_jobs and send via Gmail SMTP."""
 
 from __future__ import annotations
 

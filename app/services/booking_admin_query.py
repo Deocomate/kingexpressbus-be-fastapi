@@ -42,10 +42,10 @@ async def list_bookings_admin(
     page_size = min(max(1, page_size), 100)
     stmt = select(Booking)
     if upcoming:
-        # Mirrors Laravel AdminDashboardService::getLatestBookings: upcoming
+        # Upcoming filter:
         # pending/confirmed bookings ordered by departure (date, then trip
         # start time). status/q filters are ignored in this mode, same as
-        # the Laravel dashboard widget it reproduces.
+        # the admin dashboard upcoming list.
         stmt = (
             stmt.join(Trip, Booking.trip_id == Trip.id)
             .where(Booking.status.in_(("pending", "confirmed")))
@@ -62,7 +62,8 @@ async def list_bookings_admin(
                 | (Booking.customer_name.like(like))
                 | (Booking.customer_phone.like(like))
             )
-        stmt = stmt.order_by(Booking.booking_date.desc(), Booking.id.desc())
+        # Newest booking requests first (created_at), not departure date.
+        stmt = stmt.order_by(Booking.created_at.desc(), Booking.id.desc())
     total = int(
         await db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
     )

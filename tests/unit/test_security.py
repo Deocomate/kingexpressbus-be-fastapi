@@ -15,13 +15,13 @@ def test_hash_and_verify_roundtrip() -> None:
     assert not verify_password("wrong", hashed)
 
 
-def test_laravel_2y_prefix_normalize() -> None:
+def test_bcrypt_2y_prefix_normalize() -> None:
     # Hash produced as $2b$, rewritten to $2y$ — verify still works
-    hashed = hash_password("laravel-compat")
+    hashed = hash_password("bcrypt-compat")
     assert hashed.startswith("$2y$")
     as_2b = "$2b$" + hashed[4:]
-    assert verify_password("laravel-compat", as_2b)
-    assert verify_password("laravel-compat", hashed)
+    assert verify_password("bcrypt-compat", as_2b)
+    assert verify_password("bcrypt-compat", hashed)
 
 
 def test_verify_rejects_empty() -> None:

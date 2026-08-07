@@ -1,4 +1,4 @@
-"""Durable MySQL mail job queue (Laravel database-queue parity)."""
+"""Durable MySQL mail job queue."""
 
 from __future__ import annotations
 

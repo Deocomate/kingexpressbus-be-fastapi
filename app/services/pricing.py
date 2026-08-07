@@ -12,7 +12,7 @@ from app.db.models import HolidaySurcharge, HolidaySurchargeRoute, Trip
 
 
 def _format_vnd(amount: int) -> str:
-    """Match PHP number_format($n) → '1,000'."""
+    """Format thousands like '1,000' → '1,000'."""
     return f"{amount:,}"
 
 

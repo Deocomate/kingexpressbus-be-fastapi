@@ -1,4 +1,4 @@
-"""Password hashing (Laravel bcrypt $2y$ compatible) and JWT helpers."""
+"""Password hashing (bcrypt, including $2y$ prefix) and JWT helpers."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from app.core.config import get_settings
 
 def hash_password(plain: str) -> str:
     raw = bcrypt.hashpw(plain.encode("utf-8"), bcrypt.gensalt(rounds=12))
-    # Laravel stores $2y$ prefixes; bcrypt lib emits $2b$
+    # Prefer $2y$ prefix for stored hashes; bcrypt lib emits $2b$
     return raw.decode("utf-8").replace("$2b$", "$2y$", 1)
 
 

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  Đặt vé của Quý khách đã được xác nhận. Vui lòng kiểm tra thông tin bên dưới.
+  <br>Your booking has been confirmed. Please review the details below.
+</p>
+{% include "partials/booking_details_table.html" %}
+{% endblock %}

@@ -1,4 +1,4 @@
-"""HMAC signed success URLs (Laravel URL::temporarySignedRoute ≈24h)."""
+"""HMAC signed success URLs (≈24h expiry)."""
 
 from __future__ import annotations
 

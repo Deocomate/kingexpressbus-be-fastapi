@@ -15,7 +15,7 @@ async def reorder_full_table(
     *,
     priority_attr: str = "priority",
 ) -> None:
-    """Reject unless ids are a permutation of the entire table (Laravel parity)."""
+    """Reject unless ids are a permutation of the entire table."""
     if not ids:
         raise HTTPException(
             status.HTTP_422_UNPROCESSABLE_ENTITY,

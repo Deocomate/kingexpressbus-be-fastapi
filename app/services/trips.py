@@ -56,7 +56,7 @@ async def _block_map(
     )
     out: dict[int, TripBlock] = {}
     for block in result.scalars():
-        # first block wins (Laravel uses ->first())
+        # first block wins
         out.setdefault(block.trip_id, block)
     return out
 

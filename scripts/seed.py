@@ -1,19 +1,14 @@
-"""CLI seeder — truncates business tables and bulk-inserts the real
-production dataset extracted from Laravel (app/db/seed_data/*.json).
-
-This is the Python project's own seed source of truth going forward; it is
-no longer re-derived from Laravel at run time (see
-scripts/_extract_laravel_seed_data.php for the one-off extraction that
-produced the JSON files).
+"""CLI seeder — truncates business tables and bulk-inserts the production
+dataset from app/db/seed_data/*.json.
 
 Usage:
     python scripts/seed.py            # refuses if settings look like production
     python scripts/seed.py --force    # required if pointed at anything that
                                        # looks like production
 
-Truncate + insert order mirrors Laravel's DatabaseSeeder exactly (FK-safe
-dependency order). Re-running is safe: every table is truncated before it is
-re-seeded, so there are no duplicate-key errors.
+Truncate + insert order is FK-safe (parents before children). Re-running is
+safe: every table is truncated before it is re-seeded, so there are no
+duplicate-key errors.
 """
 
 from __future__ import annotations
@@ -48,8 +43,8 @@ ADMIN_PLAINTEXT_PASSWORD = "Admin@123"
 
 PRODUCTION_ENV_MARKERS = {"production", "prod"}
 
-# (table name, ORM model / Core Table, seed json filename), in Laravel's
-# DatabaseSeeder run order (FK-safe: parents before children).
+# (table name, ORM model / Core Table, seed json filename) — FK-safe:
+# parents before children.
 SEED_STEPS: list[tuple[str, Any, str]] = [
     ("users", User, "users.json"),
     ("web_profiles", WebProfile, "web_profiles.json"),
@@ -68,9 +63,9 @@ SEED_STEPS: list[tuple[str, Any, str]] = [
     ("menus", Menu, "menus.json"),
 ]
 
-# Reverse dependency order — mirrors Laravel's DatabaseSeeder::tablesToTruncate().
-# `bookings` has no seed data (Laravel doesn't seed it either) but is truncated
-# for parity since it FKs into users/trips/stops.
+# Reverse dependency order for truncate (children before parents).
+# `bookings` has no seed data but is truncated because it FKs into
+# users/trips/stops.
 TRUNCATE_TABLES = [
     "bookings",
     "menus",
@@ -105,8 +100,8 @@ def load_rows(filename: str) -> list[dict[str, Any]]:
 
 
 def prepare_user_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Hash the admin sentinel password fresh; other users keep Laravel's
-    bcrypt hashes verbatim (per user decision, see plan.md).
+    """Hash the admin sentinel password fresh; other users keep their
+    existing bcrypt hashes verbatim.
 
     Guest rows may have password=null (column is nullable). Leave them as-is.
     """
@@ -198,7 +193,7 @@ async def run(force: bool) -> int:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Seed the database with the real production content extracted from Laravel."
+        description="Seed the database with the production content from app/db/seed_data/."
     )
     parser.add_argument(
         "--force",
