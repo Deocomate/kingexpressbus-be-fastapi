@@ -1,0 +1,94 @@
+[
+    {
+        "bus_id": 1,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 1,
+        "bus_service_id": 3
+    },
+    {
+        "bus_id": 1,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 4,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 4,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 5,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 5,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 6,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 6,
+        "bus_service_id": 3
+    },
+    {
+        "bus_id": 6,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 6,
+        "bus_service_id": 6
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 3
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 6
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 8
+    },
+    {
+        "bus_id": 7,
+        "bus_service_id": 9
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 2
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 3
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 4
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 6
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 8
+    },
+    {
+        "bus_id": 8,
+        "bus_service_id": 9
+    }
+]

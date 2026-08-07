@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "name": "Hà Nội",
+        "slug": "ha-noi",
+        "title": "Vé xe khách đi Hà Nội",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Hà Nội và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/ha-noi.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ha-noi.jpg"
+        ],
+        "content": "<p>Hà Nội là điểm khởi hành trung tâm của King Express Bus với nhiều tuyến đi Sapa, Hà Giang, Ninh Bình, Cát Bà và miền Trung.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 100,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 2,
+        "name": "Sapa",
+        "slug": "sapa",
+        "title": "Vé xe khách đi Sapa",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Sapa và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/sapa.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/sapa.jpg"
+        ],
+        "content": "<p>Sapa nổi bật với khí hậu mát mẻ, ruộng bậc thang và các bản làng Tây Bắc, phù hợp cho hành trình nghỉ dưỡng bằng xe giường nằm.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 99,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 3,
+        "name": "Tuần Châu",
+        "slug": "tuan-chau",
+        "title": "Vé xe khách đi Tuần Châu",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Tuần Châu và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/cat-ba.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/cat-ba.jpg"
+        ],
+        "content": "<p>Tuần Châu là cửa ngõ du lịch biển Hạ Long, thuận tiện kết nối từ Hà Nội bằng xe chất lượng cao.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 5,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 4,
+        "name": "Mai Châu",
+        "slug": "mai-chau",
+        "title": "Vé xe khách đi Mai Châu",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Mai Châu và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/ninh-binh.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ninh-binh.jpg"
+        ],
+        "content": "<p>Mai Châu mang vẻ đẹp thung lũng yên bình, phù hợp cho chuyến nghỉ ngắn ngày từ Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 6,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 5,
+        "name": "Cát Bà",
+        "slug": "cat-ba",
+        "title": "Vé xe khách đi Cát Bà",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Cát Bà và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/cat-ba.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/cat-ba.jpg"
+        ],
+        "content": "<p>Cát Bà là điểm đến biển đảo nổi tiếng với vịnh Lan Hạ, các bãi tắm và hành trình kết nối từ Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 7,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 6,
+        "name": "Hà Giang",
+        "slug": "ha-giang",
+        "title": "Vé xe khách đi Hà Giang",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Hà Giang và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/ha-giang.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ha-giang.jpg"
+        ],
+        "content": "<p>Hà Giang hấp dẫn với cao nguyên đá Đồng Văn, đèo Mã Pì Lèng và các cung đường núi phía Bắc.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 8,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 7,
+        "name": "Ninh Bình",
+        "slug": "ninh-binh",
+        "title": "Vé xe khách đi Ninh Bình",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Ninh Bình và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/ninh-binh.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ninh-binh.jpg"
+        ],
+        "content": "<p>Ninh Bình nổi tiếng với Tràng An, Tam Cốc và các điểm du lịch sinh thái gần Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 9,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 8,
+        "name": "Phong Nha",
+        "slug": "phong-nha",
+        "title": "Vé xe khách đi Phong Nha",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Phong Nha và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/phong-nha.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/phong-nha.jpg"
+        ],
+        "content": "<p>Phong Nha là điểm đến hang động hàng đầu miền Trung, kết nối thuận tiện với Huế, Đà Nẵng và Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 10,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 9,
+        "name": "Huế",
+        "slug": "hue",
+        "title": "Vé xe khách đi Huế",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Huế và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/hue.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/hue.jpg"
+        ],
+        "content": "<p>Huế là cố đô với di sản văn hóa đặc sắc, thường nằm trong hành trình nối Phong Nha, Đà Nẵng và Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 98,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 10,
+        "name": "Đà Nẵng",
+        "slug": "da-nang",
+        "title": "Vé xe khách đi Đà Nẵng",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Đà Nẵng và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/da-nang.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/da-nang.jpg"
+        ],
+        "content": "<p>Đà Nẵng là trung tâm du lịch miền Trung với biển Mỹ Khê, bán đảo Sơn Trà và kết nối nhanh tới Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 97,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 11,
+        "name": "Hội An",
+        "slug": "hoi-an",
+        "title": "Vé xe khách đi Hội An",
+        "description": "Đặt vé xe giường nằm, limousine chất lượng cao đi Hội An và các tỉnh.",
+        "thumbnail_url": "/assets/client/images/city_imgs/hoi-an.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/hoi-an.jpg"
+        ],
+        "content": "<p>Hội An nổi tiếng với phố cổ, ẩm thực địa phương và các tuyến xe kết nối Đà Nẵng, Huế, Phong Nha.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 11,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 12,
+        "name": "Pù Luông",
+        "slug": "pu-luong",
+        "title": "Vé xe khách đi Pù Luông",
+        "description": "Đặt vé xe chất lượng cao đi Pù Luông cùng King Express Bus.",
+        "thumbnail_url": "/assets/client/images/city_imgs/ninh-binh.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ninh-binh.jpg"
+        ],
+        "content": "<p>Pù Luông là điểm nghỉ dưỡng thiên nhiên với ruộng bậc thang, bản làng yên bình và không khí trong lành.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2026-05-27 00:00:00",
+        "updated_at": "2026-05-27 00:00:00"
+    }
+]

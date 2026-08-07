@@ -1,0 +1,189 @@
+[
+    {
+        "id": 1,
+        "province_id": 1,
+        "district_type_id": 6,
+        "name": "Thành Phố Hà Nội",
+        "slug": "thanh-pho-ha-noi",
+        "title": "Thành Phố Hà Nội",
+        "description": "Các điểm đón trả tại Thành Phố Hà Nội",
+        "thumbnail_url": "/assets/client/images/city_imgs/ha-noi.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ha-noi.jpg"
+        ],
+        "content": "<p>Hà Nội là điểm khởi hành trung tâm của King Express Bus với nhiều tuyến đi Sapa, Hà Giang, Ninh Bình, Cát Bà và miền Trung.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 2,
+        "province_id": 2,
+        "district_type_id": 6,
+        "name": "Thành Phố Sapa",
+        "slug": "thanh-pho-sapa",
+        "title": "Thành Phố Sapa",
+        "description": "Các điểm đón trả tại Thành Phố Sapa",
+        "thumbnail_url": "/assets/client/images/city_imgs/sapa.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/sapa.jpg"
+        ],
+        "content": "<p>Sapa nổi bật với khí hậu mát mẻ, ruộng bậc thang và các bản làng Tây Bắc, phù hợp cho hành trình nghỉ dưỡng bằng xe giường nằm.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 3,
+        "province_id": 3,
+        "district_type_id": 6,
+        "name": "Thành Phố Tuần Châu",
+        "slug": "thanh-pho-tuan-chau",
+        "title": "Thành Phố Tuần Châu",
+        "description": "Các điểm đón trả tại Thành Phố Tuần Châu",
+        "thumbnail_url": "/assets/client/images/city_imgs/cat-ba.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/cat-ba.jpg"
+        ],
+        "content": "<p>Tuần Châu là cửa ngõ du lịch biển Hạ Long, thuận tiện kết nối từ Hà Nội bằng xe chất lượng cao.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 4,
+        "province_id": 4,
+        "district_type_id": 6,
+        "name": "Thành Phố Mai Châu",
+        "slug": "thanh-pho-mai-chau",
+        "title": "Thành Phố Mai Châu",
+        "description": "Các điểm đón trả tại Thành Phố Mai Châu",
+        "thumbnail_url": "/assets/client/images/city_imgs/ninh-binh.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ninh-binh.jpg"
+        ],
+        "content": "<p>Mai Châu mang vẻ đẹp thung lũng yên bình, phù hợp cho chuyến nghỉ ngắn ngày từ Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 5,
+        "province_id": 5,
+        "district_type_id": 6,
+        "name": "Thành Phố Cát Bà",
+        "slug": "thanh-pho-cat-ba",
+        "title": "Thành Phố Cát Bà",
+        "description": "Các điểm đón trả tại Thành Phố Cát Bà",
+        "thumbnail_url": "/assets/client/images/city_imgs/cat-ba.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/cat-ba.jpg"
+        ],
+        "content": "<p>Cát Bà là điểm đến biển đảo nổi tiếng với vịnh Lan Hạ, các bãi tắm và hành trình kết nối từ Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 6,
+        "province_id": 6,
+        "district_type_id": 6,
+        "name": "Thành Phố Hà Giang",
+        "slug": "thanh-pho-ha-giang",
+        "title": "Thành Phố Hà Giang",
+        "description": "Các điểm đón trả tại Thành Phố Hà Giang",
+        "thumbnail_url": "/assets/client/images/city_imgs/ha-giang.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ha-giang.jpg"
+        ],
+        "content": "<p>Hà Giang hấp dẫn với cao nguyên đá Đồng Văn, đèo Mã Pì Lèng và các cung đường núi phía Bắc.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 7,
+        "province_id": 7,
+        "district_type_id": 6,
+        "name": "Thành Phố Ninh Bình",
+        "slug": "thanh-pho-ninh-binh",
+        "title": "Thành Phố Ninh Bình",
+        "description": "Các điểm đón trả tại Thành Phố Ninh Bình",
+        "thumbnail_url": "/assets/client/images/city_imgs/ninh-binh.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/ninh-binh.jpg"
+        ],
+        "content": "<p>Ninh Bình nổi tiếng với Tràng An, Tam Cốc và các điểm du lịch sinh thái gần Hà Nội.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 8,
+        "province_id": 8,
+        "district_type_id": 6,
+        "name": "Thành Phố Phong Nha",
+        "slug": "thanh-pho-phong-nha",
+        "title": "Thành Phố Phong Nha",
+        "description": "Các điểm đón trả tại Thành Phố Phong Nha",
+        "thumbnail_url": "/assets/client/images/city_imgs/phong-nha.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/phong-nha.jpg"
+        ],
+        "content": "<p>Phong Nha là điểm đến hang động hàng đầu miền Trung, kết nối thuận tiện với Huế, Đà Nẵng và Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 9,
+        "province_id": 9,
+        "district_type_id": 6,
+        "name": "Thành Phố Huế",
+        "slug": "thanh-pho-hue",
+        "title": "Thành Phố Huế",
+        "description": "Các điểm đón trả tại Thành Phố Huế",
+        "thumbnail_url": "/assets/client/images/city_imgs/hue.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/hue.jpg"
+        ],
+        "content": "<p>Huế là cố đô với di sản văn hóa đặc sắc, thường nằm trong hành trình nối Phong Nha, Đà Nẵng và Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 10,
+        "province_id": 10,
+        "district_type_id": 6,
+        "name": "Thành Phố Đà Nẵng",
+        "slug": "thanh-pho-da-nang",
+        "title": "Thành Phố Đà Nẵng",
+        "description": "Các điểm đón trả tại Thành Phố Đà Nẵng",
+        "thumbnail_url": "/assets/client/images/city_imgs/da-nang.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/da-nang.jpg"
+        ],
+        "content": "<p>Đà Nẵng là trung tâm du lịch miền Trung với biển Mỹ Khê, bán đảo Sơn Trà và kết nối nhanh tới Hội An.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 11,
+        "province_id": 11,
+        "district_type_id": 6,
+        "name": "Thành Phố Hội An",
+        "slug": "thanh-pho-hoi-an",
+        "title": "Thành Phố Hội An",
+        "description": "Các điểm đón trả tại Thành Phố Hội An",
+        "thumbnail_url": "/assets/client/images/city_imgs/hoi-an.jpg",
+        "image_list_url": [
+            "/assets/client/images/city_imgs/hoi-an.jpg"
+        ],
+        "content": "<p>Hội An nổi tiếng với phố cổ, ẩm thực địa phương và các tuyến xe kết nối Đà Nẵng, Huế, Phong Nha.</p><p>King Express Bus cung cấp lựa chọn xe giường nằm, cabin và limousine với lịch chạy linh hoạt, hỗ trợ đặt vé nhanh và tư vấn điểm đón trả phù hợp.</p>",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    }
+]

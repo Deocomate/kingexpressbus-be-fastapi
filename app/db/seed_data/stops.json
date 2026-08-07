@@ -1,0 +1,317 @@
+[
+    {
+        "id": 1,
+        "district_id": 1,
+        "name": "19 Hàng Thiếc",
+        "address": "19 Hàng Thiếc - Phường  Hoàn Kiếm - Hà Nội",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-02-09 00:44:13"
+    },
+    {
+        "id": 2,
+        "district_id": 2,
+        "name": "458 Điện Biên Phủ, bến xe Sapa",
+        "address": "458 Điện Biên Phủ, bến xe Sapa",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-02-09 00:45:41"
+    },
+    {
+        "id": 7,
+        "district_id": 7,
+        "name": "Mr Khanh Travel Agency Ninh Binh",
+        "address": "No 2a, đường 27/7 - TP Ninh Bình",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 8,
+        "district_id": 8,
+        "name": "Central Backpacker Phong Nha",
+        "address": "Central Backpacker Phong Nha",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 9,
+        "district_id": 9,
+        "name": "07 Đội Cung- TP Huế",
+        "address": "07 Đội Cung- TP Huế",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 10,
+        "district_id": 10,
+        "name": "Số 28 đường 3/2- TP Đà Nẵng",
+        "address": "Số 28 đường 3/2- TP Đà Nẵng",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 11,
+        "district_id": 11,
+        "name": "105 Tôn Đức Thắng - TP Hội An",
+        "address": "105 Tôn Đức Thắng - TP Hội An",
+        "priority": 0,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2025-10-02 23:27:41"
+    },
+    {
+        "id": 15,
+        "district_id": 2,
+        "name": "458 Điện Biên Phủ",
+        "address": "458 Điện Biên Phủ",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 16,
+        "district_id": 1,
+        "name": "210 Trần Quang Khải",
+        "address": "210 Trần Quang Khải",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 17,
+        "district_id": 2,
+        "name": "Các khách sạn , văn phòng phố cổ (Chỉ đón, không trả)",
+        "address": "Các khách sạn , văn phòng phố cổ (Chỉ đón, không trả)",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 18,
+        "district_id": 1,
+        "name": "14 Hoàng Quốc Việt – Cầu Giấy",
+        "address": "14 Hoàng Quốc Việt – Cầu Giấy",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 19,
+        "district_id": 1,
+        "name": "CV Hòa Bình - Bắc Từ Liêm",
+        "address": "CV Hòa Bình - Bắc Từ Liêm",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 20,
+        "district_id": 1,
+        "name": "Buýt Bầu Kim Chung - Đông Anh",
+        "address": "Buýt Bầu Kim Chung - Đông Anh",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 21,
+        "district_id": 7,
+        "name": "Mike's travel agency - Tam Cốc",
+        "address": "Mike's travel agency - Tam Cốc",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 22,
+        "district_id": 2,
+        "name": "Ngã Tư Nam Hồng - ĐÔng Anh",
+        "address": "Ngã Tư Nam Hồng - ĐÔng Anh",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 23,
+        "district_id": 2,
+        "name": "8 Võ Văn Kiệt – Sóc Sơn",
+        "address": "8 Võ Văn Kiệt – Sóc Sơn",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 24,
+        "district_id": 7,
+        "name": "Sân bay Nội Bài (Nội địa - Arrival E2)",
+        "address": "Sân bay Nội Bài (Nội địa - Arrival E2)",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 25,
+        "district_id": 7,
+        "name": "Sân bay Nội Bài (Quốc tế - Cột số 19)",
+        "address": "Sân bay Nội Bài (Quốc tế - Cột số 19)",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 26,
+        "district_id": 2,
+        "name": "Trạm dừng nghỉ Nội Bài",
+        "address": "Trạm dừng nghỉ Nội Bài",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 27,
+        "district_id": 2,
+        "name": "Nhà Hàng Điểm Hẹn - Cốc San - Lào Cai",
+        "address": "Nhà Hàng Điểm Hẹn - Cốc San - Lào Cai",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 04:09:22"
+    },
+    {
+        "id": 28,
+        "district_id": 2,
+        "name": "458 Điện Biên Phủ - Sapa",
+        "address": "458 Điện Biên Phủ - Sapa",
+        "priority": 0,
+        "created_at": "2026-03-19 04:09:22",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 29,
+        "district_id": 5,
+        "name": "217 Một Tháng Tư",
+        "address": "217 Một Tháng Tư",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 30,
+        "district_id": 1,
+        "name": "19 Hàng Thiếc",
+        "address": "19 Hàng Thiếc",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 31,
+        "district_id": 10,
+        "name": "Đường 3/2",
+        "address": "Đường 3/2",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 32,
+        "district_id": 1,
+        "name": "208 Trần Quang Khải",
+        "address": "208 Trần Quang Khải",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 33,
+        "district_id": 11,
+        "name": "105 Tôn Đức Thắng",
+        "address": "105 Tôn Đức Thắng",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 34,
+        "district_id": 9,
+        "name": "07 Đội Cung - Huế",
+        "address": "07 Đội Cung - Huế",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 35,
+        "district_id": 7,
+        "name": "Mr Khanh Travel Agency Ninh Bình",
+        "address": "Mr Khanh Travel Agency Ninh Bình",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 36,
+        "district_id": 7,
+        "name": "Travel Agency Tam Cốc",
+        "address": "Travel Agency Tam Cốc",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 37,
+        "district_id": 8,
+        "name": "Central Backpackers Hostel Phong Nha",
+        "address": "Central Backpackers Hostel Phong Nha",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 38,
+        "district_id": 6,
+        "name": "100 Trần Phú Hà Giang",
+        "address": "100 Trần Phú Hà Giang",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 39,
+        "district_id": 6,
+        "name": "Bến xe Hà Giang",
+        "address": "Bến xe Hà Giang",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 40,
+        "district_id": 7,
+        "name": "Tam Cốc Boat Station",
+        "address": "Tam Cốc Boat Station",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 41,
+        "district_id": 7,
+        "name": "Tràng An Boat Station",
+        "address": "Tràng An Boat Station",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    },
+    {
+        "id": 42,
+        "district_id": 3,
+        "name": "Tuần Châu Harbor",
+        "address": "Tuần Châu Harbor",
+        "priority": 0,
+        "created_at": "2026-03-19 05:30:37",
+        "updated_at": "2026-03-19 05:30:37"
+    }
+]

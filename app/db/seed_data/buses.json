@@ -1,0 +1,97 @@
+[
+    {
+        "id": 1,
+        "name": "Sleeper",
+        "model_name": "Sleeper Bus",
+        "seat_count": 48,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/sleeper/1.jpg",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/sleeper/1.jpg",
+            "/assets/client/images/kingexpressbus/sleeper/2.jpg",
+            "/assets/client/images/kingexpressbus/sleeper/3.jpg"
+        ],
+        "content": "<p>Xe giường nằm tiêu chuẩn là lựa chọn kinh tế cho các chuyến đi dài.</p>",
+        "priority": 1,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-05-26 22:12:32"
+    },
+    {
+        "id": 4,
+        "name": "Seater",
+        "model_name": "Seater Bus",
+        "seat_count": 48,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/seater/1.png",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/seater/1.png",
+            "/assets/client/images/kingexpressbus/seater/2.png"
+        ],
+        "content": "<p>Xe ghế ngồi 16 chỗ phù hợp cho những chuyến đi ngắn, linh hoạt.</p>",
+        "priority": 6,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-05-26 22:10:20"
+    },
+    {
+        "id": 5,
+        "name": "Limousine",
+        "model_name": "Limousine Bus",
+        "seat_count": 9,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/limousine/1.png",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/limousine/1.png",
+            "/assets/client/images/kingexpressbus/limousine/2.png"
+        ],
+        "content": "<p>Xe Limousine hiện đại với ghế hạng thương gia và dịch vụ cao cấp.</p>",
+        "priority": 5,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-03-19 06:44:54"
+    },
+    {
+        "id": 6,
+        "name": "VIP 32 sleeper",
+        "model_name": "VIP Sleeper 32",
+        "seat_count": 48,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/sleeper_vip_32/sleeper32-1.jpg",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/sleeper_vip_32/sleeper32-1.jpg",
+            "/assets/client/images/kingexpressbus/sleeper_vip_32/sleeper32-2.jpg"
+        ],
+        "content": "<p>Xe giường nằm VIP 32 chỗ với rèm che riêng tư, không gian sang trọng.</p>",
+        "priority": 2,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-05-26 22:11:18"
+    },
+    {
+        "id": 7,
+        "name": "VIP 22 cabin single",
+        "model_name": "VIP Cabin Single 22",
+        "seat_count": 20,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/cabin/1.jpg",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/cabin/1.jpg",
+            "/assets/client/images/kingexpressbus/cabin/3.jpg",
+            "/assets/client/images/kingexpressbus/cabin/4.jpg",
+            "/assets/client/images/kingexpressbus/cabin/5.jpg"
+        ],
+        "content": "<p>Cabin VIP đơn 22 giường đem lại sự riêng tư tuyệt đối với đầy đủ tiện nghi.</p>",
+        "priority": 3,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-05-26 22:10:59"
+    },
+    {
+        "id": 8,
+        "name": "VIP 22 cabin double",
+        "model_name": "VIP Cabin Double 22",
+        "seat_count": 20,
+        "thumbnail_url": "/assets/client/images/kingexpressbus/cabin_double/1.jpg",
+        "image_list_url": [
+            "/assets/client/images/kingexpressbus/cabin_double/1.jpg",
+            "/assets/client/images/kingexpressbus/cabin_double/3.jpg",
+            "/assets/client/images/kingexpressbus/cabin_double/4.jpg",
+            "/assets/client/images/kingexpressbus/cabin_double/5.jpg"
+        ],
+        "content": "<p>Cabin VIP đôi 22 giường lý tưởng cho cặp đôi hoặc gia đình nhỏ.</p>",
+        "priority": 4,
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-05-26 22:10:46"
+    }
+]

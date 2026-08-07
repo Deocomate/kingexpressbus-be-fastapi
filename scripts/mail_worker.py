@@ -1,0 +1,73 @@
+"""Poll mail_jobs and send via Gmail SMTP (Laravel queue:work equivalent)."""
+
+from __future__ import annotations
+
+import argparse
+import asyncio
+import logging
+import signal
+
+from app.core.config import get_settings
+from app.db.session import AsyncSessionLocal
+from app.services import mail_queue
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
+logger = logging.getLogger("mail_worker")
+
+_stop = False
+
+
+def _handle_stop(*_args: object) -> None:
+    global _stop
+    _stop = True
+    logger.info("Stop requested — finishing current cycle")
+
+
+async def run_worker(*, sleep_seconds: float, once: bool) -> None:
+    settings = get_settings()
+    logger.info(
+        "Mail worker started (inline=%s max_attempts=%s)",
+        settings.mail_queue_inline,
+        settings.mail_max_attempts,
+    )
+    while not _stop:
+        claimed = False
+        async with AsyncSessionLocal() as session:
+            claimed = await mail_queue.process_one_available(
+                session, settings=settings
+            )
+        if once:
+            break
+        if not claimed:
+            await asyncio.sleep(sleep_seconds)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Process durable mail_jobs via SMTP")
+    parser.add_argument(
+        "--sleep",
+        type=float,
+        default=2.0,
+        help="Seconds to sleep when the queue is empty (default: 2)",
+    )
+    parser.add_argument(
+        "--once",
+        action="store_true",
+        help="Process at most one job then exit",
+    )
+    args = parser.parse_args()
+
+    signal.signal(signal.SIGINT, _handle_stop)
+    try:
+        signal.signal(signal.SIGTERM, _handle_stop)
+    except (AttributeError, ValueError):
+        pass
+
+    asyncio.run(run_worker(sleep_seconds=args.sleep, once=args.once))
+
+
+if __name__ == "__main__":
+    main()

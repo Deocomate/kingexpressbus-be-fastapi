@@ -1,0 +1,33 @@
+# Backend — Coolify / production
+# Domain: https://api.kingexpressbus.com
+# Usage: point Coolify at this file (compose root = this repo folder).
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      UPLOAD_ROOT: /data/uploads
+      # Set DB_* in Coolify env (not host.docker.internal)
+      CORS_ORIGINS: https://kingexpressbus.com,https://www.kingexpressbus.com
+      FRONTEND_BASE_URL: https://kingexpressbus.com
+      COOKIE_SECURE: "true"
+      COOKIE_SAMESITE: lax
+      MAIL_QUEUE_INLINE: "false"
+    volumes:
+      - uploads_data:/data/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  uploads_data:

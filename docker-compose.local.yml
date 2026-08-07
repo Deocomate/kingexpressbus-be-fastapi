@@ -1,0 +1,51 @@
+# Backend — local Docker Desktop
+# Usage (from this directory):
+#   docker compose -f docker-compose.local.yml up -d --build
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      APP_ENV: local
+      UPLOAD_ROOT: /data/uploads
+      DB_HOST: host.docker.internal
+      DB_PORT: "3307"
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+      FRONTEND_BASE_URL: http://localhost:3001
+      COOKIE_SECURE: "false"
+      MAIL_QUEUE_INLINE: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - uploads_data:/data/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Optional: docker compose -f docker-compose.local.yml --profile mysql up -d
+  mysql:
+    image: mysql:8.0
+    profiles: ["mysql"]
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_kingexpressbus
+      MYSQL_USER: keb
+      MYSQL_PASSWORD: keb
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  uploads_data:
+  mysql_data:

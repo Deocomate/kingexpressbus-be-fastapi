@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "profile_name": "Cấu hình mặc định",
+        "is_default": 1,
+        "title": "King Express Bus - Nhà xe chất lượng cao",
+        "description": "Chuyên cung cấp dịch vụ vận tải hành khách tuyến Bắc - Nam với dòng xe limousine và giường nằm cao cấp. An toàn, tiện nghi và đúng giờ.",
+        "logo_url": "/assets/client/images/web-information/logo.jpg",
+        "favicon_url": "/assets/client/icons/logo.ico",
+        "email": "kingexpressbus@gmail.com",
+        "phone": "+84924300366",
+        "hotline": "+84924300366",
+        "whatsapp": "+84924300366",
+        "address": "19 Hàng Thiếc - Hoàn Kiếm - Hà Nội",
+        "facebook_url": "https://www.facebook.com/HanoiSapa",
+        "zalo_url": "https://zalo.me/0924300366",
+        "map_embedded": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2056.7461655506627!2d105.84669827498637!3d21.03349741327072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abbe60e203cb%3A0xad322a16a1be4362!2zMTkgUC4gSMOgbmcgVGhp4bq_YywgSMOgbmcgR2FpLCBIb8OgbiBLaeG6v20sIEjDoCBO4buZaSAxMTA3MDEsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1759471064920!5m2!1sen!2s\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+        "policy_content": "<h1>Chính sách chung</h1><p>Chính sách và điều khoản của nhà xe King Express Bus</p>",
+        "introduction_content": "<h2>Về chúng tôi</h2><p>King Express Bus tự hào là một trong những đơn vị vận tải hàng đầu</p>",
+        "created_at": "2025-10-02 23:27:41",
+        "updated_at": "2026-03-18 23:47:43"
+    }
+]
