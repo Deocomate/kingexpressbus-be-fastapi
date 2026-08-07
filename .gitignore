@@ -24,10 +24,11 @@ coverage.xml
 .tox/
 .nox/
 
-# Local secrets (keep .env.example tracked)
+# Local secrets (keep example templates tracked)
 .env
 .env.*
 !.env.example
+!.env.production.example
 
 # Runtime uploads (keep folder via .gitkeep)
 uploads/*
