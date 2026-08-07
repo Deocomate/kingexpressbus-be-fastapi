@@ -7,6 +7,8 @@ import asyncio
 import logging
 import signal
 
+from sqlalchemy.exc import OperationalError, ProgrammingError, SQLAlchemyError
+
 from app.core.config import get_settings
 from app.db.session import AsyncSessionLocal
 from app.services import mail_queue
@@ -35,10 +37,25 @@ async def run_worker(*, sleep_seconds: float, once: bool) -> None:
     )
     while not _stop:
         claimed = False
-        async with AsyncSessionLocal() as session:
-            claimed = await mail_queue.process_one_available(
-                session, settings=settings
-            )
+        try:
+            async with AsyncSessionLocal() as session:
+                claimed = await mail_queue.process_one_available(
+                    session, settings=settings
+                )
+        except (ProgrammingError, OperationalError) as exc:
+            # Schema not ready yet (api still migrating) or brief DB blip —
+            # keep process alive instead of Coolify restart loop.
+            logger.warning("Mail queue DB not ready yet: %s", exc)
+            await asyncio.sleep(max(sleep_seconds, 5.0))
+            if once:
+                break
+            continue
+        except SQLAlchemyError:
+            logger.exception("Unexpected SQLAlchemy error in mail worker")
+            await asyncio.sleep(max(sleep_seconds, 5.0))
+            if once:
+                break
+            continue
         if once:
             break
         if not claimed:

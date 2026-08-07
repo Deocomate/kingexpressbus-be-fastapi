@@ -1,6 +1,10 @@
 # Backend — Coolify / Docker Desktop production stack
-# mysql → api (+ migrations on start) + mail_worker
-# No one-shot `migrate` service — Coolify breaks on service_completed_successfully.
+# mysql healthy → api (migrate + serve) → mail_worker (waits for api healthy)
+#
+# DB_PASSWORD is baked into mysql_data on FIRST start only.
+# If you change DB_PASSWORD in Coolify after that → Access denied (1045).
+# Fix: Storages → delete `mysql_data` → redeploy (wipes DB data).
+#
 # ${VAR} appear in Coolify Environment Variables UI.
 
 services:
@@ -118,6 +122,9 @@ services:
       MAIL_QUEUE_INLINE: ${MAIL_QUEUE_INLINE:-false}
     depends_on:
       mysql:
+        condition: service_healthy
+      api:
+        # Wait until api finished alembic + /health (mail_jobs exists).
         condition: service_healthy
     restart: unless-stopped
 
