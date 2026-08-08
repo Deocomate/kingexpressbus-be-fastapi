@@ -17,6 +17,9 @@ services:
       DB_PORT: "3307"
       CORS_ORIGINS: "*"
       FRONTEND_BASE_URL: http://localhost:3001
+      SUCCESS_PATH_TEMPLATE: /dat-ve/thanh-cong/{booking}
+      HOTEL_SUCCESS_PATH_TEMPLATE: /khach-san/dat-phong/thanh-cong/{booking}
+      TOUR_SUCCESS_PATH_TEMPLATE: /tour/dat-tour/thanh-cong/{booking}
       COOKIE_SECURE: "false"
       MAIL_QUEUE_INLINE: "true"
     extra_hosts:

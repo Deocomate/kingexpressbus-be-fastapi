@@ -1,7 +1,7 @@
 """CLI GC for stale admin upload staging directories.
 
 Staged uploads live at `{upload_root}/admin-tmp/{session}/{uuid}/{filename}`
-(see app/services/uploads.py stage_file) and are only meant to survive until
+(see app/infrastructure/storage uploads stage_file) and are only meant to survive until
 an admin commits or reverts them. Anything left behind past the cutoff
 (crashed tab, abandoned form) is swept here.
 

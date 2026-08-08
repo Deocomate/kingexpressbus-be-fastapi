@@ -1,4 +1,4 @@
-"""Tour booking creation + soft daily capacity."""
+"""Tour booking creation + soft daily capacity (row-locked)."""
 
 from __future__ import annotations
 
@@ -33,6 +33,7 @@ async def guests_booked(
     tour_id: int,
     tour_date: date,
     exclude_booking_id: int | None = None,
+    for_update: bool = False,
 ) -> int:
     stmt = select(func.coalesce(func.sum(TourBooking.guests), 0)).where(
         TourBooking.tour_id == tour_id,
@@ -41,6 +42,8 @@ async def guests_booked(
     )
     if exclude_booking_id is not None:
         stmt = stmt.where(TourBooking.id != exclude_booking_id)
+    if for_update:
+        stmt = stmt.with_for_update()
     return int(await db.scalar(stmt) or 0)
 
 
@@ -65,11 +68,15 @@ async def create_tour_booking(
     if tour_date < date.today():
         raise BookingError("Tour date cannot be in the past")
 
-    tour = await db.get(Tour, tour_id)
+    tour = (
+        await db.execute(select(Tour).where(Tour.id == tour_id).with_for_update())
+    ).scalar_one_or_none()
     if tour is None or not tour.is_active:
         raise BookingError("Tour not found", status_code=404)
 
-    booked = await guests_booked(db, tour_id=tour.id, tour_date=tour_date)
+    booked = await guests_booked(
+        db, tour_id=tour.id, tour_date=tour_date, for_update=True
+    )
     available = max(0, int(tour.max_guests) - booked)
     if guests > available:
         raise BookingError(

@@ -19,7 +19,7 @@ class NotFoundError(DomainError):
         super().__init__(message, status_code=404)
 
 
-class PriceChangedError(Exception):
+class PriceChangedError(DomainError):
     """Submitted booking total no longer matches server pricing."""
 
     def __init__(
@@ -28,7 +28,7 @@ class PriceChangedError(Exception):
         breakdown: dict[str, Any],
         server_total: int,
     ) -> None:
-        super().__init__("price_changed")
+        super().__init__("price_changed", status_code=409)
         self.submitted_total = submitted_total
         self.breakdown = breakdown
         self.server_total = server_total

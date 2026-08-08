@@ -85,7 +85,7 @@ sequenceDiagram
     participant Worker as Mail Worker Process (scripts/mail_worker.py)
     participant SMTP as Gmail SMTP Server
 
-    Customer->>API: POST /api/v1/client/bookings (Tạo đơn vé thành công)
+    Customer->>API: POST /api/v1/bookings (Tạo đơn vé thành công)
     API->>DB: INSERT INTO mail_jobs (status='PENDING', template='booking_confirmation', payload=...)
     API-->>Customer: Trả về HTTP 201 Created (Kèm Mã đơn vé)
     

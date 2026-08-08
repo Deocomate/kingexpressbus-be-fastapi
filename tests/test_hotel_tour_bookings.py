@@ -123,9 +123,32 @@ async def test_public_hotel_slug_and_booking_cash(
         },
     )
     assert created.status_code == 201, created.text
-    booking = created.json()["booking"]
+    payload = created.json()
+    booking = payload["booking"]
     assert booking["status"] == "pending"
     assert booking["booking_code"].startswith("HT-")
+    assert payload.get("success_url")
+    assert "expires=" in payload["success_url"]
+    assert "signature=" in payload["success_url"]
+
+    denied = await public_client.get(f"/api/v1/hotel-bookings/{booking['id']}")
+    assert denied.status_code == 422
+
+    from urllib.parse import parse_qs, urlparse
+
+    qs = parse_qs(urlparse(payload["success_url"]).query)
+    signed = await public_client.get(
+        f"/api/v1/hotel-bookings/{booking['id']}",
+        params={"expires": qs["expires"][0], "signature": qs["signature"][0]},
+    )
+    assert signed.status_code == 200
+    assert signed.json()["customer_email"] == "hotel.guest@example.com"
+
+    forged = await public_client.get(
+        f"/api/v1/hotel-bookings/{booking['id']}",
+        params={"expires": qs["expires"][0], "signature": "deadbeef"},
+    )
+    assert forged.status_code == 403
 
     over = await public_client.post(
         "/api/v1/hotel-bookings",
@@ -175,8 +198,24 @@ async def test_public_tour_booking_and_confirm(
         },
     )
     assert created.status_code == 201, created.text
-    booking = created.json()["booking"]
+    payload = created.json()
+    booking = payload["booking"]
     assert booking["booking_code"].startswith("TR-")
+    assert payload.get("success_url")
+    assert "signature=" in payload["success_url"]
+
+    denied = await public_client.get(f"/api/v1/tour-bookings/{booking['id']}")
+    assert denied.status_code == 422
+
+    from urllib.parse import parse_qs, urlparse
+
+    qs = parse_qs(urlparse(payload["success_url"]).query)
+    signed = await public_client.get(
+        f"/api/v1/tour-bookings/{booking['id']}",
+        params={"expires": qs["expires"][0], "signature": qs["signature"][0]},
+    )
+    assert signed.status_code == 200
+    assert signed.json()["customer_name"] == "Tour Guest"
 
     confirm = await admin_client.post(
         f"/api/v1/admin/tour-bookings/{booking['id']}/confirm"

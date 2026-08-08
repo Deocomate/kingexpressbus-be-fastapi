@@ -42,6 +42,8 @@ class Settings(BaseSettings):
 
     frontend_base_url: str = "http://localhost:3000"
     success_path_template: str = "/dat-ve/thanh-cong/{booking}"
+    hotel_success_path_template: str = "/khach-san/dat-phong/thanh-cong/{booking}"
+    tour_success_path_template: str = "/tour/dat-tour/thanh-cong/{booking}"
 
     sepay_environment: str = "sandbox"
     sepay_merchant_id: str = ""

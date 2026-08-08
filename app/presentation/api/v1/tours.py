@@ -1,10 +1,10 @@
-"""Public tour listing + tour booking create/detail."""
+"""Public tour listing + tour booking create/detail (signed success URL)."""
 
 from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from sqlalchemy import select
 
 from app.application.auth import customer_accounts
@@ -15,6 +15,10 @@ from app.core.rate_limit import client_ip, rate_limiter
 from app.infrastructure.mail import service_mail
 from app.infrastructure.persistence.models import Tour, TourBooking, User
 from app.infrastructure.persistence.session import AsyncSessionLocal
+from app.presentation.api.v1.service_booking_urls import (
+    issue_signed_success_url,
+    verify_signed_booking_access,
+)
 from app.presentation.schemas.tour import (
     TourBookingCreateIn,
     TourBookingCreateOut,
@@ -104,9 +108,10 @@ async def create_booking(
         raise HTTPException(exc.status_code, detail=exc.message) from exc
 
     background_tasks.add_task(_bg_tour_mail, booking.id, "confirmation", settings)
-    success_url = (
-        f"{settings.frontend_base_url.rstrip('/')}/tour/dat-tour/thanh-cong/"
-        f"{booking.id}"
+    success_url = issue_signed_success_url(
+        settings,
+        booking_id=booking.id,
+        path_template=settings.tour_success_path_template,
     )
     return TourBookingCreateOut(
         booking=TourBookingOut.model_validate(booking),
@@ -118,12 +123,23 @@ async def create_booking(
 async def get_tour_booking(
     booking_id: int,
     db: DbSession,
-    user: Annotated[User | None, Depends(get_current_user_optional)],
+    settings: AppSettings,
+    expires: int = Query(..., description="Unix expiry from signed success URL"),
+    signature: str = Query(..., description="HMAC signature from signed success URL"),
 ) -> TourBooking:
+    """Full tour booking detail — requires valid temporary signature (≈24h)."""
+    ok = verify_signed_booking_access(
+        settings=settings,
+        booking_id=booking_id,
+        expires=expires,
+        signature=signature,
+        path_template=settings.tour_success_path_template,
+    )
+    if not ok:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, detail="Invalid or expired signature"
+        )
     booking = await db.get(TourBooking, booking_id)
     if booking is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
-    if user is not None and booking.user_id and booking.user_id != user.id:
-        if getattr(user, "role", None) not in ("admin", "staff"):
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
     return booking

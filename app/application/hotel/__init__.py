@@ -1,13 +1,14 @@
 """Hotel application package."""
 
-from app.application.hotel.booking_creation import (
+from . import admin_crud
+from .booking_creation import (
     available_inventory,
     compute_total,
     create_hotel_booking,
     rooms_booked,
 )
-from app.application.hotel.booking_status import update_hotel_booking_status
-from app.application.hotel.shared import (
+from .booking_status import update_hotel_booking_status
+from .shared import (
     ALL_STATUSES,
     COUNTED_STATUSES,
     PAYMENT_METHODS,
@@ -24,6 +25,7 @@ __all__ = [
     "EmailAction",
     "PAYMENT_METHODS",
     "ServiceBookingResult",
+    "admin_crud",
     "available_inventory",
     "compute_total",
     "create_hotel_booking",

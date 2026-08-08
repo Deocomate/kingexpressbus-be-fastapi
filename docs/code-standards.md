@@ -46,7 +46,7 @@ def get_booking_by_code(db: Session, booking_code: string) -> Optional[Booking]:
    - Khi thực hiện giữ ghế / đặt vé, bắt buộc sử dụng giao dịch (Transaction) có khóa hoặc ràng buộc unique trên cặp `(trip_id, seat_number)` để chống trùng ghế khi 2 người dùng bấm chọn cùng 1 miligiây.
 2. **Explicit Relationships & Lazy Loading**:
    - Sử dụng `joinedload()` hoặc `selectinload()` khi cần nạp dữ liệu liên quan để tránh lỗi N+1 Query.
-3. **Delete Guards Pattern (`app/services/delete_guards.py`)**:
+3. **Delete Guards Pattern (`app/application/catalog/delete_guards.py`)**:
    - Khi người dùng gọi lệnh DELETE một thực thể (Tuyển đường, Điểm dừng, Khách sạn), bắt buộc kiểm tra xem thực thể đó có dữ liệu vé xe / đơn hàng đang tham chiếu hay không.
    - Nếu có, raise `HTTPException(status_code=400)` kèm message và thống kê chi tiết thay vì để DB ném `ForeignKeyViolation` unhandled 500 error.
 

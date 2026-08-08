@@ -1,17 +1,14 @@
-"""Admin CRUD: hotels + rooms; hotel booking list/actions."""
+"""Admin HTTP adapters: hotels + rooms + hotel booking actions."""
 
 from __future__ import annotations
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, status
-from sqlalchemy import func, or_, select
 
-from app.application.catalog.admin_list import paginate, slugify
-from app.application.catalog.reorder import reorder_full_table
-from app.application.hotel import update_hotel_booking_status
+from app.application.hotel import admin_crud, update_hotel_booking_status
 from app.application.hotel.shared import BookingError
 from app.core.deps import AppSettings, DbSession
+from app.domain.shared.errors import NotFoundError
 from app.infrastructure.mail import service_mail
-from app.infrastructure.persistence.models import Hotel, HotelBooking, HotelRoom
 from app.infrastructure.persistence.session import AsyncSessionLocal
 from app.presentation.api.v1.admin.deps import AdminUser, SameOrigin
 from app.presentation.schemas.admin_common import MessageOut, Paginated, ReorderRequest
@@ -42,14 +39,17 @@ async def _bg_mail(
         )
 
 
-def _hotel_out(hotel: Hotel) -> HotelOut:
+def _hotel_out(hotel) -> HotelOut:
     rooms = [HotelRoomOut.model_validate(r) for r in (hotel.rooms or [])]
     data = HotelOut.model_validate(hotel)
     data.rooms = rooms
     return data
 
 
-# ── Hotels ─────────────────────────────────────────────────────────────────
+def _map_not_found(exc: NotFoundError) -> HTTPException:
+    return HTTPException(status.HTTP_404_NOT_FOUND, detail=exc.message)
+
+
 @router.get("/hotels", response_model=Paginated[HotelOut])
 async def list_hotels(
     db: DbSession,
@@ -58,12 +58,7 @@ async def list_hotels(
     page_size: int = 25,
     q: str | None = None,
 ) -> Paginated[HotelOut]:
-    stmt = select(Hotel).order_by(Hotel.priority.desc(), Hotel.name.asc())
-    if q:
-        stmt = stmt.where(
-            or_(Hotel.name.like(f"%{q}%"), Hotel.slug.like(f"%{q}%"), Hotel.address.like(f"%{q}%"))
-        )
-    items, total = await paginate(db, stmt, page=page, page_size=page_size)
+    items, total = await admin_crud.list_hotels(db, page=page, page_size=page_size, q=q)
     return Paginated(
         items=[_hotel_out(i) for i in items],
         total=total,
@@ -76,30 +71,7 @@ async def list_hotels(
 async def create_hotel(
     body: HotelWrite, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> HotelOut:
-    max_p = int(await db.scalar(select(func.coalesce(func.max(Hotel.priority), 0))) or 0)
-    slug = (body.slug or slugify(body.name)).strip()
-    row = Hotel(
-        name=body.name,
-        slug=slug,
-        address=body.address,
-        short_description=body.short_description,
-        description=body.description,
-        amenities=body.amenities,
-        policies=body.policies,
-        thumbnail_url=body.thumbnail_url,
-        image_list_url=body.image_list_url,
-        map_embedded=body.map_embedded,
-        check_in_from=body.check_in_from,
-        check_in_to=body.check_in_to,
-        check_out_from=body.check_out_from,
-        check_out_to=body.check_out_to,
-        rating_score=body.rating_score,
-        rating_label=body.rating_label,
-        rating_count=body.rating_count,
-        is_active=body.is_active,
-        priority=body.priority if body.priority is not None else max_p + 1,
-    )
-    db.add(row)
+    row = await admin_crud.create_hotel(db, body.model_dump())
     await db.commit()
     await db.refresh(row)
     return _hotel_out(row)
@@ -109,18 +81,13 @@ async def create_hotel(
 async def update_hotel(
     hotel_id: int, body: HotelWrite, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> HotelOut:
-    row = await db.get(Hotel, hotel_id)
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Hotel not found")
-    data = body.model_dump()
-    if not data.get("slug"):
-        data["slug"] = slugify(body.name)
-    for key, value in data.items():
-        if key == "priority" and value is None:
-            continue
-        setattr(row, key, value)
-    await db.commit()
-    await db.refresh(row)
+    try:
+        row = await admin_crud.update_hotel(db, hotel_id, body.model_dump())
+        await db.commit()
+        await db.refresh(row)
+    except NotFoundError as exc:
+        await db.rollback()
+        raise _map_not_found(exc) from exc
     return _hotel_out(row)
 
 
@@ -128,11 +95,12 @@ async def update_hotel(
 async def delete_hotel(
     hotel_id: int, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> MessageOut:
-    row = await db.get(Hotel, hotel_id)
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Hotel not found")
-    await db.delete(row)
-    await db.commit()
+    try:
+        await admin_crud.delete_hotel(db, hotel_id)
+        await db.commit()
+    except NotFoundError as exc:
+        await db.rollback()
+        raise _map_not_found(exc) from exc
     return MessageOut(message="Deleted")
 
 
@@ -140,12 +108,11 @@ async def delete_hotel(
 async def reorder_hotels(
     body: ReorderRequest, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> MessageOut:
-    await reorder_full_table(db, Hotel, body.ids)
+    await admin_crud.reorder_hotels(db, body.ids)
     await db.commit()
     return MessageOut(message="Reordered")
 
 
-# ── Rooms ──────────────────────────────────────────────────────────────────
 @router.get("/hotels/{hotel_id}/rooms", response_model=Paginated[HotelRoomOut])
 async def list_rooms(
     hotel_id: int,
@@ -154,12 +121,9 @@ async def list_rooms(
     page: int = 1,
     page_size: int = 50,
 ) -> Paginated[HotelRoomOut]:
-    stmt = (
-        select(HotelRoom)
-        .where(HotelRoom.hotel_id == hotel_id)
-        .order_by(HotelRoom.priority.desc(), HotelRoom.name.asc())
+    items, total = await admin_crud.list_rooms(
+        db, hotel_id=hotel_id, page=page, page_size=page_size
     )
-    items, total = await paginate(db, stmt, page=page, page_size=page_size)
     return Paginated(
         items=[HotelRoomOut.model_validate(i) for i in items],
         total=total,
@@ -171,74 +135,44 @@ async def list_rooms(
 @router.post("/hotels/{hotel_id}/rooms", response_model=HotelRoomOut, status_code=201)
 async def create_room(
     hotel_id: int, body: HotelRoomWrite, db: DbSession, _: AdminUser, __: SameOrigin
-) -> HotelRoom:
-    hotel = await db.get(Hotel, hotel_id)
-    if hotel is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Hotel not found")
-    max_p = int(
-        await db.scalar(
-            select(func.coalesce(func.max(HotelRoom.priority), 0)).where(
-                HotelRoom.hotel_id == hotel_id
-            )
-        )
-        or 0
-    )
-    row = HotelRoom(
-        hotel_id=hotel_id,
-        name=body.name,
-        slug=(body.slug or slugify(body.name)).strip(),
-        capacity_adults=body.capacity_adults,
-        bed_label=body.bed_label,
-        size_m2=body.size_m2,
-        amenities=body.amenities,
-        thumbnail_url=body.thumbnail_url,
-        image_list_url=body.image_list_url,
-        base_price=body.base_price,
-        sale_price=body.sale_price,
-        breakfast_price=body.breakfast_price,
-        cancel_fee_percent=body.cancel_fee_percent,
-        inventory_count=body.inventory_count,
-        is_active=body.is_active,
-        priority=body.priority if body.priority is not None else max_p + 1,
-    )
-    db.add(row)
-    await db.commit()
-    await db.refresh(row)
-    return row
+) -> HotelRoomOut:
+    try:
+        row = await admin_crud.create_room(db, hotel_id=hotel_id, data=body.model_dump())
+        await db.commit()
+        await db.refresh(row)
+    except NotFoundError as exc:
+        await db.rollback()
+        raise _map_not_found(exc) from exc
+    return HotelRoomOut.model_validate(row)
 
 
 @router.put("/hotel-rooms/{room_id}", response_model=HotelRoomOut)
 async def update_room(
     room_id: int, body: HotelRoomWrite, db: DbSession, _: AdminUser, __: SameOrigin
-) -> HotelRoom:
-    row = await db.get(HotelRoom, room_id)
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Room not found")
-    data = body.model_dump()
-    if not data.get("slug"):
-        data["slug"] = slugify(body.name)
-    for key, value in data.items():
-        if key == "priority" and value is None:
-            continue
-        setattr(row, key, value)
-    await db.commit()
-    await db.refresh(row)
-    return row
+) -> HotelRoomOut:
+    try:
+        row = await admin_crud.update_room(db, room_id, body.model_dump())
+        await db.commit()
+        await db.refresh(row)
+    except NotFoundError as exc:
+        await db.rollback()
+        raise _map_not_found(exc) from exc
+    return HotelRoomOut.model_validate(row)
 
 
 @router.delete("/hotel-rooms/{room_id}", response_model=MessageOut)
 async def delete_room(
     room_id: int, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> MessageOut:
-    row = await db.get(HotelRoom, room_id)
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Room not found")
-    await db.delete(row)
-    await db.commit()
+    try:
+        await admin_crud.delete_room(db, room_id)
+        await db.commit()
+    except NotFoundError as exc:
+        await db.rollback()
+        raise _map_not_found(exc) from exc
     return MessageOut(message="Deleted")
 
 
-# ── Hotel bookings ─────────────────────────────────────────────────────────
 @router.get("/hotel-bookings", response_model=Paginated[HotelBookingOut])
 async def list_hotel_bookings(
     db: DbSession,
@@ -248,20 +182,9 @@ async def list_hotel_bookings(
     q: str | None = None,
     status_filter: str | None = None,
 ) -> Paginated[HotelBookingOut]:
-    stmt = select(HotelBooking).order_by(HotelBooking.id.desc())
-    if status_filter:
-        stmt = stmt.where(HotelBooking.status == status_filter)
-    if q:
-        like = f"%{q}%"
-        stmt = stmt.where(
-            or_(
-                HotelBooking.booking_code.like(like),
-                HotelBooking.customer_name.like(like),
-                HotelBooking.customer_email.like(like),
-                HotelBooking.customer_phone.like(like),
-            )
-        )
-    items, total = await paginate(db, stmt, page=page, page_size=page_size)
+    items, total = await admin_crud.list_hotel_bookings(
+        db, page=page, page_size=page_size, q=q, status_filter=status_filter
+    )
     return Paginated(
         items=[HotelBookingOut.model_validate(i) for i in items],
         total=total,
@@ -273,11 +196,12 @@ async def list_hotel_bookings(
 @router.get("/hotel-bookings/{booking_id}", response_model=HotelBookingOut)
 async def get_hotel_booking(
     booking_id: int, db: DbSession, _: AdminUser
-) -> HotelBooking:
-    row = await db.get(HotelBooking, booking_id)
-    if row is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
-    return row
+) -> HotelBookingOut:
+    try:
+        row = await admin_crud.get_hotel_booking(db, booking_id)
+    except NotFoundError as exc:
+        raise _map_not_found(exc) from exc
+    return HotelBookingOut.model_validate(row)
 
 
 @router.post("/hotel-bookings/{booking_id}/confirm", response_model=HotelBookingActionOut)
@@ -289,9 +213,10 @@ async def confirm_hotel_booking(
     _: AdminUser,
     __: SameOrigin,
 ) -> HotelBookingActionOut:
-    booking = await db.get(HotelBooking, booking_id)
-    if booking is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
+    try:
+        booking = await admin_crud.get_hotel_booking(db, booking_id)
+    except NotFoundError as exc:
+        raise _map_not_found(exc) from exc
     if booking.status != "pending":
         raise HTTPException(
             status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -317,9 +242,10 @@ async def confirm_hotel_booking(
 async def complete_hotel_booking(
     booking_id: int, db: DbSession, _: AdminUser, __: SameOrigin
 ) -> HotelBookingActionOut:
-    booking = await db.get(HotelBooking, booking_id)
-    if booking is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
+    try:
+        booking = await admin_crud.get_hotel_booking(db, booking_id)
+    except NotFoundError as exc:
+        raise _map_not_found(exc) from exc
     if booking.status != "confirmed":
         raise HTTPException(
             status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -349,9 +275,10 @@ async def cancel_hotel_booking(
     _: AdminUser,
     __: SameOrigin,
 ) -> HotelBookingActionOut:
-    booking = await db.get(HotelBooking, booking_id)
-    if booking is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
+    try:
+        booking = await admin_crud.get_hotel_booking(db, booking_id)
+    except NotFoundError as exc:
+        raise _map_not_found(exc) from exc
     if booking.status == "cancelled":
         raise HTTPException(
             status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Already cancelled"

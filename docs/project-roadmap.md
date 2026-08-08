@@ -29,7 +29,7 @@ Tài liệu này ghi nhận quá trình phát triển, các cột mốc đã ho�
 ### Phase 5: Additional Catalogs & Production Readiness
 - [x] Bổ sung các module Khách sạn (`Hotel`) và Tour Du lịch (`Tour`) kèm đầy đủ RESTful CRUD APIs.
 - [x] Xây dựng cơ chế **Additive Seeds (`scripts/seeds/apply.py`)** cho phép nạp bổ sung dữ liệu danh mục an toàn trên môi trường Production mà không gây mất dữ liệu vé.
-- [x] Xây dựng **Delete Guards (`app/services/delete_guards.py`)** bảo vệ an toàn dữ liệu tham chiếu (cascade restriction).
+- [x] Xây dựng **Delete Guards (`app/application/catalog/delete_guards.py`)** bảo vệ an toàn dữ liệu tham chiếu (cascade restriction).
 - [x] Viết script Garbage Collection dọn dẹp file upload tạm (`scripts/prune_upload_staging.py`).
 
 ---

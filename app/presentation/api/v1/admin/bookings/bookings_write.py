@@ -30,7 +30,7 @@ async def admin_create_booking(
     """Manual booking create for ops taking a booking by phone.
 
     Reuses the exact same server-authoritative pricing path as the public
-    client funnel (app/api/v1/bookings/booking_routes.py create_booking) —
+    client funnel (app/presentation/api/v1/bookings/booking_routes.py create_booking) —
     no separate admin pricing logic to keep in sync.
     """
     try:

@@ -35,7 +35,7 @@ Hệ thống tuân thủ nghiêm ngặt nguyên lý **Clean Architecture**, phâ
   - **Inline Mode (`MAIL_QUEUE_INLINE=true`)**: Xử lý gửi mail trong FastAPI `BackgroundTask` (phù hợp Dev/Local).
   - **Worker Mode (`MAIL_QUEUE_INLINE=false`)**: Tiến trình độc lập `scripts/mail_worker.py` liên tục quét DB và gửi mail qua Gmail SMTP với chính sách tự động retry khi thất bại.
 
-### 2.6. Delete Guards & Bảo vệ Ràng buộc Dữ liệu (`app/services/delete_guards.py`)
+### 2.6. Delete Guards & Bảo vệ Ràng buộc Dữ liệu (`app/application/catalog/delete_guards.py`)
 - Ngăn chặn xóa dữ liệu có chứa quan hệ ràng buộc (ví dụ: Không cho xóa Tuyến đường/Tỉnh thành khi đang có Vé xe hoặc Chuyến xe hoạt động).
 - Trả về mã lỗi HTTP 400 kèm thông báo cấu trúc chi tiết `{ detail: { message, booking_count } }` giúp Admin hiển thị thông báo rõ ràng cho người dùng.
 

@@ -22,7 +22,7 @@ Tài liệu này định nghĩa các tiêu chuẩn thiết kế RESTful API cont
 
 ## 2. Pagination & Unified Response Contract
 
-Tất cả các API danh sách phía Admin tuân thủ chuẩn phân trang chung của FastAPI backend (`app/schemas/admin_common.py`):
+Tất cả các API danh sách phía Admin tuân thủ chuẩn phân trang chung của FastAPI backend (`app/presentation/schemas/admin_common.py`):
 
 ### 2.1. Request Query Parameters
 - `page`: Số trang hiện tại (Mặc định: `1`).

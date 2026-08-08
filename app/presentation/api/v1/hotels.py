@@ -1,4 +1,4 @@
-"""Public hotel listing + hotel booking create/detail."""
+"""Public hotel listing + hotel booking create/detail (signed success URL)."""
 
 from __future__ import annotations
 
@@ -16,6 +16,10 @@ from app.core.rate_limit import client_ip, rate_limiter
 from app.infrastructure.mail import service_mail
 from app.infrastructure.persistence.models import Hotel, HotelBooking, HotelRoom, User
 from app.infrastructure.persistence.session import AsyncSessionLocal
+from app.presentation.api.v1.service_booking_urls import (
+    issue_signed_success_url,
+    verify_signed_booking_access,
+)
 from app.presentation.schemas.hotel import (
     HotelBookingCreateIn,
     HotelBookingCreateOut,
@@ -142,9 +146,10 @@ async def create_booking(
         raise HTTPException(exc.status_code, detail=exc.message) from exc
 
     background_tasks.add_task(_bg_hotel_mail, booking.id, "confirmation", settings)
-    success_url = (
-        f"{settings.frontend_base_url.rstrip('/')}/khach-san/dat-phong/thanh-cong/"
-        f"{booking.id}"
+    success_url = issue_signed_success_url(
+        settings,
+        booking_id=booking.id,
+        path_template=settings.hotel_success_path_template,
     )
     return HotelBookingCreateOut(
         booking=HotelBookingOut.model_validate(booking),
@@ -156,12 +161,23 @@ async def create_booking(
 async def get_hotel_booking(
     booking_id: int,
     db: DbSession,
-    user: Annotated[User | None, Depends(get_current_user_optional)],
+    settings: AppSettings,
+    expires: int = Query(..., description="Unix expiry from signed success URL"),
+    signature: str = Query(..., description="HMAC signature from signed success URL"),
 ) -> HotelBooking:
+    """Full hotel booking detail — requires valid temporary signature (≈24h)."""
+    ok = verify_signed_booking_access(
+        settings=settings,
+        booking_id=booking_id,
+        expires=expires,
+        signature=signature,
+        path_template=settings.hotel_success_path_template,
+    )
+    if not ok:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, detail="Invalid or expired signature"
+        )
     booking = await db.get(HotelBooking, booking_id)
     if booking is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
-    if user is not None and booking.user_id and booking.user_id != user.id:
-        if getattr(user, "role", None) not in ("admin", "staff"):
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Booking not found")
     return booking

@@ -1,4 +1,4 @@
-"""Hotel booking creation + soft room inventory."""
+"""Hotel booking creation + soft room inventory (row-locked)."""
 
 from __future__ import annotations
 
@@ -34,6 +34,7 @@ async def rooms_booked(
     check_in: date,
     check_out: date,
     exclude_booking_id: int | None = None,
+    for_update: bool = False,
 ) -> int:
     """Sum rooms_count for overlapping active bookings on this room."""
     stmt = select(func.coalesce(func.sum(HotelBooking.rooms_count), 0)).where(
@@ -44,6 +45,8 @@ async def rooms_booked(
     )
     if exclude_booking_id is not None:
         stmt = stmt.where(HotelBooking.id != exclude_booking_id)
+    if for_update:
+        stmt = stmt.with_for_update()
     return int(await db.scalar(stmt) or 0)
 
 
@@ -53,9 +56,14 @@ async def available_inventory(
     room: HotelRoom,
     check_in: date,
     check_out: date,
+    for_update: bool = False,
 ) -> int:
     booked = await rooms_booked(
-        db, room_id=room.id, check_in=check_in, check_out=check_out
+        db,
+        room_id=room.id,
+        check_in=check_in,
+        check_out=check_out,
+        for_update=for_update,
     )
     return max(0, int(room.inventory_count) - booked)
 
@@ -105,16 +113,25 @@ async def create_hotel_booking(
     if check_in < date.today():
         raise BookingError("Check-in cannot be in the past")
 
-    room = await db.get(HotelRoom, room_id)
+    room = (
+        await db.execute(
+            select(HotelRoom).where(HotelRoom.id == room_id).with_for_update()
+        )
+    ).scalar_one_or_none()
     if room is None or not room.is_active:
         raise BookingError("Room not found", status_code=404)
+
     hotel = await db.get(Hotel, room.hotel_id)
     if hotel is None or not hotel.is_active:
         raise BookingError("Hotel not found", status_code=404)
 
     nights = (check_out - check_in).days
     available = await available_inventory(
-        db, room=room, check_in=check_in, check_out=check_out
+        db,
+        room=room,
+        check_in=check_in,
+        check_out=check_out,
+        for_update=True,
     )
     if rooms_count > available:
         raise BookingError(
