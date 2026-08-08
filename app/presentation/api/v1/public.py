@@ -13,9 +13,14 @@ from app.application.website import public_content
 from app.core.deps import DbSession
 from app.domain.shared.errors import NotFoundError
 from app.infrastructure.persistence.models import Province, Route, Trip
-from app.presentation.api.v1.public_mappers import build_menu_tree, web_profile_to_out
+from app.presentation.api.v1.public_mappers import (
+    build_menu_tree,
+    offices_grouped_by_province,
+    web_profile_to_out,
+)
 from app.presentation.schemas.public import (
     MenuNodeOut,
+    OfficeProvinceGroupOut,
     PriceBreakdownOut,
     ProvinceOut,
     RouteListOut,
@@ -39,6 +44,13 @@ async def get_web_profile(db: DbSession) -> WebProfileOut:
 @router.get("/menus", response_model=list[MenuNodeOut])
 async def get_menus(db: DbSession) -> list[MenuNodeOut]:
     return build_menu_tree(await public_content.list_menus(db))
+
+
+@router.get("/offices", response_model=list[OfficeProvinceGroupOut])
+async def list_offices(db: DbSession) -> list[OfficeProvinceGroupOut]:
+    """Public office directory = stops used as route pickup/dropoff, grouped by province."""
+    rows = await public_content.list_route_offices(db)
+    return offices_grouped_by_province(rows)
 
 
 @router.get("/provinces", response_model=list[ProvinceOut])

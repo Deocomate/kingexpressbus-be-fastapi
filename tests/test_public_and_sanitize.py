@@ -47,8 +47,51 @@ def test_public_openapi_paths() -> None:
     paths = client.get("/openapi.json").json()["paths"]
     assert "/api/v1/public/web-profile" in paths
     assert "/api/v1/public/menus" in paths
+    assert "/api/v1/public/offices" in paths
     assert "/api/v1/public/provinces" in paths
     assert "/api/v1/public/routes" in paths
     assert "/api/v1/public/trips/search" in paths
     assert "/api/v1/public/trips/{trip_id}" in paths
     assert "/api/v1/public/trips/{trip_id}/price" in paths
+
+
+def test_offices_grouped_by_province() -> None:
+    from app.application.website.public_content import OfficeRow
+    from app.presentation.api.v1.public_mappers import offices_grouped_by_province
+
+    rows = [
+        OfficeRow(
+            id=1,
+            name="A",
+            address="Addr A",
+            district_name="D1",
+            province_id=1,
+            province_name="Hà Nội",
+            province_priority=100,
+            stop_priority=1,
+        ),
+        OfficeRow(
+            id=2,
+            name="B",
+            address=None,
+            district_name="D2",
+            province_id=2,
+            province_name="Sapa",
+            province_priority=99,
+            stop_priority=0,
+        ),
+        OfficeRow(
+            id=3,
+            name="C",
+            address="Addr C",
+            district_name="D1",
+            province_id=1,
+            province_name="Hà Nội",
+            province_priority=100,
+            stop_priority=0,
+        ),
+    ]
+    groups = offices_grouped_by_province(rows)
+    assert [g.province_name for g in groups] == ["Hà Nội", "Sapa"]
+    assert [o.name for o in groups[0].offices] == ["A", "C"]
+    assert groups[1].offices[0].name == "B"

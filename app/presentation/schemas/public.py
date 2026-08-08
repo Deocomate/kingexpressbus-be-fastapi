@@ -118,3 +118,16 @@ class TripSearchQuery(BaseModel):
     origin_province_id: int
     destination_province_id: int
     date: date
+
+
+class OfficeOut(BaseModel):
+    id: int
+    name: str
+    address: str | None = None
+    district_name: str
+
+
+class OfficeProvinceGroupOut(BaseModel):
+    province_id: int
+    province_name: str
+    offices: list[OfficeOut] = Field(default_factory=list)

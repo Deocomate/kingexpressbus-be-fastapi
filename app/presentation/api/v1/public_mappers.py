@@ -3,8 +3,14 @@
 from __future__ import annotations
 
 from app.application.catalog import html_sanitize
+from app.application.website.public_content import OfficeRow
 from app.infrastructure.persistence.models import Menu, WebProfile
-from app.presentation.schemas.public import MenuNodeOut, WebProfileOut
+from app.presentation.schemas.public import (
+    MenuNodeOut,
+    OfficeOut,
+    OfficeProvinceGroupOut,
+    WebProfileOut,
+)
 
 
 def web_profile_to_out(profile: WebProfile) -> WebProfileOut:
@@ -54,3 +60,27 @@ def build_menu_tree(menus: list[Menu]) -> list[MenuNodeOut]:
         ]
 
     return children_of(-1)
+
+
+def offices_grouped_by_province(rows: list[OfficeRow]) -> list[OfficeProvinceGroupOut]:
+    groups: dict[int, OfficeProvinceGroupOut] = {}
+    order: list[int] = []
+    for row in rows:
+        group = groups.get(row.province_id)
+        if group is None:
+            group = OfficeProvinceGroupOut(
+                province_id=row.province_id,
+                province_name=row.province_name,
+                offices=[],
+            )
+            groups[row.province_id] = group
+            order.append(row.province_id)
+        group.offices.append(
+            OfficeOut(
+                id=row.id,
+                name=row.name,
+                address=row.address,
+                district_name=row.district_name,
+            )
+        )
+    return [groups[pid] for pid in order]
