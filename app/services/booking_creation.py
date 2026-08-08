@@ -16,7 +16,7 @@ from datetime import date
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.models import Booking, Bus, Route, RouteStop, Trip, TripBlock
+from app.db.models import Booking, Bus, Route, RouteStop, Trip, TripBlock, WebProfile
 from app.services import booking_notes as notes
 from app.services.booking_shared import (
     COUNTED_STATUSES,
@@ -28,6 +28,19 @@ from app.services.pricing import resolve_effective_price
 from app.services.seats import available_seats
 
 logger = logging.getLogger(__name__)
+
+
+async def _ensure_online_payment_enabled(db: AsyncSession) -> None:
+    """Reject online_banking when the default web profile has it disabled."""
+    result = await db.execute(
+        select(WebProfile).where(WebProfile.is_default.is_(True)).limit(1)
+    )
+    profile = result.scalar_one_or_none()
+    if profile is None:
+        result = await db.execute(select(WebProfile).limit(1))
+        profile = result.scalar_one_or_none()
+    if profile is None or not bool(profile.online_payment_enabled):
+        raise BookingError("Online payment is disabled")
 
 
 async def _generate_booking_code(db: AsyncSession) -> str:
@@ -107,6 +120,8 @@ async def create_booking(
     """Create pending booking. Rejects price mismatch before taking locks."""
     if payment_method not in ("cash_on_pickup", "online_banking"):
         raise BookingError("Invalid payment method")
+    if payment_method == "online_banking":
+        await _ensure_online_payment_enabled(db)
     if quantity < 1:
         raise BookingError("Quantity must be at least 1")
 

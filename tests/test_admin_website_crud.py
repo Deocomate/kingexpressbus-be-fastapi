@@ -19,6 +19,7 @@ async def test_web_profile_list_get_update(admin_client) -> None:
     profiles = r.json()
     assert len(profiles) >= 1
     profile_id = profiles[0]["id"]
+    assert profiles[0].get("online_payment_enabled") is True
 
     r = await admin_client.get(f"/api/v1/admin/web-profiles/{profile_id}")
     assert r.status_code == 200
@@ -32,6 +33,29 @@ async def test_web_profile_list_get_update(admin_client) -> None:
 
     r = await admin_client.get(f"/api/v1/admin/web-profiles/{profile_id}")
     assert r.json()["hotline"] == new_hotline
+
+
+async def test_web_profile_online_payment_enabled_toggle(admin_client) -> None:
+    r = await admin_client.get("/api/v1/admin/web-profiles")
+    assert r.status_code == 200
+    profile_id = r.json()[0]["id"]
+
+    r = await admin_client.put(
+        f"/api/v1/admin/web-profiles/{profile_id}",
+        json={"online_payment_enabled": False},
+    )
+    assert r.status_code == 200, r.text
+    assert r.json()["online_payment_enabled"] is False
+
+    r = await admin_client.get(f"/api/v1/admin/web-profiles/{profile_id}")
+    assert r.json()["online_payment_enabled"] is False
+
+    r = await admin_client.put(
+        f"/api/v1/admin/web-profiles/{profile_id}",
+        json={"online_payment_enabled": True},
+    )
+    assert r.status_code == 200, r.text
+    assert r.json()["online_payment_enabled"] is True
 
 
 async def test_web_profile_get_missing_404(admin_client) -> None:

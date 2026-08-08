@@ -3,6 +3,7 @@
         "id": 1,
         "profile_name": "Cấu hình mặc định",
         "is_default": 1,
+        "online_payment_enabled": 1,
         "title": "King Express Bus - Nhà xe chất lượng cao",
         "description": "Chuyên cung cấp dịch vụ vận tải hành khách tuyến Bắc - Nam với dòng xe limousine và giường nằm cao cấp. An toàn, tiện nghi và đúng giờ.",
         "logo_url": "/assets/client/images/web-information/logo.jpg",

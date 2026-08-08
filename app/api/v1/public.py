@@ -68,6 +68,7 @@ async def get_web_profile(db: DbSession) -> WebProfileOut:
     return WebProfileOut(
         id=profile.id,
         profile_name=profile.profile_name,
+        online_payment_enabled=bool(profile.online_payment_enabled),
         title=profile.title,
         description=profile.description,
         logo_url=profile.logo_url,

@@ -165,8 +165,9 @@ async def _seed_default_web_profile() -> None:
             if await cur.fetchone():
                 return
             await cur.execute(
-                "INSERT INTO web_profiles (profile_name, is_default) VALUES (%s, %s)",
-                ("King Express Bus", True),
+                "INSERT INTO web_profiles (profile_name, is_default, online_payment_enabled) "
+                "VALUES (%s, %s, %s)",
+                ("King Express Bus", True, True),
             )
         await conn.commit()
     finally:

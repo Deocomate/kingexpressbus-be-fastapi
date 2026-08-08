@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 class WebProfileWrite(BaseModel):
     profile_name: str | None = None
     is_default: bool | None = None
+    online_payment_enabled: bool | None = None
     title: str | None = None
     description: str | None = None
     logo_url: str | None = None
@@ -26,6 +27,7 @@ class WebProfileAdminOut(WebProfileWrite):
     id: int
     profile_name: str
     is_default: bool
+    online_payment_enabled: bool = True
 
     model_config = {"from_attributes": True}
 

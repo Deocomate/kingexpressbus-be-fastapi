@@ -15,6 +15,7 @@ class WebProfile(Base, TimestampMixin):
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     profile_name: Mapped[str] = mapped_column(String(255))
     is_default: Mapped[bool] = mapped_column(Boolean, default=False)
+    online_payment_enabled: Mapped[bool] = mapped_column(Boolean, default=True)
     title: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)
     description: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)
     logo_url: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)

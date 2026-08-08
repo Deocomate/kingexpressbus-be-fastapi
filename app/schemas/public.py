@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 class WebProfileOut(BaseModel):
     id: int
     profile_name: str
+    online_payment_enabled: bool = True
     title: str | None = None
     description: str | None = None
     logo_url: str | None = None
