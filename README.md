@@ -1,101 +1,116 @@
-# kingexpressbus-backend-python
+# King Express Bus - Backend (FastAPI + SQLAlchemy)
 
-FastAPI + SQLAlchemy backend for King Express Bus.
+Hệ thống xử lý nghiệp vụ trung tâm (Backend RESTful API Service) cho hệ thống **King Express Bus**, được phát triển dựa trên **FastAPI**, **SQLAlchemy 2.0**, **Pydantic v2** và kiến trúc sạch **Clean Architecture**.
 
-## Architecture
+---
 
-Clean Architecture layers under `app/`:
+## 🏗️ Kiến trúc Hệ thống (Clean Architecture)
+
+Dự án áp dụng mô hình Clean Architecture phân tầng nghiêm ngặt trong thư mục `app/`:
 
 ```text
 app/
-  domain/            # domain errors
-  application/       # use cases (booking, auth, catalog, website)
-  infrastructure/    # SQLAlchemy, mail, SePay, uploads, security
-  presentation/      # FastAPI routers + Pydantic schemas
-  core/              # settings, deps
-  templates/         # Jinja2 email templates
+├── domain/            # Định nghĩa lỗi nghiệp vụ (Domain Errors) & Core Rules
+├── application/       # Use Cases xử lý logic nghiệp vụ (Booking, Auth, Catalog, Hotel, Tour, Website)
+├── infrastructure/    # Cấu hình SQLAlchemy models, SePay Gateway, Mail SMTP, Storage uploads
+├── presentation/      # FastAPI routers (/api/v1) & Pydantic v2 validation schemas
+├── core/              # System settings, security (JWT/Bcrypt), dependencies injection
+└── templates/         # Jinja2 HTML email templates (Booking confirmation, Password reset)
 ```
 
-Dependency rule: `presentation` → `application` → `domain` ← `infrastructure`.
+**Quy tắc phụ thuộc (Dependency Rule)**:  
+`presentation` ➔ `application` ➔ `domain` ⬅️ `infrastructure`
 
-## Database setup
+---
 
+## 🚀 Công nghệ & Thư viện Chính
+
+- **Python**: `>= 3.11`
+- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) + Pydantic v2
+- **ORM & DB Engine**: SQLAlchemy 2.0 + Alembic (Database Migrations)
+- **Database**: PostgreSQL / MySQL
+- **Authentication**: OAuth2 / Bearer Token & Cookie-based Admin Auth (Bcrypt, PyJWT)
+- **Email Engine**: Durable MySQL/PostgreSQL Mail Queue (`mail_jobs`) + Jinja2 + Gmail SMTP
+- **Thanh toán**: SePay VietQR Payment Gateway Webhook Integration
+
+---
+
+## 🛠️ Hướng dẫn Khởi chạy & Thiết lập Cơ sở Dữ liệu
+
+### 1. Khởi tạo Môi trường Ảo & Dependencies
 ```bash
-alembic upgrade head    # creates / upgrades schema
-python scripts/seed.py  # LOCAL/DEV ONLY — truncates business tables then loads
-                         # full content from seed_data/. Refuses APP_ENV that
-                         # looks like production unless you pass --force.
+python -m venv .venv
+# On Windows:
+.venv\Scripts\activate
+# On Linux/macOS:
+source .venv/bin/activate
+
+pip install -r requirements.txt
 ```
 
-Seed JSON lives in `app/infrastructure/persistence/seed_data/`.
+### 2. Cấu hình File Môi trường (`.env`)
+Tạo file `.env` từ `.env.example`:
+```env
+APP_ENV=development
+SECRET_KEY=your_super_secret_jwt_key
+DATABASE_URL=postgresql://user:password@localhost:5432/kingexpressbus
 
-Admin login after seeding: `admin@kingexpressbus.com` / `Admin@123`. The other
-13 seeded users keep their existing bcrypt hashes (no known plaintext password —
-reset required to log in as them).
+# Email & Mail Queue Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASSWORD=your_gmail_app_password
+MAIL_QUEUE_INLINE=true
+```
 
-### Additive seed updates (production-safe)
-
-After deploying a migration that adds catalog tables (e.g. hotels/tours), apply
-**insert-missing** updates instead of a full reseed. These never truncate
-bookings or users; they key on slug/url and are idempotent.
+### 3. Migrations & Seed Dữ liệu
 
 ```bash
-python -m scripts.seeds.apply --list
-python -m scripts.seeds.apply 20260808_hotels_tours_menus          # insert missing
-python -m scripts.seeds.apply 20260808_hotels_tours_menus --dry-run
-python -m scripts.seeds.apply 20260808_hotels_tours_menus --update # refresh existing too
+# 1. Chạy Alembic Upgrade Schema
+alembic upgrade head
+
+# 2. Seed dữ liệu mẫu (LOCAL / DEV ONLY - Xóa & nạp lại toàn bộ bảng)
+python scripts/seed.py
+
+# 3. Additive Seed updates (Production-safe - chỉ thêm dữ liệu thiếu, không truncate)
 python -m scripts.seeds.apply --all
 ```
 
-New production content drops go in `scripts/seeds/` (register in
-`scripts/seeds/registry.py`). Reuse JSON under `seed_data/` when possible.
+> **Tài khoản Admin mặc định sau khi Seed**: `admin@kingexpressbus.com` / `Admin@123`
 
-## Scripts layout
+---
 
-| Path | Purpose |
-|------|---------|
-| `scripts/seed.py` | Full truncate+seed (local/dev) |
-| `scripts/seeds/` | Additive updates for prod/staging |
-| `scripts/mail_worker.py` | Mail queue worker |
-| `scripts/prune_upload_staging.py` | GC for staged admin uploads |
-| `scripts/docker-entrypoint.sh` | Container entry (migrations + app) |
-| `scripts/dev/` | Local smoke / mail probes only |
+## 🛠️ Scripts & Background Workers
 
-## Maintenance scripts
+| Script | Mục đích |
+|---|---|
+| `scripts/seed.py` | Truncate & Seed toàn bộ dữ liệu mẫu (Dev mode) |
+| `scripts/seeds/apply.py` | Nạp dữ liệu sản phẩm/danh mục bổ sung an toàn cho Prod |
+| `scripts/mail_worker.py` | Background worker xử lý hàng chờ gửi email (`mail_jobs`) |
+| `scripts/prune_upload_staging.py` | Garbage Collection dọn dẹp file upload tạm chưa commit |
 
-### Upload staging garbage collection
+---
 
-Staged admin uploads (`app/infrastructure/storage/uploads.py`) live under
-`{UPLOAD_ROOT}/admin-tmp/{session}/{uuid}/{filename}` until an admin commits
-or reverts them. `scripts/prune_upload_staging.py` deletes any staged
-directory older than `--hours` (default 24).
+## 🧪 Chạy Kiểm thử (Pytest)
 
 ```bash
-python -m scripts.prune_upload_staging            # default: 24h cutoff
-python -m scripts.prune_upload_staging --hours 12 # custom cutoff
+# Chạy toàn bộ test suite
+pytest
+
+# Chạy test chi tiết kèm output
+pytest -v -s
 ```
 
-Cron (daily):
+---
 
-```cron
-0 0 * * * cd /path/to/kingexpressbus-backend-python && .venv/bin/python -m scripts.prune_upload_staging >> /var/log/kingexpressbus/prune-uploads.log 2>&1
-```
+## 📚 Tài liệu Chi tiết (`./docs`)
 
-On Windows Task Scheduler, run `.venv\Scripts\python.exe -m scripts.prune_upload_staging` daily instead.
+Thông tin chi tiết về thiết kế API và kiến trúc lưu trữ được lưu tại thư mục `./docs`:
 
-## Email (Gmail SMTP + MySQL queue)
-
-Booking mails enqueue into `mail_jobs` (durable), then send via Gmail SMTP.
-
-1. Copy SMTP settings from `.env.example` into `.env` (use a Gmail **App Password**).
-2. Apply migration: `alembic upgrade head`
-3. Local/dev: `MAIL_QUEUE_INLINE=true` processes one job inside the FastAPI BackgroundTask after enqueue.
-4. Production: set `MAIL_QUEUE_INLINE=false` and run a worker:
-
-```bash
-python -m scripts.mail_worker
-# or one-shot:
-python -m scripts.mail_worker --once
-```
-
-Failed sends retry with backoff up to `MAIL_MAX_ATTEMPTS`, then move to `failed_mail_jobs`.
+- 📋 [Overview & PDR](./docs/project-overview-pdr.md): Yêu cầu nghiệp vụ, Delete-guards & SePay flow.
+- 📦 [Codebase Summary](./docs/codebase-summary.md): Chi tiết các tầng Clean Architecture & Model schemas.
+- 📏 [Code Standards](./docs/code-standards.md): Tiêu chuẩn lập trình Python, FastAPI, SQLAlchemy 2.0 & Pytest.
+- 🏗️ [System Architecture](./docs/system-architecture.md): Sơ đồ kiến trúc Clean Architecture, ERD & Mail Pipeline.
+- 🚀 [Deployment Guide](./docs/deployment-guide.md): Triển khai Docker Compose, Mail Worker Daemon & Cron jobs.
+- 🎨 [API & Database Design](./docs/design-guidelines.md): Quy chuẩn RESTful API, Pagination contract & Indexing.
+- 🗺️ [Project Roadmap](./docs/project-roadmap.md): Lộ trình phát triển & tính năng backend tương lai.
