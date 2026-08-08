@@ -1,7 +1,8 @@
-"""Guest claim-on-register + guest booking user linking."""
+"""Guest claim-on-register + email verification + guest booking linking."""
 
 from __future__ import annotations
 
+import re
 import uuid
 from datetime import date, timedelta
 
@@ -15,6 +16,7 @@ from app.db.models import Booking, User
 from app.db.session import AsyncSessionLocal
 from app.main import app
 from app.services import customer_accounts
+from app.services.mail_sender import RecordingMailSender, set_mail_sender
 
 pytestmark = pytest.mark.asyncio
 
@@ -29,6 +31,12 @@ def _email(prefix: str = "guest") -> str:
     return f"{prefix}-{uuid.uuid4().hex[:10]}@example.com"
 
 
+def _extract_code(html: str) -> str:
+    match = re.search(r"letter-spacing:6px\">(\d{4})</p>", html)
+    assert match, f"code not found in mail html: {html[:200]}"
+    return match.group(1)
+
+
 @pytest.fixture
 async def public_client() -> httpx.AsyncClient:
     rate_limiter._hits.clear()
@@ -41,6 +49,14 @@ async def public_client() -> httpx.AsyncClient:
         yield client
 
 
+@pytest.fixture
+def mail_recorder():
+    recorder = RecordingMailSender()
+    set_mail_sender(recorder)
+    yield recorder
+    set_mail_sender(None)
+
+
 async def _seed_guest_user(*, email: str, name: str = "Guest User") -> int:
     async with AsyncSessionLocal() as db:
         user = User(
@@ -49,6 +65,7 @@ async def _seed_guest_user(*, email: str, name: str = "Guest User") -> int:
             phone="0900000999",
             password=None,
             role="guest",
+            email_verified_at=None,
         )
         db.add(user)
         await db.commit()
@@ -57,6 +74,8 @@ async def _seed_guest_user(*, email: str, name: str = "Guest User") -> int:
 
 
 async def _seed_customer_user(*, email: str, password: str = "Password1!") -> int:
+    from datetime import UTC, datetime
+
     async with AsyncSessionLocal() as db:
         user = User(
             name="Existing Customer",
@@ -64,6 +83,7 @@ async def _seed_customer_user(*, email: str, password: str = "Password1!") -> in
             phone="0900000888",
             password=hash_password(password),
             role="customer",
+            email_verified_at=datetime.now(UTC).replace(tzinfo=None),
         )
         db.add(user)
         await db.commit()
@@ -120,7 +140,10 @@ async def test_ensure_customer_user_creates_guest() -> None:
         await _cleanup_users(email)
 
 
-async def test_register_claims_guest_account(public_client: httpx.AsyncClient) -> None:
+async def test_register_claims_guest_requires_verification(
+    public_client: httpx.AsyncClient,
+    mail_recorder: RecordingMailSender,
+) -> None:
     email = _email("claim")
     guest_id = await _seed_guest_user(email=email, name="Old Guest")
     try:
@@ -135,18 +158,38 @@ async def test_register_claims_guest_account(public_client: httpx.AsyncClient) -
         )
         assert r.status_code == 201, r.text
         body = r.json()
-        assert body["id"] == guest_id
-        assert body["role"] == "customer"
-        assert body["name"] == "Claimed Name"
-        assert "set-cookie" in {k.lower() for k in r.headers.keys()}
+        assert body["email"] == email.lower()
+        assert body["verification_required"] is True
+        assert "set-cookie" not in {k.lower() for k in r.headers.keys()} or (
+            "session" not in r.headers.get("set-cookie", "").lower()
+            and public_client.cookies.get("session") is None
+        )
+
+        assert len(mail_recorder.sent) >= 1
+        code = _extract_code(mail_recorder.sent[-1]["html"])
+
+        # Login blocked until verified
+        blocked = await public_client.post(
+            "/api/v1/auth/login",
+            json={"email": email, "password": "Password1!"},
+        )
+        assert blocked.status_code == 403, blocked.text
+        assert blocked.json()["detail"] == "Email not verified"
+
+        verified = await public_client.post(
+            "/api/v1/auth/verify-email",
+            json={"email": email, "code": code},
+        )
+        assert verified.status_code == 200, verified.text
+        assert verified.json()["id"] == guest_id
+        assert verified.json()["role"] == "customer"
 
         async with AsyncSessionLocal() as db:
             user = await db.get(User, guest_id)
             assert user is not None
-            assert user.role == "customer"
+            assert user.email_verified_at is not None
             assert verify_password("Password1!", user.password)
 
-        # Login works after claim
         login = await public_client.post(
             "/api/v1/auth/login",
             json={"email": email, "password": "Password1!"},
@@ -255,6 +298,7 @@ async def _scaffold_bookable_trip(admin_client) -> tuple[int, int, int, int]:
 async def test_guest_booking_links_user_and_claim_shows_in_mine(
     admin_client,
     public_client: httpx.AsyncClient,
+    mail_recorder: RecordingMailSender,
 ) -> None:
     email = _email("book")
     trip_id, pickup_id, dropoff_id, price = await _scaffold_bookable_trip(admin_client)
@@ -290,7 +334,6 @@ async def test_guest_booking_links_user_and_claim_shows_in_mine(
             assert user.role == "guest"
             linked_user_id = user.id
 
-        # Orphan leftover from older FastAPI path (user_id null, same email)
         async with AsyncSessionLocal() as db:
             orphan = Booking(
                 booking_code=_name("ORPHAN")[:16].upper(),
@@ -327,8 +370,15 @@ async def test_guest_booking_links_user_and_claim_shows_in_mine(
             },
         )
         assert reg.status_code == 201, reg.text
-        assert reg.json()["id"] == linked_user_id
-        assert reg.json()["role"] == "customer"
+        code = _extract_code(mail_recorder.sent[-1]["html"])
+
+        verified = await public_client.post(
+            "/api/v1/auth/verify-email",
+            json={"email": email, "code": code},
+        )
+        assert verified.status_code == 200, verified.text
+        assert verified.json()["id"] == linked_user_id
+        assert verified.json()["role"] == "customer"
 
         mine = await public_client.get("/api/v1/bookings/mine")
         assert mine.status_code == 200, mine.text
@@ -349,5 +399,4 @@ async def test_guest_booking_links_user_and_claim_shows_in_mine(
                 await db.delete(row)
             await db.commit()
         await _cleanup_users(email)
-        # Trip/route cleanup best-effort; session DB is shared but unique names avoid clashes
         await admin_client.delete(f"/api/v1/admin/trips/{trip_id}")

@@ -34,3 +34,11 @@ class PasswordResetToken(Base):
     email: Mapped[str] = mapped_column(String(255), primary_key=True)
     token: Mapped[str] = mapped_column(String(255))
     created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+
+
+class EmailVerificationToken(Base):
+    __tablename__ = "email_verification_tokens"
+
+    email: Mapped[str] = mapped_column(String(255), primary_key=True)
+    token: Mapped[str] = mapped_column(String(255))
+    created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)

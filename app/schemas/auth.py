@@ -15,6 +15,21 @@ class RegisterRequest(BaseModel):
     phone: str | None = None
 
 
+class RegisterPendingOut(BaseModel):
+    email: EmailStr
+    verification_required: bool = True
+    message: str = "Verification code sent"
+
+
+class VerifyEmailRequest(BaseModel):
+    email: EmailStr
+    code: str = Field(min_length=4, max_length=4, pattern=r"^\d{4}$")
+
+
+class ResendVerificationRequest(BaseModel):
+    email: EmailStr
+
+
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
 
