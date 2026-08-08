@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "SAPA COSY HOTEL",
+    "slug": "sapa-cosy-hotel",
+    "address": "458 Đường Điện Biên Phủ, Sa Pa, Việt Nam",
+    "short_description": "Khách sạn 3 sao tại trung tâm Sa Pa — view núi, Wi-Fi miễn phí, lễ tân 24 giờ.",
+    "description": "<p>Nằm ở Sa Pa, cách Trạm cáp treo Fansipan 5.4 km, SAPA COSY HOTEL cung cấp chỗ nghỉ có khu vườn, chỗ đậu xe riêng miễn phí, phòng chờ chung và sân hiên. Khách sạn 3 sao này cung cấp dịch vụ phòng, quầy lễ tân 24 giờ và Wi-Fi miễn phí. Một số phòng tại chỗ nghỉ có ban công với view thành phố.</p><p>Khách sạn có phục vụ bữa sáng món chay hoặc đồ ăn Halal. Tại SAPA COSY HOTEL, khách sẽ tìm thấy nhà hàng phục vụ ẩm thực Mỹ, Ý và Nhật.</p><p>Các điểm tham quan gần đây gồm Hồ Sa Pa, Sa Pa Bus Station và Ham Rong Garden.</p>",
+    "amenities": [
+      "Xe đưa đón sân bay",
+      "Phòng không hút thuốc",
+      "WiFi miễn phí",
+      "Nhà hàng",
+      "Chỗ đỗ xe miễn phí",
+      "Dịch vụ phòng",
+      "Tiện nghi cho khách khuyết tật",
+      "Phòng gia đình",
+      "Quầy bar",
+      "Bữa sáng"
+    ],
+    "policies": {
+      "children": "Phù hợp cho tất cả trẻ em. Nôi/cũi miễn phí (2–6 tuổi) nếu yêu cầu. Giường phụ từ 14 tuổi: VND 400.000/người/đêm.",
+      "pets": "Vật nuôi không được phép.",
+      "payment": "Chỉ thanh toán bằng tiền mặt tại chỗ nghỉ. Không cần thanh toán trước.",
+      "cancellation": "Phí hủy tùy loại phòng (thường 50% tiền phòng)."
+    },
+    "thumbnail_url": "/assets/client/images/hotel/sapa-cosy/36-ngoai-that-ks.jpg",
+    "image_list_url": [
+      "/assets/client/images/hotel/sapa-cosy/36-ngoai-that-ks.jpg",
+      "/assets/client/images/hotel/sapa-cosy/38-toan-canh-truoc.jpg",
+      "/assets/client/images/hotel/sapa-cosy/35-le-tan.jpg",
+      "/assets/client/images/hotel/sapa-cosy/30-lt-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/31-lt-3.jpg",
+      "/assets/client/images/hotel/sapa-cosy/40-view-chung-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/41-view-chung.jpg",
+      "/assets/client/images/hotel/sapa-cosy/42-vs.jpg",
+      "/assets/client/images/hotel/sapa-cosy/43-ve-sinh-chung.jpg"
+    ],
+    "map_embedded": null,
+    "check_in_from": "14:00",
+    "check_in_to": "22:00",
+    "check_out_from": "12:00",
+    "check_out_to": "12:30",
+    "rating_score": "6.0",
+    "rating_label": "Dễ chịu",
+    "rating_count": 64,
+    "is_active": true,
+    "priority": 10,
+    "created_at": "2026-08-08 00:00:00",
+    "updated_at": "2026-08-08 00:00:00"
+  }
+]

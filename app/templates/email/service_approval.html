@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  {% if service_kind == 'hotel' %}
+  Đặt phòng của bạn đã được xác nhận. Vui lòng thanh toán tại chỗ nghỉ hoặc theo hướng dẫn chuyển khoản.
+  <br>Your hotel booking has been confirmed. Please pay at the property or via manual bank transfer.
+  {% else %}
+  Đặt tour của bạn đã được xác nhận. Vui lòng thanh toán tại chỗ hoặc theo hướng dẫn chuyển khoản.
+  <br>Your tour booking has been confirmed. Please pay on-site or via manual bank transfer.
+  {% endif %}
+</p>
+{% include "partials/service_booking_details_table.html" %}
+{% endblock %}

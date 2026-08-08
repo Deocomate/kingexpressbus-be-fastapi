@@ -1,0 +1,67 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:15px 0;font-size:14px">
+  <tr>
+    <td style="padding:8px;border:1px solid #eee;width:40%"><strong>Mã đặt chỗ / Code</strong></td>
+    <td style="padding:8px;border:1px solid #eee">#{{ booking_code }}</td>
+  </tr>
+  {% if service_kind == 'hotel' %}
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Khách sạn / Hotel</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ hotel_name }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Phòng / Room</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ room_name }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Nhận / Check-in</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ check_in }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Trả / Check-out</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ check_out }} ({{ nights }} đêm)</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Số phòng / Rooms</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ rooms_count }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Khách / Guests</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ adults }} NL{% if children %}, {{ children }} TE{% endif %}</td>
+  </tr>
+  {% if breakfast_count %}
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Bữa sáng / Breakfast</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ breakfast_count }} suất/đêm</td>
+  </tr>
+  {% endif %}
+  {% else %}
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Tour</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ tour_name }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Ngày / Date</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ tour_date }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Số khách / Guests</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ guests }}</td>
+  </tr>
+  {% endif %}
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Khách hàng / Customer</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ customer_display }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Email</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ customer_email }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Thanh toán / Payment</strong></td>
+    <td style="padding:8px;border:1px solid #eee">{{ payment_method_label }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;border:1px solid #eee"><strong>Tổng / Total</strong></td>
+    <td style="padding:8px;border:1px solid #eee"><strong>{{ total_price }}</strong></td>
+  </tr>
+</table>

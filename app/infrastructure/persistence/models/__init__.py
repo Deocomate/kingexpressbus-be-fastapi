@@ -2,6 +2,7 @@
 
 from app.infrastructure.persistence.models.booking import Booking
 from app.infrastructure.persistence.models.fleet import Bus, BusService, bus_bus_service
+from app.infrastructure.persistence.models.hotel import Hotel, HotelBooking, HotelRoom
 from app.infrastructure.persistence.models.location import (
     District,
     DistrictType,
@@ -14,6 +15,7 @@ from app.infrastructure.persistence.models.surcharge import (
     HolidaySurcharge,
     HolidaySurchargeRoute,
 )
+from app.infrastructure.persistence.models.tour import Tour, TourBooking
 from app.infrastructure.persistence.models.user import (
     EmailVerificationToken,
     PasswordResetToken,
@@ -32,6 +34,9 @@ __all__ = [
     "FailedMailJob",
     "HolidaySurcharge",
     "HolidaySurchargeRoute",
+    "Hotel",
+    "HotelBooking",
+    "HotelRoom",
     "MailJob",
     "Menu",
     "PasswordResetToken",
@@ -39,6 +44,8 @@ __all__ = [
     "Route",
     "RouteStop",
     "Stop",
+    "Tour",
+    "TourBooking",
     "Trip",
     "TripBlock",
     "User",

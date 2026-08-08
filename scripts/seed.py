@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.core.config import get_settings
 from app.core.security import hash_password
 from app.infrastructure.persistence.models.fleet import Bus, BusService, bus_bus_service
+from app.infrastructure.persistence.models.hotel import Hotel, HotelRoom
 from app.infrastructure.persistence.models.location import (
     District,
     DistrictType,
@@ -40,6 +41,7 @@ from app.infrastructure.persistence.models.surcharge import (
     HolidaySurcharge,
     HolidaySurchargeRoute,
 )
+from app.infrastructure.persistence.models.tour import Tour
 from app.infrastructure.persistence.models.user import User
 from app.infrastructure.persistence.models.website import Menu, WebProfile
 from app.infrastructure.persistence.session import engine
@@ -74,15 +76,23 @@ SEED_STEPS: list[tuple[str, Any, str]] = [
     ("route_stops", RouteStop, "route_stops.json"),
     ("trips", Trip, "trips.json"),
     ("holiday_surcharge_routes", HolidaySurchargeRoute, "holiday_surcharge_routes.json"),
+    ("hotels", Hotel, "hotels.json"),
+    ("hotel_rooms", HotelRoom, "hotel_rooms.json"),
+    ("tours", Tour, "tours.json"),
     ("menus", Menu, "menus.json"),
 ]
 
 # Reverse dependency order for truncate (children before parents).
-# `bookings` has no seed data but is truncated because it FKs into
-# users/trips/stops.
+# `bookings` / hotel_bookings / tour_bookings have no seed data but are
+# truncated because they FK into users / trips / hotels / tours.
 TRUNCATE_TABLES = [
+    "hotel_bookings",
+    "tour_bookings",
     "bookings",
     "menus",
+    "hotel_rooms",
+    "hotels",
+    "tours",
     "trips",
     "route_stops",
     "holiday_surcharge_routes",

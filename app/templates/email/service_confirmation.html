@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  {% if service_kind == 'hotel' %}
+  Chúng tôi đã tiếp nhận yêu cầu đặt phòng của bạn và sẽ xác nhận sớm.
+  <br>We have received your hotel booking request and will confirm shortly.
+  {% else %}
+  Chúng tôi đã tiếp nhận yêu cầu đặt tour của bạn và sẽ xác nhận sớm.
+  <br>We have received your tour booking request and will confirm shortly.
+  {% endif %}
+</p>
+{% include "partials/service_booking_details_table.html" %}
+{% endblock %}

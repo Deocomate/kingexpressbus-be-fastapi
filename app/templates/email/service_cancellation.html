@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block body %}
+<p style="margin:10px 0;font-size:15px">
+  Kính gửi Quý khách / Dear Customer <strong>{{ customer_display }}</strong>,
+</p>
+<p style="margin:10px 0;font-size:15px">
+  {% if service_kind == 'hotel' %}
+  Đặt phòng của bạn đã bị hủy.
+  <br>Your hotel booking has been cancelled.
+  {% else %}
+  Đặt tour của bạn đã bị hủy.
+  <br>Your tour booking has been cancelled.
+  {% endif %}
+</p>
+{% if cancel_reason %}
+<p style="margin:10px 0;font-size:15px"><strong>Lý do / Reason:</strong> {{ cancel_reason }}</p>
+{% endif %}
+{% include "partials/service_booking_details_table.html" %}
+{% endblock %}

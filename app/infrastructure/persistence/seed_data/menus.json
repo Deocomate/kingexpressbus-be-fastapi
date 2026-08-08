@@ -11,6 +11,28 @@
         "updated_at": "2025-10-02 23:27:41"
     },
     {
+        "id": 20,
+        "name": "Khách sạn",
+        "url": "/khach-san",
+        "parent_id": -1,
+        "priority": 2,
+        "type": "custom_link",
+        "related_id": null,
+        "created_at": "2026-08-08 00:00:00",
+        "updated_at": "2026-08-08 00:00:00"
+    },
+    {
+        "id": 21,
+        "name": "Tour Sa Pa",
+        "url": "/tour",
+        "parent_id": -1,
+        "priority": 3,
+        "type": "custom_link",
+        "related_id": null,
+        "created_at": "2026-08-08 00:00:00",
+        "updated_at": "2026-08-08 00:00:00"
+    },
+    {
         "id": 4,
         "name": "Hà Nội - Sapa",
         "url": "/tuyen-duong/ha-noi-sapa",

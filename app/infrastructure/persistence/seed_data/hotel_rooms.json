@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "hotel_id": 1,
+    "name": "Phòng giường King nhìn ra núi",
+    "slug": "king-bed-mountain-view",
+    "capacity_adults": 2,
+    "bed_label": "1 giường đôi cực lớn",
+    "size_m2": 30,
+    "amenities": [
+      "Ban công",
+      "Nhìn ra núi",
+      "Nhìn ra thành phố",
+      "Máy điều hòa",
+      "Phòng tắm riêng",
+      "TV màn hình phẳng",
+      "Cách âm",
+      "Minibar"
+    ],
+    "thumbnail_url": "/assets/client/images/hotel/sapa-cosy/09-1-giuong-view.jpg",
+    "image_list_url": [
+      "/assets/client/images/hotel/sapa-cosy/09-1-giuong-view.jpg",
+      "/assets/client/images/hotel/sapa-cosy/01-1-giuong-view.jpg",
+      "/assets/client/images/hotel/sapa-cosy/02-1-giuong-view-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/03-1-giuong-view-3.jpg",
+      "/assets/client/images/hotel/sapa-cosy/04-1-giuong-view-4.jpg",
+      "/assets/client/images/hotel/sapa-cosy/10-1-giuong.jpg"
+    ],
+    "base_price": 450000,
+    "sale_price": 405000,
+    "breakfast_price": 100000,
+    "cancel_fee_percent": 50,
+    "inventory_count": 7,
+    "is_active": true,
+    "priority": 30,
+    "created_at": "2026-08-08 00:00:00",
+    "updated_at": "2026-08-08 00:00:00"
+  },
+  {
+    "id": 2,
+    "hotel_id": 1,
+    "name": "Phòng 2 giường đôi",
+    "slug": "twin-double-beds",
+    "capacity_adults": 2,
+    "bed_label": "2 giường đôi lớn",
+    "size_m2": 30,
+    "amenities": [
+      "Ban công",
+      "Nhìn ra núi",
+      "Máy điều hòa",
+      "Phòng tắm riêng",
+      "TV màn hình phẳng",
+      "Cách âm",
+      "Minibar"
+    ],
+    "thumbnail_url": "/assets/client/images/hotel/sapa-cosy/22-2-giuong.jpg",
+    "image_list_url": [
+      "/assets/client/images/hotel/sapa-cosy/22-2-giuong.jpg",
+      "/assets/client/images/hotel/sapa-cosy/17-2-giuong-toan-canh.jpg",
+      "/assets/client/images/hotel/sapa-cosy/21-2-giuong-view.jpg",
+      "/assets/client/images/hotel/sapa-cosy/18-2-giuong-view-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/11-2-giuong-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/37-p-2g.jpg"
+    ],
+    "base_price": 550000,
+    "sale_price": 495000,
+    "breakfast_price": 100000,
+    "cancel_fee_percent": 50,
+    "inventory_count": 5,
+    "is_active": true,
+    "priority": 20,
+    "created_at": "2026-08-08 00:00:00",
+    "updated_at": "2026-08-08 00:00:00"
+  },
+  {
+    "id": 3,
+    "hotel_id": 1,
+    "name": "Phòng 3 người nhìn ra núi",
+    "slug": "triple-mountain-view",
+    "capacity_adults": 3,
+    "bed_label": "3 giường đôi",
+    "size_m2": 30,
+    "amenities": [
+      "Ban công",
+      "Nhìn ra núi",
+      "Máy điều hòa",
+      "Phòng tắm riêng",
+      "TV màn hình phẳng",
+      "Cách âm",
+      "Minibar"
+    ],
+    "thumbnail_url": "/assets/client/images/hotel/sapa-cosy/27-3-giuong.jpg",
+    "image_list_url": [
+      "/assets/client/images/hotel/sapa-cosy/27-3-giuong.jpg",
+      "/assets/client/images/hotel/sapa-cosy/23-3-giuong-toan-canh.jpg",
+      "/assets/client/images/hotel/sapa-cosy/26-3-giuong-view.jpg",
+      "/assets/client/images/hotel/sapa-cosy/25-3-giuong-view-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/24-3-giuong-2.jpg",
+      "/assets/client/images/hotel/sapa-cosy/39-view-2-3-giuong.jpg"
+    ],
+    "base_price": 650000,
+    "sale_price": 585000,
+    "breakfast_price": 100000,
+    "cancel_fee_percent": 50,
+    "inventory_count": 4,
+    "is_active": true,
+    "priority": 10,
+    "created_at": "2026-08-08 00:00:00",
+    "updated_at": "2026-08-08 00:00:00"
+  }
+]
