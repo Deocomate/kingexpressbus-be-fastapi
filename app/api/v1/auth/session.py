@@ -48,7 +48,15 @@ def _set_session_cookie(response: Response, token: str, settings: AppSettings) -
 
 
 def _clear_session_cookie(response: Response, settings: AppSettings) -> None:
-    response.delete_cookie(key=settings.cookie_name, path="/")
+    # Must mirror set_cookie attrs (secure/samesite/httponly/path) or browsers
+    # keep the session cookie — especially with SameSite=None; Secure.
+    response.delete_cookie(
+        key=settings.cookie_name,
+        path="/",
+        secure=settings.cookie_secure,
+        httponly=True,
+        samesite=settings.cookie_samesite,  # type: ignore[arg-type]
+    )
 
 
 @router.post("/login", response_model=UserOut, dependencies=[Depends(require_same_origin)])
