@@ -1,8 +1,8 @@
 """Live mail verification: SMTP + queue + optional booking API trigger.
 
 Run from backend root with .venv active:
-  python scripts/mail_live_probe.py
-  python scripts/mail_live_probe.py --api   # also POST /api/v1/bookings (needs uvicorn)
+  python scripts/dev/mail_live_probe.py
+  python scripts/dev/mail_live_probe.py --api   # also POST /api/v1/bookings (needs uvicorn)
 """
 
 from __future__ import annotations

@@ -3,7 +3,7 @@
 Upcoming admin bookings — pending/confirmed
 bookings from today onward, ordered by departure, limit 10. No live DB is
 stood up here (this repo's DB-backed tests run against real MySQL via
-scripts/mysql_smoke_*), so the statement built by list_bookings_admin is
+scripts/dev/mysql_smoke_*), so the statement built by list_bookings_admin is
 inspected directly via a mocked AsyncSession.
 """
 

@@ -21,10 +21,10 @@ Dependency rule: `presentation` → `application` → `domain` ← `infrastructu
 ## Database setup
 
 ```bash
-alembic upgrade head    # creates the full schema from scratch
-python scripts/seed.py  # loads production content (provinces/routes/trips/
-                         # users/etc.) — pass --force to allow running against
-                         # an environment whose APP_ENV looks like production
+alembic upgrade head    # creates / upgrades schema
+python scripts/seed.py  # LOCAL/DEV ONLY — truncates business tables then loads
+                         # full content from seed_data/. Refuses APP_ENV that
+                         # looks like production unless you pass --force.
 ```
 
 Seed JSON lives in `app/infrastructure/persistence/seed_data/`.
@@ -32,6 +32,34 @@ Seed JSON lives in `app/infrastructure/persistence/seed_data/`.
 Admin login after seeding: `admin@kingexpressbus.com` / `Admin@123`. The other
 13 seeded users keep their existing bcrypt hashes (no known plaintext password —
 reset required to log in as them).
+
+### Additive seed updates (production-safe)
+
+After deploying a migration that adds catalog tables (e.g. hotels/tours), apply
+**insert-missing** updates instead of a full reseed. These never truncate
+bookings or users; they key on slug/url and are idempotent.
+
+```bash
+python -m scripts.seeds.apply --list
+python -m scripts.seeds.apply 20260808_hotels_tours_menus          # insert missing
+python -m scripts.seeds.apply 20260808_hotels_tours_menus --dry-run
+python -m scripts.seeds.apply 20260808_hotels_tours_menus --update # refresh existing too
+python -m scripts.seeds.apply --all
+```
+
+New production content drops go in `scripts/seeds/` (register in
+`scripts/seeds/registry.py`). Reuse JSON under `seed_data/` when possible.
+
+## Scripts layout
+
+| Path | Purpose |
+|------|---------|
+| `scripts/seed.py` | Full truncate+seed (local/dev) |
+| `scripts/seeds/` | Additive updates for prod/staging |
+| `scripts/mail_worker.py` | Mail queue worker |
+| `scripts/prune_upload_staging.py` | GC for staged admin uploads |
+| `scripts/docker-entrypoint.sh` | Container entry (migrations + app) |
+| `scripts/dev/` | Local smoke / mail probes only |
 
 ## Maintenance scripts
 

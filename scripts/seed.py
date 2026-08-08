@@ -1,5 +1,5 @@
 """CLI seeder — truncates business tables and bulk-inserts the production
-dataset from app/db/seed_data/*.json.
+dataset from app/infrastructure/persistence/seed_data/*.json.
 
 Usage:
     python scripts/seed.py            # refuses if settings look like production
@@ -9,6 +9,12 @@ Usage:
 Truncate + insert order is FK-safe (parents before children). Re-running is
 safe: every table is truncated before it is re-seeded, so there are no
 duplicate-key errors.
+
+Production / already-populated DBs: do NOT use this script. Use additive
+updates instead::
+
+    python -m scripts.seeds.apply --list
+    python -m scripts.seeds.apply 20260808_hotels_tours_menus
 """
 
 from __future__ import annotations
