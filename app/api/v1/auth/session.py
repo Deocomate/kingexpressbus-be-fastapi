@@ -26,6 +26,7 @@ from app.schemas.auth import (
     RegisterRequest,
     UserOut,
 )
+from app.services import customer_accounts
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 admin_router = APIRouter(prefix="/admin/auth", tags=["admin-auth"])
@@ -120,22 +121,38 @@ async def register(
 ) -> User:
     rate_limiter.hit(f"auth:register:ip:{client_ip(request)}", limit=5)
 
-    email = body.email.lower()
-    existing = await db.execute(select(User).where(User.email == email))
-    if existing.scalar_one_or_none() is not None:
+    email = customer_accounts.normalize_email(str(body.email))
+    existing = await customer_accounts.get_user_by_email(db, email)
+
+    if existing is not None and existing.password is not None:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="Email already registered",
         )
 
-    user = User(
-        name=body.name,
-        email=email,
-        phone=body.phone,
-        password=hash_password(body.password),
-        role="customer",
+    if existing is not None and existing.password is None:
+        # Guest checkout account: claim by setting a password.
+        user = await customer_accounts.claim_guest_user(
+            db,
+            existing,
+            name=body.name,
+            password=body.password,
+            phone=body.phone,
+        )
+    else:
+        user = User(
+            name=body.name.strip(),
+            email=email,
+            phone=body.phone.strip() if body.phone and body.phone.strip() else None,
+            password=hash_password(body.password),
+            role="customer",
+        )
+        db.add(user)
+        await db.flush()
+
+    await customer_accounts.attach_orphan_bookings(
+        db, user_id=user.id, email=email
     )
-    db.add(user)
     await db.commit()
     await db.refresh(user)
 

@@ -37,7 +37,7 @@ from app.schemas.booking import (
     PriceChangedOut,
 )
 from app.services import booking_admin_query as booking_query
-from app.services import booking_creation, signed_urls
+from app.services import booking_creation, customer_accounts, signed_urls
 from app.services.booking_shared import BookingError, PriceChangedError
 
 router = APIRouter(tags=["bookings"])
@@ -58,6 +58,17 @@ async def create_booking(
 ) -> BookingCreateOut | JSONResponse:
     rate_limiter.hit(f"booking:ip:{client_ip(request)}", limit=10)
     try:
+        if user is not None:
+            booking_user_id = user.id
+        else:
+            guest = await customer_accounts.ensure_customer_user(
+                db,
+                name=body.customer_name,
+                email=str(body.customer_email),
+                phone=body.customer_phone,
+            )
+            booking_user_id = guest.id
+
         booking = await booking_creation.create_booking(
             db,
             trip_id=body.trip_id,
@@ -73,7 +84,7 @@ async def create_booking(
             is_hotel_pickup=body.is_hotel_pickup,
             hotel_pickup_address=body.hotel_pickup_address,
             notes_text=body.notes,
-            user_id=user.id if user else None,
+            user_id=booking_user_id,
         )
         await db.commit()
         await db.refresh(booking)
