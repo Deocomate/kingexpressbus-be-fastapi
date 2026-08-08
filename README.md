@@ -2,14 +2,32 @@
 
 FastAPI + SQLAlchemy backend for King Express Bus.
 
+## Architecture
+
+Clean Architecture layers under `app/`:
+
+```text
+app/
+  domain/            # domain errors
+  application/       # use cases (booking, auth, catalog, website)
+  infrastructure/    # SQLAlchemy, mail, SePay, uploads, security
+  presentation/      # FastAPI routers + Pydantic schemas
+  core/              # settings, deps
+  templates/         # Jinja2 email templates
+```
+
+Dependency rule: `presentation` → `application` → `domain` ← `infrastructure`.
+
 ## Database setup
 
 ```bash
-alembic upgrade head    # creates the full 17-table schema from scratch
-python scripts/seed.py  # loads real production content (provinces/routes/trips/
+alembic upgrade head    # creates the full schema from scratch
+python scripts/seed.py  # loads production content (provinces/routes/trips/
                          # users/etc.) — pass --force to allow running against
                          # an environment whose APP_ENV looks like production
 ```
+
+Seed JSON lives in `app/infrastructure/persistence/seed_data/`.
 
 Admin login after seeding: `admin@kingexpressbus.com` / `Admin@123`. The other
 13 seeded users keep their existing bcrypt hashes (no known plaintext password —
@@ -19,7 +37,7 @@ reset required to log in as them).
 
 ### Upload staging garbage collection
 
-Staged admin uploads (`app/services/uploads.py`) live under
+Staged admin uploads (`app/infrastructure/storage/uploads.py`) live under
 `{UPLOAD_ROOT}/admin-tmp/{session}/{uuid}/{filename}` until an admin commits
 or reverts them. `scripts/prune_upload_staging.py` deletes any staged
 directory older than `--hours` (default 24).

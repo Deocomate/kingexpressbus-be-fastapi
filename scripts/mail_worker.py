@@ -10,8 +10,8 @@ import signal
 from sqlalchemy.exc import OperationalError, ProgrammingError, SQLAlchemyError
 
 from app.core.config import get_settings
-from app.db.session import AsyncSessionLocal
-from app.services import mail_queue
+from app.infrastructure.mail import mail_queue
+from app.infrastructure.persistence.session import AsyncSessionLocal
 
 logging.basicConfig(
     level=logging.INFO,

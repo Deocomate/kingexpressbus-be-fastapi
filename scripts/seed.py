@@ -28,15 +28,29 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.core.config import get_settings
 from app.core.security import hash_password
-from app.db.models.fleet import Bus, BusService, bus_bus_service
-from app.db.models.location import District, DistrictType, Province, Stop
-from app.db.models.ops import Route, RouteStop, Trip
-from app.db.models.surcharge import HolidaySurcharge, HolidaySurchargeRoute
-from app.db.models.user import User
-from app.db.models.website import Menu, WebProfile
-from app.db.session import engine
+from app.infrastructure.persistence.models.fleet import Bus, BusService, bus_bus_service
+from app.infrastructure.persistence.models.location import (
+    District,
+    DistrictType,
+    Province,
+    Stop,
+)
+from app.infrastructure.persistence.models.ops import Route, RouteStop, Trip
+from app.infrastructure.persistence.models.surcharge import (
+    HolidaySurcharge,
+    HolidaySurchargeRoute,
+)
+from app.infrastructure.persistence.models.user import User
+from app.infrastructure.persistence.models.website import Menu, WebProfile
+from app.infrastructure.persistence.session import engine
 
-SEED_DATA_DIR = Path(__file__).resolve().parent.parent / "app" / "db" / "seed_data"
+SEED_DATA_DIR = (
+    Path(__file__).resolve().parent.parent
+    / "app"
+    / "infrastructure"
+    / "persistence"
+    / "seed_data"
+)
 
 ADMIN_PASSWORD_SENTINEL = "__HASH_ADMIN_PASSWORD__"
 ADMIN_PLAINTEXT_PASSWORD = "Admin@123"

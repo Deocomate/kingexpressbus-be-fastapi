@@ -1,7 +1,7 @@
 """Unit tests for seat math and HTML sanitizer (no DB)."""
 
-from app.services.html_sanitize import sanitize, sanitize_map
-from app.services.seats import available_seats
+from app.application.booking.seats import available_seats
+from app.application.catalog.html_sanitize import sanitize, sanitize_map
 
 
 def test_available_seats_normal() -> None:

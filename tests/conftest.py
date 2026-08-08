@@ -9,7 +9,7 @@ already talks to (see `.env` DB_HOST/DB_PORT), runs the real Alembic
 migration against it, and tears it down after the session.
 
 DB_* must be overridden via environment variables *before* any `app.*`
-module is imported — `app/db/session.py` builds its engine from
+module is imported — `app/infrastructure/persistence/session.py` builds its engine from
 `get_settings()` at import time, and `alembic/env.py` does the same in its
 own subprocess. This is why the override happens at module import time here,
 before pytest collects any other test module that imports `app.main`.
@@ -112,13 +112,14 @@ def _run_alembic_upgrade() -> None:
 async def _seed_admin_user() -> None:
     """Insert the admin user via a throwaway connection (own event loop).
 
-    Deliberately avoids `app.db.session.AsyncSessionLocal` — that engine's
+    Deliberately avoids `app.infrastructure.persistence.session.AsyncSessionLocal` — that engine's
     connection pool gets bound to whichever event loop first uses it, and
     this fixture runs inside a short-lived `asyncio.run()` loop that closes
     immediately after. Reusing the pooled connection from a later, different
     loop (e.g. the TestClient's ASGI portal thread) raises
     `RuntimeError: Event loop is closed` on hand-back to the pool.
     """
+
     import aiomysql
 
     from app.core.security import hash_password
@@ -184,7 +185,7 @@ def _test_database() -> None:
     yield
 
     async def _teardown() -> None:
-        from app.db.session import engine
+        from app.infrastructure.persistence.session import engine
 
         await engine.dispose()
         await _drop_schema()

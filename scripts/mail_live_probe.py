@@ -15,10 +15,10 @@ from datetime import date, timedelta
 from sqlalchemy import text
 
 from app.core.config import get_settings
-from app.db.session import AsyncSessionLocal
-from app.services.mail import queue_booking_mail
-from app.services.mail_queue import process_one_available
-from app.services.mail_sender import SmtpMailSender
+from app.infrastructure.mail.mail import queue_booking_mail
+from app.infrastructure.mail.mail_queue import process_one_available
+from app.infrastructure.mail.mail_sender import SmtpMailSender
+from app.infrastructure.persistence.session import AsyncSessionLocal
 
 
 async def probe_smtp() -> None:

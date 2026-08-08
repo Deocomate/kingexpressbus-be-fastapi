@@ -10,8 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import Settings, get_settings
 from app.core.security import decode_access_token
-from app.db.models import User
-from app.db.session import get_db
+from app.infrastructure.persistence.models import User
+from app.infrastructure.persistence.session import get_db
 
 DbSession = Annotated[AsyncSession, Depends(get_db)]
 AppSettings = Annotated[Settings, Depends(get_settings)]

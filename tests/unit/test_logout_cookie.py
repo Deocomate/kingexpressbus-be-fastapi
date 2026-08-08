@@ -6,7 +6,10 @@ from unittest.mock import MagicMock
 
 from starlette.responses import Response
 
-from app.api.v1.auth.session import _clear_session_cookie, _set_session_cookie
+from app.presentation.api.v1.auth.session import (
+    _clear_session_cookie,
+    _set_session_cookie,
+)
 
 
 def test_clear_session_cookie_matches_set_attrs() -> None:

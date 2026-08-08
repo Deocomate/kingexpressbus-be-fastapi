@@ -3,8 +3,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.v1 import api_router
 from app.core.config import get_settings
+from app.presentation.api.v1 import api_router
 
 
 def create_app() -> FastAPI:

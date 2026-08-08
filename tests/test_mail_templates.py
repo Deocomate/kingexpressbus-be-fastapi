@@ -6,14 +6,14 @@ from datetime import date
 
 import pytest
 
-from app.services.mail_formatters import (
+from app.infrastructure.mail.mail_formatters import (
     absolute_url,
     format_booking_date,
     format_pickup_info,
     format_vnd,
     payment_method_label,
 )
-from app.services.mail_templates import render_booking_mail
+from app.infrastructure.mail.mail_templates import render_booking_mail
 
 
 def _details(**overrides):

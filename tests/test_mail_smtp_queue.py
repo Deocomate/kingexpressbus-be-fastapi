@@ -8,13 +8,13 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from app.core.config import Settings
-from app.services.mail import queue_booking_mail, send_booking_mail
-from app.services.mail_queue import (
+from app.infrastructure.mail.mail import queue_booking_mail, send_booking_mail
+from app.infrastructure.mail.mail_queue import (
     enqueue_mail_job,
     fail_or_retry_mail_job,
     process_mail_job,
 )
-from app.services.mail_sender import RecordingMailSender, set_mail_sender
+from app.infrastructure.mail.mail_sender import RecordingMailSender, set_mail_sender
 
 
 @pytest.mark.asyncio
@@ -137,7 +137,7 @@ async def test_fail_or_retry_moves_to_failed_after_max() -> None:
 @pytest.mark.asyncio
 async def test_queue_booking_mail_prepare_miss_returns_false(monkeypatch: pytest.MonkeyPatch) -> None:
     db = AsyncMock()
-    from app.services import mail as mail_svc
+    from app.infrastructure.mail import mail as mail_svc
 
     monkeypatch.setattr(
         mail_svc,

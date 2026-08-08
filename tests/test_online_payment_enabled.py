@@ -7,11 +7,11 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from app.services.booking_creation import (
+from app.application.booking.booking_creation import (
     _ensure_online_payment_enabled,
     create_booking,
 )
-from app.services.booking_shared import BookingError
+from app.application.booking.booking_shared import BookingError
 
 pytestmark = pytest.mark.asyncio
 

@@ -14,8 +14,10 @@ import uuid
 import pytest
 from sqlalchemy import insert
 
-from app.db.models import Booking, Bus, District, DistrictType, Province, Route, Stop, Trip
-from app.db.session import AsyncSessionLocal
+from app.infrastructure.persistence.models import (
+    Booking,
+)
+from app.infrastructure.persistence.session import AsyncSessionLocal
 
 pytestmark = pytest.mark.asyncio
 

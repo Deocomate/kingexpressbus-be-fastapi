@@ -10,13 +10,13 @@ import httpx
 import pytest
 from sqlalchemy import select
 
+from app.application.auth import customer_accounts
 from app.core.rate_limit import rate_limiter
 from app.core.security import hash_password, verify_password
-from app.db.models import Booking, User
-from app.db.session import AsyncSessionLocal
+from app.infrastructure.mail.mail_sender import RecordingMailSender, set_mail_sender
+from app.infrastructure.persistence.models import Booking, User
+from app.infrastructure.persistence.session import AsyncSessionLocal
 from app.main import app
-from app.services import customer_accounts
-from app.services.mail_sender import RecordingMailSender, set_mail_sender
 
 pytestmark = pytest.mark.asyncio
 

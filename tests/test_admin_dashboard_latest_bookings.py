@@ -14,8 +14,8 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from fastapi.testclient import TestClient
 
+from app.application.booking import booking_admin_query as booking_svc
 from app.main import app
-from app.services import booking_admin_query as booking_svc
 
 client = TestClient(app)
 

@@ -11,15 +11,15 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from fastapi.testclient import TestClient
 
+from app.application.booking import booking_notes as notes
+from app.application.booking.pricing import _reason_label
 from app.core.config import Settings
 from app.core.rate_limit import RateLimiter
+from app.infrastructure.mail.mail import send_booking_mail
+from app.infrastructure.mail.mail_sender import RecordingMailSender, set_mail_sender
+from app.infrastructure.payments import sepay as sepay_svc
+from app.infrastructure.storage import signed_urls
 from app.main import app
-from app.services import booking_notes as notes
-from app.services import sepay as sepay_svc
-from app.services import signed_urls
-from app.services.mail import send_booking_mail
-from app.services.mail_sender import RecordingMailSender, set_mail_sender
-from app.services.pricing import _reason_label
 
 client = TestClient(app)
 
@@ -429,7 +429,7 @@ def test_openapi_documents_booking_payment_surface() -> None:
 def test_booking_create_schema_requires_pickup_or_hotel() -> None:
     from pydantic import ValidationError
 
-    from app.schemas.booking import BookingCreateIn
+    from app.presentation.schemas.booking import BookingCreateIn
 
     base = {
         "trip_id": 1,
@@ -470,7 +470,7 @@ def test_get_booking_rejects_bad_signature() -> None:
 
 def test_ipn_endpoint_bad_secret_via_http() -> None:
     with patch(
-        "app.api.v1.bookings.payment_routes.sepay_svc.handle_sepay_ipn",
+        "app.presentation.api.v1.bookings.payment_routes.sepay_svc.handle_sepay_ipn",
         new_callable=AsyncMock,
     ) as mock:
         mock.return_value = (401, {"error": "Unauthorized"}, None)
@@ -487,7 +487,7 @@ def test_ipn_endpoint_bad_secret_via_http() -> None:
 
 @pytest.mark.asyncio
 async def test_cancel_paid_online_appends_refund_note() -> None:
-    from app.services import booking_cancel as booking_svc
+    from app.application.booking import booking_cancel as booking_svc
 
     booking = MagicMock()
     booking.id = 10
@@ -515,8 +515,8 @@ async def test_cancel_paid_online_appends_refund_note() -> None:
 
 @pytest.mark.asyncio
 async def test_cancel_twice_rejected() -> None:
-    from app.services import booking_cancel as booking_svc
-    from app.services.booking_shared import BookingError
+    from app.application.booking import booking_cancel as booking_svc
+    from app.application.booking.booking_shared import BookingError
 
     booking = MagicMock()
     booking.status = "cancelled"
@@ -531,7 +531,7 @@ async def test_cancel_twice_rejected() -> None:
 
 @pytest.mark.asyncio
 async def test_confirm_cash_sets_approval_mail() -> None:
-    from app.services import booking_status as booking_svc
+    from app.application.booking import booking_status as booking_svc
 
     booking = MagicMock()
     booking.status = "pending"
@@ -552,7 +552,7 @@ async def test_confirm_cash_sets_approval_mail() -> None:
 
 @pytest.mark.asyncio
 async def test_confirm_online_sets_payment_request_mail() -> None:
-    from app.services import booking_status as booking_svc
+    from app.application.booking import booking_status as booking_svc
 
     booking = MagicMock()
     booking.status = "pending"
@@ -573,7 +573,7 @@ async def test_confirm_online_sets_payment_request_mail() -> None:
 async def test_reconfirm_sends_no_mail() -> None:
     from datetime import datetime
 
-    from app.services import booking_status as booking_svc
+    from app.application.booking import booking_status as booking_svc
 
     prior = datetime(2026, 1, 1)
     booking = MagicMock()

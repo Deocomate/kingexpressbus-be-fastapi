@@ -1,4 +1,4 @@
-"""Alembic environment — builds the schema from `app/db/models/` metadata."""
+"""Alembic environment — builds the schema from persistence models metadata."""
 
 from logging.config import fileConfig
 
@@ -6,8 +6,8 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from app.core.config import get_settings
-from app.db.base import Base
-import app.db.models  # noqa: F401 — register all models on metadata
+from app.infrastructure.persistence.base import Base
+import app.infrastructure.persistence.models  # noqa: F401 — register all models on metadata
 
 # Tables not managed by this app's metadata (ignore during autogenerate).
 EXCLUDE_TABLES = {
