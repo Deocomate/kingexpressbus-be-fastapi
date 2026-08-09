@@ -16,7 +16,7 @@
         ],
         "content": "<p><strong>Hà Nội - Sapa</strong></p><p>Lịch chạy: 07:00:00 - 13:15:00, 13:30:00 - 19:30:00, 22:00:00 - 05:30:00</p><p>Điểm đón: 210 Trần Quang Khải</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 250.000 VND, Cabin đơn 380.000 VND, Cabin đôi 570.000 VND</p>",
         "available_hotel_pickup": 1,
-        "priority": 0,
+        "priority": 1000,
         "created_at": "2025-10-02 23:27:41",
         "updated_at": "2026-04-07 02:42:10"
     },
@@ -37,7 +37,7 @@
         ],
         "content": "<p><strong>Sapa - Hà Nội</strong></p><p>Lịch chạy: 11:00:00 - 17:00:00, 14:00:00 - 20:00:00, 16:00:00 - 22:00:00, 22:00:00 - 04:00:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: 210 Trần Quang Khải</p><p>Giá: Giường nằm 250.000 VND, Cabin đơn 380.000 VND, Cabin đôi 570.000 VND</p>",
         "available_hotel_pickup": 1,
-        "priority": 0,
+        "priority": 990,
         "created_at": "2025-10-02 23:27:41",
         "updated_at": "2026-04-07 02:42:10"
     },
@@ -58,7 +58,7 @@
         ],
         "content": "<p><strong>Sapa - Ninh Bình</strong></p><p>Lịch chạy: 11:00:00 - 20:30:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: No 2a, đường 27/7 - TP Ninh Bình; Travel Agent - Mike's travel agency - Tam Cốc</p><p>Giá: Giường nằm 480.000 VND, Cabin đơn 630.000 VND, Cabin đôi 880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 1,
+        "priority": 680,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:10"
     },
@@ -79,7 +79,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Sapa</strong></p><p>Lịch chạy: 04:00:00 - 13:15:00</p><p>Điểm đón: No 2a, đường 27/7 - TP Ninh Bình; Travel Agent - Mike's travel agency - Tam Cốc</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 480.000 VND, Cabin đơn 630.000 VND, Cabin đôi 880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 97,
+        "priority": 670,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:10"
     },
@@ -100,7 +100,7 @@
         ],
         "content": "<p><strong>Sapa - Phong Nha</strong></p><p>Lịch chạy: 11:00:00 - 03:30:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: Central Backpacker Phong Nha</p><p>Giá: Giường nằm 730.000 VND, Cabin đơn 1.070.000 VND, Cabin đôi 1.500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 5,
+        "priority": 600,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:10"
     },
@@ -121,7 +121,7 @@
         ],
         "content": "<p><strong>Phong Nha - Sapa</strong></p><p>Lịch chạy: 21:30:00 - 13:15:00</p><p>Điểm đón: Central Backpacker Phong Nha</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 730.000 VND, Cabin đơn 1.070.000 VND, Cabin đôi 1.500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 95,
+        "priority": 590,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -142,7 +142,7 @@
         ],
         "content": "<p><strong>Sapa - Huế</strong></p><p>Lịch chạy: 11:00:00 - 07:00:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: 07 Đội Cung- TP Huế</p><p>Giá: Giường nằm 730.000 VND, Cabin đơn 1.070.000 VND, Cabin đôi 1.500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 2,
+        "priority": 660,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -163,7 +163,7 @@
         ],
         "content": "<p><strong>Huế - Sapa</strong></p><p>Lịch chạy: 17:00:00 - 13:15:00</p><p>Điểm đón: 07 Đội Cung- TP Huế</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 730.000 VND, Cabin đơn 1.070.000 VND, Cabin đôi 1.500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 93,
+        "priority": 650,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -184,7 +184,7 @@
         ],
         "content": "<p><strong>Sapa - Đà Nẵng</strong></p><p>Lịch chạy: 11:00:00 - 10:00:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: Số 28 đường 3/2- TP Đà Nẵng</p><p>Giá: Giường nằm 850.000 VND, Cabin đơn 1.230.000 VND, Cabin đôi 1.880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 3,
+        "priority": 640,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -205,7 +205,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Sapa</strong></p><p>Lịch chạy: 14:15:00 - 13:15:00</p><p>Điểm đón: Số 28 đường 3/2- TP Đà Nẵng</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 850.000 VND, Cabin đơn 1.230.000 VND, Cabin đôi 1.880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 91,
+        "priority": 630,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -226,7 +226,7 @@
         ],
         "content": "<p><strong>Sapa - Hội An</strong></p><p>Lịch chạy: 11:00:00 - 12:30:00</p><p>Điểm đón: 458 Điện Biên Phủ</p><p>Điểm trả: 105 Tôn Đức Thắng - TP Hội An</p><p>Giá: Giường nằm 850.000 VND, Cabin đơn 1.230.000 VND, Cabin đôi 1.880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 4,
+        "priority": 620,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -247,7 +247,7 @@
         ],
         "content": "<p><strong>Hội An - Sapa</strong></p><p>Lịch chạy: 13:30:00 - 13:15:00</p><p>Điểm đón: 105 Tôn Đức Thắng - TP Hội An</p><p>Điểm trả: 458 Điện Biên Phủ</p><p>Giá: Giường nằm 850.000 VND, Cabin đơn 1.230.000 VND, Cabin đôi 1.880.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 89,
+        "priority": 610,
         "created_at": "2026-03-19 04:09:22",
         "updated_at": "2026-04-07 02:42:11"
     },
@@ -268,7 +268,7 @@
         ],
         "content": "<p><strong>Cát Bà - Hà Nội</strong></p><p>Khung giờ: 08:15:00 - 11:45:00, 12:00:00 - 15:30:00, 15:15:00 - 18:45:00, 16:15:00 - 19:45:00</p><p>Điểm đón: 217 Mot Thang Tu</p><p>Điểm trả: 19 Hang Thiec</p><p>Giá vé tham khảo: 370.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 60,
+        "priority": 730,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:45:52"
     },
@@ -289,7 +289,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Hà Nội</strong></p><p>Khung giờ: 14:15:00 - 06:45:00</p><p>Điểm đón: 3 Thang 2 street; 3 Thang 2 street; 3 Thang 2 street</p><p>Điểm trả: 208 Tran Quang Khai; 208 Tran Quang Khai; 208 Tran Quang Khai</p><p>Giá vé tham khảo: 500.000 - 1.070.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 59,
+        "priority": 920,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -310,7 +310,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Hội An</strong></p><p>Khung giờ: 10:00:00 - 11:00:00, 10:10:00 - 11:10:00</p><p>Điểm đón: 3 Thang 2 street; 3 Thang 2 street</p><p>Điểm trả: 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Giá vé tham khảo: 200.000 - 250.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 58,
+        "priority": 440,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 06:03:31"
     },
@@ -331,7 +331,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Huế</strong></p><p>Khung giờ: 14:15:00 - 18:15:00</p><p>Điểm đón: 3 Thang 2 street; 3 Thang 2 street</p><p>Điểm trả: 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Giá vé tham khảo: 250.000 - 300.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 57,
+        "priority": 490,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -352,7 +352,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Ninh Bình</strong></p><p>Khung giờ: 14:15:00 - 04:15:00</p><p>Điểm đón: 3 Thang 2 street; 3 Thang 2 street; 3 Thang 2 street</p><p>Điểm trả: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Travel Agency Tam Coc</p><p>Giá vé tham khảo: 500.000 - 550.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 56,
+        "priority": 550,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -373,7 +373,7 @@
         ],
         "content": "<p><strong>Đà Nẵng - Phong Nha</strong></p><p>Khung giờ: 14:15:00 - 21:45:00</p><p>Điểm đón: 3 Thang 2 street; 3 Thang 2 street</p><p>Điểm trả: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Giá vé tham khảo: 370.000 - 470.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 55,
+        "priority": 420,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -394,7 +394,7 @@
         ],
         "content": "<p><strong>Hà Giang - Hà Nội</strong></p><p>Khung giờ: 06:30:00 - 12:30:00, 08:30:00 - 14:30:00, 11:00:00 - 17:00:00, 17:45:00 - 23:45:00, 20:30:00 - 02:30:00</p><p>Điểm đón: 100 Tran Phu Ha Giang; 100 Tran Phu Ha Giang; 100 Tran Phu Ha Giang</p><p>Điểm trả: 210 Tran Quang Khai; 210 Tran Quang Khai; 210 Tran Quang Khai</p><p>Giá vé tham khảo: 370.000 - 500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 54,
+        "priority": 720,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:30:37"
     },
@@ -415,7 +415,7 @@
         ],
         "content": "<p><strong>Hà Nội - Cát Bà</strong></p><p>Khung giờ: 07:15:00 - 10:45:00, 10:15:00 - 13:45:00, 12:15:00 - 15:45:00, 13:45:00 - 17:15:00</p><p>Điểm đón: 19 Hang Thiec</p><p>Điểm trả: 217 Mot Thang Tu</p><p>Giá vé tham khảo: 370.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 5,
+        "priority": 790,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:45:52"
     },
@@ -436,7 +436,7 @@
         ],
         "content": "<p><strong>Hà Nội - Đà Nẵng</strong></p><p>Khung giờ: 17:00:00 - 10:00:00, 17:00:00 - 11:00:00, 18:00:00 - 10:00:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: 3 Thang 2 street; 3 Thang 2 street; 3 Thang 2 street</p><p>Giá vé tham khảo: 550.000 - 1.150.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 2,
+        "priority": 960,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -457,7 +457,7 @@
         ],
         "content": "<p><strong>Hà Nội - Hà Giang</strong></p><p>Khung giờ: 06:30:00 - 12:30:00, 09:00:00 - 15:00:00, 09:15:00 - 15:15:00, 20:00:00 - 02:00:00, 20:30:00 - 02:30:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: Ben xe Ha Giang; Ben xe Ha Giang; Ben xe Ha Giang</p><p>Giá vé tham khảo: 370.000 - 500.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 6,
+        "priority": 780,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:30:37"
     },
@@ -478,7 +478,7 @@
         ],
         "content": "<p><strong>Hà Nội - Hội An</strong></p><p>Khung giờ: 17:00:00 - 11:00:00, 18:00:00 - 11:00:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 208 Tran Quang Khai</p><p>Điểm trả: 105 Ton Duc Thang; 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Giá vé tham khảo: 550.000 - 1.150.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 3,
+        "priority": 950,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -499,7 +499,7 @@
         ],
         "content": "<p><strong>Hà Nội - Huế</strong></p><p>Khung giờ: 17:00:00 - 06:00:00, 17:00:00 - 11:00:00, 18:00:00 - 06:00:00, 18:00:00 - 11:00:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Giá vé tham khảo: 480.000 - 850.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 1,
+        "priority": 970,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -520,7 +520,7 @@
         ],
         "content": "<p><strong>Hà Nội - Ninh Bình</strong></p><p>Khung giờ: 06:10:00 - 08:10:00, 07:10:00 - 09:10:00, 08:10:00 - 10:10:00, 09:10:00 - 11:10:00, 10:10:00 - 12:10:00, 11:10:00 - 13:10:00, 12:10:00 - 14:10:00, 13:10:00 - 15:10:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: Mr Khanh Travel Agency Ninh Binh; Tam Coc Boat Station; Trang An Boat Station</p><p>Giá vé tham khảo: 350.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 4,
+        "priority": 980,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -541,7 +541,7 @@
         ],
         "content": "<p><strong>Hà Nội - Phong Nha</strong></p><p>Khung giờ: 17:00:00 - 03:00:00, 17:00:00 - 11:00:00, 18:00:00 - 03:00:00, 18:00:00 - 11:00:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Giá vé tham khảo: 450.000 - 820.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 7,
+        "priority": 800,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -562,7 +562,7 @@
         ],
         "content": "<p><strong>Hà Nội - Tuần Châu</strong></p><p>Khung giờ: 07:00:00 - 09:30:00, 08:00:00 - 10:30:00</p><p>Điểm đón: 19 Hang Thiec; 19 Hang Thiec</p><p>Điểm trả: Tuan Chau Harbor; Tuan Chau Harbor</p><p>Giá vé tham khảo: 280.000 - 330.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 8,
+        "priority": 770,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:45:52"
     },
@@ -583,7 +583,7 @@
         ],
         "content": "<p><strong>Hội An - Đà Nẵng</strong></p><p>Khung giờ: 13:30:00 - 14:30:00</p><p>Điểm đón: 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Điểm trả: 3 Thang 2 street; 3 Thang 2 street</p><p>Giá vé tham khảo: 250.000 - 300.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 45,
+        "priority": 430,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 06:03:31"
     },
@@ -604,7 +604,7 @@
         ],
         "content": "<p><strong>Hội An - Hà Nội</strong></p><p>Khung giờ: 13:30:00 - 06:30:00</p><p>Điểm đón: 105 Ton Duc Thang; 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Điểm trả: 208 Tran Quang Khai; 208 Tran Quang Khai; 208 Tran Quang Khai</p><p>Giá vé tham khảo: 500.000 - 1.070.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 44,
+        "priority": 910,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -625,7 +625,7 @@
         ],
         "content": "<p><strong>Hội An - Huế</strong></p><p>Khung giờ: 13:30:00 - 18:30:00</p><p>Điểm đón: 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Điểm trả: 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Giá vé tham khảo: 250.000 - 300.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 43,
+        "priority": 470,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -646,7 +646,7 @@
         ],
         "content": "<p><strong>Hội An - Ninh Bình</strong></p><p>Khung giờ: 13:30:00 - 04:30:00</p><p>Điểm đón: 105 Ton Duc Thang; 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Điểm trả: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Travel Agency Tam Coc</p><p>Giá vé tham khảo: 500.000 - 550.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 42,
+        "priority": 530,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -667,7 +667,7 @@
         ],
         "content": "<p><strong>Hội An - Phong Nha</strong></p><p>Khung giờ: 13:30:00 - 22:00:00</p><p>Điểm đón: 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Điểm trả: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Giá vé tham khảo: 370.000 - 470.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 41,
+        "priority": 400,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -688,7 +688,7 @@
         ],
         "content": "<p><strong>Huế - Đà Nẵng</strong></p><p>Khung giờ: 07:45:00 - 11:45:00</p><p>Điểm đón: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Điểm trả: 3 Thang 2 street; 3 Thang 2 street; 3 Thang 2 street</p><p>Giá vé tham khảo: 250.000 - 624.500 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 40,
+        "priority": 500,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -709,7 +709,7 @@
         ],
         "content": "<p><strong>Huế - Hà Nội</strong></p><p>Khung giờ: 16:45:00 - 05:15:00</p><p>Điểm đón: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Điểm trả: 208 Tran Quang Khai; 208 Tran Quang Khai; 208 Tran Quang Khai</p><p>Giá vé tham khảo: 430.000 - 770.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 39,
+        "priority": 930,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -730,7 +730,7 @@
         ],
         "content": "<p><strong>Huế - Hội An</strong></p><p>Khung giờ: 07:45:00 - 12:45:00</p><p>Điểm đón: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Điểm trả: 105 Ton Duc Thang; 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Giá vé tham khảo: 250.000 - 624.500 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 38,
+        "priority": 480,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -751,7 +751,7 @@
         ],
         "content": "<p><strong>Huế - Ninh Bình</strong></p><p>Khung giờ: 16:45:00 - 02:45:00, 18:30:00 - 04:30:00</p><p>Điểm đón: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Điểm trả: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh</p><p>Giá vé tham khảo: 430.000 - 770.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 37,
+        "priority": 570,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:30:37"
     },
@@ -772,7 +772,7 @@
         ],
         "content": "<p><strong>Huế - Phong Nha</strong></p><p>Khung giờ: 16:45:00 - 20:15:00</p><p>Điểm đón: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Điểm trả: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Giá vé tham khảo: 300.000 - 550.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 36,
+        "priority": 460,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -793,7 +793,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Đà Nẵng</strong></p><p>Khung giờ: 20:30:00 - 10:30:00</p><p>Điểm đón: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Travel Agency Tam Coc</p><p>Điểm trả: 3 Thang 2 street; 3 Thang 2 street; 3 Thang 2 street</p><p>Giá vé tham khảo: 550.000 - 850.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 35,
+        "priority": 560,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -814,7 +814,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Hà Nội</strong></p><p>Khung giờ: 06:30:00 - 08:30:00, 06:40:00 - 08:40:00, 07:30:00 - 09:30:00, 07:40:00 - 09:40:00, 08:30:00 - 10:30:00, 08:39:00 - 10:39:00, 09:30:00 - 11:30:00, 09:40:00 - 11:40:00</p><p>Điểm đón: Mr Khanh Travel Agency Ninh Binh; Tam Coc Boat Station; Trang An Boat Station</p><p>Điểm trả: 19 Hang Thiec; 19 Hang Thiec; 19 Hang Thiec</p><p>Giá vé tham khảo: 330.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 34,
+        "priority": 940,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:45:52"
     },
@@ -835,7 +835,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Hội An</strong></p><p>Khung giờ: 20:30:00 - 11:30:00</p><p>Điểm đón: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Travel Agency Tam Coc</p><p>Điểm trả: 105 Ton Duc Thang; 105 Ton Duc Thang; 105 Ton Duc Thang</p><p>Giá vé tham khảo: 550.000 - 850.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 33,
+        "priority": 540,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -856,7 +856,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Huế</strong></p><p>Khung giờ: 20:30:00 - 06:30:00</p><p>Điểm đón: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh</p><p>Điểm trả: 7 Doi Cung Hue; 7 Doi Cung Hue; 7 Doi Cung Hue</p><p>Giá vé tham khảo: 480.000 - 850.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 32,
+        "priority": 580,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -877,7 +877,7 @@
         ],
         "content": "<p><strong>Ninh Bình - Phong Nha</strong></p><p>Khung giờ: 20:30:00 - 03:30:00</p><p>Điểm đón: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh</p><p>Điểm trả: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Giá vé tham khảo: 450.000 - 820.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 31,
+        "priority": 520,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -898,7 +898,7 @@
         ],
         "content": "<p><strong>Phong Nha - Hà Nội</strong></p><p>Khung giờ: 20:00:00 - 05:30:00, 21:30:00 - 07:00:00</p><p>Điểm đón: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Điểm trả: 208 Tran Quang Khai; 208 Tran Quang Khai; 208 Tran Quang Khai</p><p>Giá vé tham khảo: 300.000 - 700.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 30,
+        "priority": 740,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -919,7 +919,7 @@
         ],
         "content": "<p><strong>Phong Nha - Ninh Bình</strong></p><p>Khung giờ: 20:00:00 - 03:00:00, 21:30:00 - 04:30:00</p><p>Điểm đón: Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha; Central Backpackers Hostel Phong Nha</p><p>Điểm trả: Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh; Mr Khanh Travel Agency Ninh Binh</p><p>Giá vé tham khảo: 300.000 - 700.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 29,
+        "priority": 510,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-04-07 03:00:12"
     },
@@ -940,7 +940,7 @@
         ],
         "content": "<p><strong>Tuần Châu - Hà Nội</strong></p><p>Khung giờ: 11:30:00 - 14:00:00, 11:45:00 - 14:15:00</p><p>Điểm đón: Tuan Chau Harbor; Tuan Chau Harbor</p><p>Điểm trả: 19 Hang Thiec; 19 Hang Thiec</p><p>Giá vé tham khảo: 280.000 - 330.000 VND</p>",
         "available_hotel_pickup": 0,
-        "priority": 28,
+        "priority": 710,
         "created_at": "2026-03-19 05:30:37",
         "updated_at": "2026-03-19 05:45:52"
     },
@@ -961,7 +961,7 @@
         ],
         "content": "<p>Tuyến Phong Nha - Huế được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 450,
         "created_at": "2026-04-07 03:15:27",
         "updated_at": "2026-04-07 03:16:14"
     },
@@ -982,7 +982,7 @@
         ],
         "content": "<p>Tuyến Phong Nha - Đà Nẵng được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 410,
         "created_at": "2026-04-07 03:15:28",
         "updated_at": "2026-04-07 03:16:14"
     },
@@ -1003,7 +1003,7 @@
         ],
         "content": "<p>Tuyến Phong Nha - Hội An được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 390,
         "created_at": "2026-04-07 03:15:28",
         "updated_at": "2026-04-07 03:16:14"
     },
@@ -1024,7 +1024,7 @@
         ],
         "content": "<p>Tuyến Hà Nội - Mai Châu được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 760,
         "created_at": "2026-05-27 00:00:00",
         "updated_at": "2026-05-27 00:00:00"
     },
@@ -1045,7 +1045,7 @@
         ],
         "content": "<p>Tuyến Mai Châu - Hà Nội được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 700,
         "created_at": "2026-05-27 00:00:00",
         "updated_at": "2026-05-27 00:00:00"
     },
@@ -1066,7 +1066,7 @@
         ],
         "content": "<p>Tuyến Hà Nội - Pù Luông được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 750,
         "created_at": "2026-05-27 00:00:00",
         "updated_at": "2026-05-27 00:00:00"
     },
@@ -1087,7 +1087,7 @@
         ],
         "content": "<p>Tuyến Pù Luông - Hà Nội được King Express Bus khai thác với nhiều lựa chọn xe chất lượng cao, phù hợp cho cả khách du lịch và khách đi công tác.</p><p>Hành khách có thể chọn điểm đón trả thuận tiện, đặt vé trước và theo dõi thông tin chuyến đi rõ ràng.</p>",
         "available_hotel_pickup": 0,
-        "priority": 0,
+        "priority": 690,
         "created_at": "2026-05-27 00:00:00",
         "updated_at": "2026-05-27 00:00:00"
     }

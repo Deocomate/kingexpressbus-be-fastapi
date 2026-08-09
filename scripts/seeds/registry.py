@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from types import ModuleType
 
-from scripts.seeds import u20260808_hotels_tours_menus
+from scripts.seeds import u20260808_hotels_tours_menus, u20260809_route_menu_priorities
 
 # Order = apply order when using --all.
 UPDATES: list[ModuleType] = [
     u20260808_hotels_tours_menus,
+    u20260809_route_menu_priorities,
 ]
 
 

@@ -119,3 +119,44 @@ class TestNoiBaiSeedData:
         }
         assert not forbidden
         assert not any(row["stop_id"] == 26 for row in route_stops)
+
+
+class TestRoutePrioritySeedData:
+    """Catalog/menu priority: Sa Pa → HN corridor → others (DESC)."""
+
+    def _load(self, name: str) -> list[dict]:
+        return json.loads((SEED_DATA_DIR / name).read_text(encoding="utf-8"))
+
+    def test_sapa_and_corridor_outrank_other_routes(self):
+        by_slug = {r["slug"]: r["priority"] for r in self._load("routes.json")}
+        assert by_slug["ha-noi-sapa"] == 1000
+        assert by_slug["sapa-ha-noi"] == 990
+        assert by_slug["ha-noi-ninh-binh"] == 980
+        assert by_slug["ha-noi-hue"] == 970
+        assert by_slug["ha-noi-da-nang"] == 960
+        assert by_slug["ha-noi-hoi-an"] == 950
+        assert by_slug["ninh-binh-ha-noi"] == 940
+        assert by_slug["hue-ha-noi"] == 930
+        assert by_slug["da-nang-ha-noi"] == 920
+        assert by_slug["hoi-an-ha-noi"] == 910
+        assert by_slug["hoi-an-ha-noi"] > by_slug["ha-noi-phong-nha"]
+        assert by_slug["ha-noi-phong-nha"] > by_slug["sapa-ninh-binh"]
+        assert by_slug["sapa-ninh-binh"] > by_slug["ninh-binh-sapa"]
+
+    def test_route_header_menus_follow_same_order(self):
+        menus = [
+            m
+            for m in self._load("menus.json")
+            if (m.get("url") or "").startswith("/tuyen-duong/")
+        ]
+        ordered = sorted(menus, key=lambda m: (-m["priority"], m["id"]))
+        assert [m["url"] for m in ordered[:6]] == [
+            "/tuyen-duong/ha-noi-sapa",
+            "/tuyen-duong/sapa-ha-noi",
+            "/tuyen-duong/ha-noi-ninh-binh",
+            "/tuyen-duong/ha-noi-hue",
+            "/tuyen-duong/ha-noi-da-nang",
+            "/tuyen-duong/ha-noi-hoi-an",
+        ]
+        assert ordered[-2]["url"] == "/tuyen-duong/sapa-ninh-binh"
+        assert ordered[-1]["url"] == "/tuyen-duong/ninh-binh-sapa"

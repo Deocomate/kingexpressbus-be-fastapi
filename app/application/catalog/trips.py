@@ -140,6 +140,8 @@ async def search_trips(
                 "bus_services": services.get(bus.id, []),
                 "effective_price": breakdown["final_unit_price"],
                 "has_surcharge": breakdown["has_surcharge"],
+                "bus_images": bus.image_list_url,
+                "thumbnail_url": bus.thumbnail_url,
             }
         )
     return items
@@ -224,6 +226,7 @@ async def get_trip_details(
         "end_province_name": end_p.name if end_p else None,
         "bus_content": bus.content,
         "bus_images": bus.image_list_url,
+        "thumbnail_url": bus.thumbnail_url,
         "is_off_day": bool(block and block.block_type == "off_day"),
         "block_note": block.note if block else None,
         "price_breakdown": breakdown,

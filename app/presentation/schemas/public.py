@@ -101,13 +101,14 @@ class TripSearchItemOut(BaseModel):
     bus_services: list[str] = Field(default_factory=list)
     effective_price: int | None = None
     has_surcharge: bool = False
+    bus_images: Any = None
+    thumbnail_url: str | None = None
 
 
 class TripDetailOut(TripSearchItemOut):
     start_province_name: str | None = None
     end_province_name: str | None = None
     bus_content: str | None = None
-    bus_images: Any = None
     is_off_day: bool = False
     block_note: str | None = None
     price_breakdown: PriceBreakdownOut | None = None

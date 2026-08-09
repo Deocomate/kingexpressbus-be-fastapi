@@ -37,43 +37,131 @@
         "name": "Hà Nội - Sapa",
         "url": "/tuyen-duong/ha-noi-sapa",
         "parent_id": 2,
-        "priority": 1,
+        "priority": 1000,
         "type": "route",
         "related_id": 1,
         "created_at": "2025-10-02 23:27:41",
-        "updated_at": "2026-03-19 04:26:26"
+        "updated_at": "2026-08-09 00:00:00"
     },
     {
         "id": 5,
         "name": "Sapa - Hà Nội",
         "url": "/tuyen-duong/sapa-ha-noi",
         "parent_id": 2,
-        "priority": 2,
+        "priority": 990,
         "type": "route",
         "related_id": 2,
         "created_at": "2025-10-02 23:27:41",
-        "updated_at": "2026-03-19 04:26:26"
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 22,
+        "name": "Hà Nội - Ninh Bình",
+        "url": "/tuyen-duong/ha-noi-ninh-binh",
+        "parent_id": 2,
+        "priority": 980,
+        "type": "route",
+        "related_id": 69,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 23,
+        "name": "Hà Nội - Huế",
+        "url": "/tuyen-duong/ha-noi-hue",
+        "parent_id": 2,
+        "priority": 970,
+        "type": "route",
+        "related_id": 68,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 24,
+        "name": "Hà Nội - Đà Nẵng",
+        "url": "/tuyen-duong/ha-noi-da-nang",
+        "parent_id": 2,
+        "priority": 960,
+        "type": "route",
+        "related_id": 65,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 25,
+        "name": "Hà Nội - Hội An",
+        "url": "/tuyen-duong/ha-noi-hoi-an",
+        "parent_id": 2,
+        "priority": 950,
+        "type": "route",
+        "related_id": 67,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 26,
+        "name": "Ninh Bình - Hà Nội",
+        "url": "/tuyen-duong/ninh-binh-ha-noi",
+        "parent_id": 2,
+        "priority": 940,
+        "type": "route",
+        "related_id": 83,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 27,
+        "name": "Huế - Hà Nội",
+        "url": "/tuyen-duong/hue-ha-noi",
+        "parent_id": 2,
+        "priority": 930,
+        "type": "route",
+        "related_id": 78,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 28,
+        "name": "Đà Nẵng - Hà Nội",
+        "url": "/tuyen-duong/da-nang-ha-noi",
+        "parent_id": 2,
+        "priority": 920,
+        "type": "route",
+        "related_id": 58,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
+    },
+    {
+        "id": 29,
+        "name": "Hội An - Hà Nội",
+        "url": "/tuyen-duong/hoi-an-ha-noi",
+        "parent_id": 2,
+        "priority": 910,
+        "type": "route",
+        "related_id": 73,
+        "created_at": "2026-08-09 00:00:00",
+        "updated_at": "2026-08-09 00:00:00"
     },
     {
         "id": 9,
         "name": "Sapa - Ninh Bình",
         "url": "/tuyen-duong/sapa-ninh-binh",
         "parent_id": 2,
-        "priority": 3,
+        "priority": 680,
         "type": "route",
         "related_id": 47,
         "created_at": "2026-03-19 04:25:33",
-        "updated_at": "2026-03-19 04:26:26"
+        "updated_at": "2026-08-09 00:00:00"
     },
     {
         "id": 10,
         "name": "Ninh Bình - Sapa",
         "url": "/tuyen-duong/ninh-binh-sapa",
         "parent_id": 2,
-        "priority": 4,
+        "priority": 670,
         "type": "route",
         "related_id": 48,
         "created_at": "2026-03-19 04:25:33",
-        "updated_at": "2026-03-19 04:26:26"
+        "updated_at": "2026-08-09 00:00:00"
     }
 ]
